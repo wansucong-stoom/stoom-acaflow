@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "release": "0.2.0",
+  "verification_date_utc": "2026-10-11",
+  "verification_date_asia_seoul": "2026-10-12",
+  "baseline": {
+    "commit": "9ac44cbba4fbf7f919466c2c21ee566dd0cc738d",
+    "description": "Import installed academyinfo-flow 0.1.0 source"
+  },
+  "testing": {
+    "initial_unit_tests_passed": 62,
+    "final_unit_tests_passed": 66,
+    "final_unit_test_elapsed_seconds": 0.726,
+    "final_suite_counts": {"report": 20, "batch": 15, "guide": 13, "parser": 18},
+    "final_status": "passed",
+    "skill_quick_validate": "valid",
+    "command": "python -m unittest discover -s tests -v",
+    "uses_synthetic_data_and_mocked_sources": true
+  },
+  "parser_benchmark": {
+    "scope": "Local synthetic XML parsing only; excludes network, PDF downloads, final JSON output, and LLM time",
+    "script": "tests/parser_benchmark.py",
+    "fixture": {
+      "rows": 60,
+      "columns": 24,
+      "xml_bytes": 152873
+    },
+    "repetitions_per_path": 3,
+    "statistic": "median",
+    "differential_cases_passed": 48,
+    "default_json_byte_equal": true,
+    "lightweight_semantics_equal": true,
+    "baseline_median_seconds": 0.2433662090006692,
+    "optimized_default_median_seconds": 0.02080473699970753,
+    "optimized_lightweight_median_seconds": 0.015627413002221147,
+    "default_speedup": 11.6976344860351,
+    "lightweight_speedup": 15.573032399289582,
+    "whole_query_speedup_measured": false
+  },
+  "compact_output": {
+    "scope": "Synthetic 20-row report through the actual live_report result wrapper",
+    "uses_live_statistical_rows": false,
+    "full_json_bytes": 33102,
+    "compact_json_bytes": 15105,
+    "bytes_removed": 17997,
+    "reduction_percent": 54.36831611382998,
+    "measurement_method": "LiveReportTests.setUp; full=run_report(); compact=report.compact_result(full); UTF-8 json.dumps(ensure_ascii=False) with other defaults; doCleanups",
+    "measurement_note": "Dynamic timing field lengths can change the exact serialized size slightly between runs",
+    "omitted_redundant_row_fields": ["keys", "cells", "cell_sources"],
+    "retained": ["source_values", "dimensions", "columns", "sources", "source_page_numbers", "source_hashes", "completeness", "errors", "warnings"],
+    "llm_latency_measured": false
+  },
+  "live_smoke": {
+    "official_source_url": "https://www.academyinfo.go.kr/",
+    "scope_query": {
+      "status": "ok",
+      "complete": true,
+      "latest_publication_year": "2026",
+      "elapsed_seconds": 8.672
+    },
+    "catalog_query": {
+      "publication_year": "2026",
+      "confirmed_item": "31",
+      "confirmed_title": "4-마. 재적 학생 현황",
+      "elapsed_seconds": 8.706
+    },
+    "report_batch": {
+      "test": "One-page-capped live report with two output ranges; not a complete statistical query",
+      "publication_year": "2026",
+      "division": "02",
+      "item": "31",
+      "item_title": "4-마. 재적 학생 현황",
+      "status": "partial",
+      "complete": false,
+      "source_total_pages": 13,
+      "max_pages": 1,
+      "source_pages_fetched": 1,
+      "requested_output_ranges": 2,
+      "source_report_fetches": 1,
+      "repeated_report_sources_avoided": 1,
+      "counter_scope": "Logical source report executions; not HTTP request counts",
+      "first_view_seconds": 40.063501,
+      "second_view_seconds": 0.001999,
+      "view_timer_scope": "run_command start through result validation, before final JSON serialization",
+      "batch_internal_seconds": 40.067035,
+      "observed_elapsed_seconds": 40.143,
+      "first_view_stages_seconds": {
+        "catalog": 9.943182,
+        "report_initialization": 17.361141,
+        "table_parse": 0.015164,
+        "generation_wait": 6.568357,
+        "final_status": 6.169868,
+        "combine_validation": 0.000171,
+        "projection": 0.00092,
+        "output_validation": 0.001047,
+        "total": 40.063501
+      },
+      "views": [
+        {
+          "offset": 0,
+          "limit": 1,
+          "returned_row_count": 1,
+          "status": "partial",
+          "complete": false,
+          "source_complete": false,
+          "returned_complete": false,
+          "table_validation_complete": false,
+          "source_reused": false,
+          "fetched_report_pages_this_call": 1
+        },
+        {
+          "offset": 1,
+          "limit": 1,
+          "returned_row_count": 1,
+          "status": "partial",
+          "complete": false,
+          "source_complete": false,
+          "returned_complete": false,
+          "table_validation_complete": false,
+          "source_reused": true,
+          "fetched_report_pages_this_call": 0
+        }
+      ],
+      "incomplete_reasons_preserved": ["page_limit_or_generation_unverified", "table_layout_unverified", "return_range"]
+    }
+  },
+  "behavior_and_limits": {
+    "fresh_official_lookup_each_invocation": true,
+    "reuse_scope": "this_invocation_only",
+    "persistent_response_cache": false,
+    "live_statistical_rows_in_this_record": false,
+    "raw_responses_or_secrets_in_this_record": false,
+    "server_side_school_filtering_implemented": false,
+    "network_concurrency_added": false,
+    "request_rate_limit_preserved": true,
+    "source_waits_remain": true,
+    "full_statistical_report_verified_by_live_smoke": false
+  },
+  "reproduce": {
+    "baseline_worktree": "git worktree add --detach ../stoom-acaflow-baseline 9ac44cbba4fbf7f919466c2c21ee566dd0cc738d",
+    "unit_tests": "python -m unittest discover -s tests -v",
+    "parser_benchmark": "python tests/parser_benchmark.py --baseline ../stoom-acaflow-baseline --rows 60 --columns 24 --repeats 3",
+    "build_plugin": "python scripts/build_plugin.py",
+    "plugin_artifact": "dist/academyinfo-flow-0.2.0.zip"
+  }
+}

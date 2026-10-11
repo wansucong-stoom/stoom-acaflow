@@ -4,34 +4,33 @@
     "email": "wansucong@hnu.kr",
     "name": "Simin Song"
   },
-  "description": "\ub300\ud559\uc54c\ub9ac\ubbf8 \uacf5\uc2dd \uc11c\ubc84\uc5d0\uc11c \uacf5\uc2dc \ud56d\ubaa9\u00b7\ub300\ud559\u00b7\ud559\uacfc\u00b7\uc7a5\ud45c\u00b7\ucca8\ubd80\ub97c \uc9c1\uc811 \uc870\ud68c\ud558\uace0 \uc5f0\ub3c4\ubcc4 \uc9c0\uce68\uc744 \ud655\uc778\ud574 LLM\uc774 \ud574\uc11d\ud558\ub294 \ub77c\uc774\ube0c \uac80\uc0c9 \uc2a4\ud0ac.",
+  "description": "대학알리미 공식 서버에서 공시 항목·대학·학과·장표·첨부를 직접 조회하고 연도별 지침을 확인해 LLM이 해석하는 라이브 검색 스킬.",
   "extensions": {
     "com.openai": {
       "interface": {
         "category": "Productivity",
         "defaultPrompt": [
-          "\ub300\ud559\uc54c\ub9ac\ubbf8\uc5d0\uc11c \ub300\ud559\u00b7\ud559\uacfc \uacf5\uc2dc\ub97c \uc9c1\uc811 \uc870\ud68c\ud558\uace0 \ud574\ub2f9 \uc5f0\ub3c4 \uc9c0\uce68\uc5d0 \ub530\ub77c \uc124\uba85\ud574 \uc918.",
-          "\uacf5\uac1c\ub41c \uc804\uccb4 \uacf5\uc2dc \ud56d\ubaa9\uacfc \ub300\ud559 \ub2e8\uc704\u00b7\ud559\uacfc \ub2e8\uc704 \uc870\ud68c \uac00\ub2a5 \uc5ec\ubd80\ub97c \ubcf4\uc5ec \uc918.",
-          "\uc870\ud68c\ud560 \ub300\ud559\uacfc \uc9c0\ud45c\uc5d0 \ub9de\ub294 \uc7a5\ud45c\ub97c \ucc3e\uc544 \uc6d0\ucc9c \ub370\uc774\ud130\ub97c \ube44\uad50\ud574 \uc918."
+          "대학알리미에서 대학·학과 공시를 직접 조회하고 해당 연도 지침에 따라 설명해 줘.",
+          "공개된 전체 공시 항목과 대학 단위·학과 단위 조회 가능 여부를 보여 줘.",
+          "조회할 대학과 지표에 맞는 장표를 찾아 원천 데이터를 비교해 줘."
         ],
         "developerName": "Simin Song",
-        "displayName": "\ub300\ud559\uc54c\ub9ac\ubbf8FLOW",
-        "longDescription": "\uc694\uccad\ud560 \ub54c\ub9c8\ub2e4 \ub300\ud559\uc54c\ub9ac\ubbf8\uc758 \uacf5\uac1c \uc5f0\ub3c4\uc640 \uc804\uccb4 \uacf5\uc2dc \ubaa9\ub85d\uc744 \uc0c8\ub85c \ud655\uc778\ud569\ub2c8\ub2e4. \ub300\ud559\u00b7\ud559\uacfc \uc870\ud68c \ub2e8\uc704\uc640 PDF \uc5ec\ubd80\ub97c \ud655\uc778\ud574 \uacf5\uc2dd \uc11c\ubc84\uc758 \uc751\ub2f5\uc744 JSON\uc73c\ub85c \ubc1b\uc544 \ubd84\uc11d\ud558\uba70, \ud574\ub2f9 \uc5f0\ub3c4 \uc9c0\uce68\uc758 \ub2e8\uc704\u00b7\uae30\uc900\uae30\uac04\u00b7\uc0b0\uc2dd\u00b7\uc81c\uc678\ub300\uc0c1\uc744 \ud655\uc778\ud569\ub2c8\ub2e4. Python\uc744 \uc2e4\ud589\ud560 \uc218 \uc788\ub294 Codex \ub610\ub294 \ub85c\uceec \uc2e4\ud589 \ud658\uacbd\uc774 \ud544\uc694\ud569\ub2c8\ub2e4.",
-        "shortDescription": "\uacf5\uc2dd \uacf5\uc2dc\ub97c \uc9c1\uc811 \uc870\ud68c\ud558\uace0 \uc9c0\uce68\uc73c\ub85c \ud574\uc11d"
+        "displayName": "대학알리미FLOW",
+        "longDescription": "요청할 때마다 대학알리미의 공개 연도와 전체 공시 목록을 새로 확인합니다. 대학·학과 조회 단위와 PDF 여부를 확인해 공식 서버의 응답을 JSON으로 받아 분석하며, 해당 연도 지침의 단위·기준기간·산식·제외대상을 확인합니다. Python을 실행할 수 있는 Codex 또는 로컬 실행 환경이 필요합니다.",
+        "shortDescription": "공식 공시를 직접 조회하고 지침으로 해석"
       },
       "requires_local_executor": true
     }
   },
   "keywords": [
-    "\ub300\ud559\uc54c\ub9ac\ubbf8",
-    "\ub300\ud559\uc815\ubcf4\uacf5\uc2dc",
-    "\uacf5\uc2dc\uc9c0\uce68",
-    "\ub300\ud559",
-    "\ud559\uacfc",
-    "\uc2e4\uc2dc\uac04\uc870\ud68c"
+    "대학알리미",
+    "대학정보공시",
+    "공시지침",
+    "대학",
+    "학과",
+    "실시간조회"
   ],
   "license": "MIT",
   "name": "academyinfo-flow",
-  "version": "0.1.0"
+  "version": "0.2.0"
 }
-

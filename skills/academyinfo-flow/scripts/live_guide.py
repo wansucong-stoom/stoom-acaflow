@@ -15,6 +15,7 @@ import math
 from pathlib import Path
 import re
 import sys
+import time
 from typing import Any
 import urllib.error
 import urllib.parse
@@ -134,8 +135,13 @@ def _navigation() -> dict[str, Any]:
         navigation = json.loads(NAVIGATION_PATH.read_text(encoding="utf-8-sig"))
     except (OSError, UnicodeError, ValueError) as error:
         raise GuideError("navigation_unavailable", "지침 페이지 탐색 메타데이터를 확인할 수 없습니다.") from None
+    return _validated_navigation(navigation)
+
+
+def _validated_navigation(navigation: Any) -> dict[str, Any]:
     if (not isinstance(navigation, dict) or not isinstance(navigation.get("source"), dict)
-            or not re.fullmatch(r"[0-9a-f]{64}", navigation["source"].get("sha256", ""))
+            or not isinstance(navigation["source"].get("sha256"), str)
+            or not re.fullmatch(r"[0-9a-f]{64}", navigation["source"]["sha256"])
             or not isinstance(navigation.get("families"), list)):
         raise GuideError("navigation_unavailable", "지침 페이지 탐색 메타데이터 형식이 잘못되었습니다.")
     return navigation
@@ -145,11 +151,18 @@ def _selectors(args: argparse.Namespace | dict[str, Any]) -> dict[str, Any]:
     values = vars(args) if isinstance(args, argparse.Namespace) else dict(args)
     url = validate_url(values.get("url"))
     code = values.get("code")
+    codes = values.get("codes")
     start, end = values.get("page_start"), values.get("page_end")
-    if code is not None and (not isinstance(code, str) or not re.fullmatch(
-            r"[0-9]{1,2}-[가-힣](?:-[0-9]+)?(?:-\([0-9]+\))?", code)):
+    if code is not None and codes is not None:
+        raise InputError("--code와 --codes 중 하나만 지정하세요.")
+    if codes is not None and (not isinstance(codes, list) or not codes):
+        raise InputError("--codes에는 하나 이상의 지침 항목군 코드를 지정하세요.")
+    requested_codes = [code] if code is not None else codes or []
+    if any(not isinstance(item, str) or not re.fullmatch(
+            r"[0-9]{1,2}-[가-힣](?:-[0-9]+)?(?:-\([0-9]+\))?", item)
+            for item in requested_codes):
         raise InputError("탐색할 지침 항목군 코드를 확인하세요.")
-    if code is not None and (start is not None or end is not None):
+    if requested_codes and (start is not None or end is not None):
         raise InputError("항목군 자동 탐색과 명시 쪽수 선택은 별도 명령으로 실행하세요.")
     if end is not None and start is None:
         raise InputError("--page-end를 사용하려면 --page-start도 지정해야 합니다.")
@@ -158,13 +171,16 @@ def _selectors(args: argparse.Namespace | dict[str, Any]) -> dict[str, Any]:
         end = _integer(end) if end is not None else start
         if end < start:
             raise InputError("끝 쪽수는 시작 쪽수보다 작을 수 없습니다.")
-    return {"url": url, "code": code, "page_start": start, "page_end": end}
+    return {"url": url, "code": code,
+            "codes": list(dict.fromkeys(codes)) if codes is not None else None,
+            "page_start": start, "page_end": end}
 
 
 def _choose_pages(selectors: dict[str, Any], page_count: int, sha256: str,
                   navigation: dict[str, Any]) -> tuple[list[int], dict[str, Any], list[dict[str, Any]]]:
     expected_hash = navigation["source"]["sha256"]
     hash_matches = sha256 == expected_hash
+    requested_codes = [selectors["code"]] if selectors["code"] is not None else selectors.get("codes") or []
     info = {
         "metadata_edition_year": navigation.get("edition_year"),
         "expected_source_sha256": expected_hash,
@@ -173,6 +189,7 @@ def _choose_pages(selectors: dict[str, Any], page_count: int, sha256: str,
         "automatic_page_mapping_applied": False,
         "needs_revision_page_lookup": False,
         "requested_code": selectors["code"],
+        "requested_codes": requested_codes,
         "edition_confirmed_from_document": False,
     }
     warnings: list[dict[str, Any]] = []
@@ -181,24 +198,41 @@ def _choose_pages(selectors: dict[str, Any], page_count: int, sha256: str,
             raise InputError("요청 쪽수 범위가 실제 PDF 페이지 수를 초과합니다.")
         info["selection_mode"] = "explicit_pdf_pages"
         return list(range(selectors["page_start"], selectors["page_end"] + 1)), info, warnings
-    if selectors["code"] is not None:
-        families = [family for family in navigation["families"]
-                    if isinstance(family, dict) and family.get("code") == selectors["code"]]
-        if not hash_matches or len(families) != 1:
+    if requested_codes:
+        matches = {
+            code: [family for family in navigation["families"]
+                   if isinstance(family, dict) and family.get("code") == code]
+            for code in requested_codes
+        }
+        unresolved_codes = [code for code in requested_codes if len(matches[code]) != 1]
+        if not hash_matches or unresolved_codes:
             info["selection_mode"] = "revision_lookup_required"
             info["needs_revision_page_lookup"] = True
+            info["unresolved_codes"] = requested_codes if not hash_matches else unresolved_codes
             warnings.append({"reason": "원문 해시 또는 항목군을 확인하지 못해 기존 쪽번호를 적용하지 않았습니다.",
-                             "next_step": "--code 없이 --page-start 2 --page-end 8로 최신 목차를 확인한 뒤 실제 관련 쪽수를 명시하세요."})
+                             "next_step": "--code와 --codes를 생략하고 --page-start 2 --page-end 8로 최신 목차를 확인한 뒤 실제 관련 쪽수를 명시하세요."})
             return [], info, warnings
-        pages = families[0].get("pdf_pages")
-        if (not isinstance(pages, list) or not pages
-                or any(type(page) is not int or page < 1 or page > page_count for page in pages)
-                or len(set(pages)) != len(pages)):
-            raise GuideError("navigation_unavailable", "해시 일치 지침의 항목군 페이지 범위를 검증할 수 없습니다.")
-        info.update({"selection_mode": "hash_verified_item_family",
+        # Validate every requested family before extracting any page. An invalid
+        # later family must not turn a comparison into a partial success.
+        selected_families = []
+        selected_pages: set[int] = set()
+        for code in requested_codes:
+            family = matches[code][0]
+            pages = family.get("pdf_pages")
+            if (not isinstance(pages, list) or not pages
+                    or any(type(page) is not int or page < 1 or page > page_count for page in pages)
+                    or len(set(pages)) != len(pages)):
+                raise GuideError("navigation_unavailable", "해시 일치 지침의 항목군 페이지 범위를 검증할 수 없습니다.")
+            selected_families.append({"code": code, "title": family.get("title"),
+                                      "pdf_pages": sorted(pages)})
+            selected_pages.update(pages)
+        info.update({"selection_mode": "hash_verified_item_family" if selectors["code"] is not None
+                     else "hash_verified_item_families",
                      "automatic_page_mapping_applied": True,
-                     "family_title": families[0].get("title")})
-        return sorted(pages), info, warnings
+                     "selected_families": selected_families})
+        if selectors["code"] is not None:
+            info["family_title"] = selected_families[0]["title"]
+        return sorted(selected_pages), info, warnings
     # Only a matching edition supplies a known TOC location. Otherwise read the
     # cover alone and let the caller explicitly inspect the current contents.
     if hash_matches and page_count >= 8:
@@ -252,16 +286,20 @@ def _page_record(page: Any, number: int) -> tuple[dict[str, Any], list[dict[str,
 def run_command(args: argparse.Namespace | dict[str, Any], *, opener: Any = None,
                 pdf_open: Any = None, navigation: dict[str, Any] | None = None) -> dict[str, Any]:
     """Fetch a new PDF and extract only selected pages; injectable readers aid tests."""
+    command_started = time.perf_counter()
     selectors = _selectors(args)
     lookup_started = datetime.now(timezone.utc).isoformat()
-    navigation = _navigation() if navigation is None else navigation
+    navigation = _navigation() if navigation is None else _validated_navigation(navigation)
     if pdf_open is None:
         try:
             import pdfplumber
         except ImportError:
             raise GuideError("missing_pdf_dependency", "지침 PDF 파싱에는 pdfplumber>=0.11,<1이 필요합니다.") from None
         pdf_open = pdfplumber.open
+    download_started = time.perf_counter()
     body, source = _download(selectors["url"], opener=opener)
+    download_seconds = time.perf_counter() - download_started
+    extraction_started = time.perf_counter()
     try:
         with pdf_open(io.BytesIO(body)) as document:
             page_count = len(document.pages)
@@ -278,6 +316,7 @@ def run_command(args: argparse.Namespace | dict[str, Any], *, opener: Any = None
         raise
     except Exception:
         raise GuideError("pdf_extraction_error", "지침 PDF의 선택 페이지를 안전하게 추출할 수 없습니다.") from None
+    extraction_seconds = time.perf_counter() - extraction_started
     source["page_count"] = page_count
     complete = bool(selected) and len(pages) == len(selected)
     return {
@@ -300,6 +339,18 @@ def run_command(args: argparse.Namespace | dict[str, Any], *, opener: Any = None
         "navigation": mapping,
         "needs_revision_page_lookup": mapping["needs_revision_page_lookup"],
         "warnings": warnings,
+        "performance": {
+            "stages_seconds": {
+                "download": round(download_seconds, 6),
+                "extraction": round(extraction_seconds, 6),
+                "total": round(time.perf_counter() - command_started, 6),
+            },
+            "fetched_response_count": 1,
+            "fetched_response_bytes": len(body),
+            "pdf_open_count": 1,
+            "selected_page_count": len(selected),
+            "extracted_page_count": len(pages),
+        },
         "pdf_original_archived": False,
         "full_text_corpus_saved": False,
         "ocr_implemented": False,
@@ -316,7 +367,10 @@ def run_command(args: argparse.Namespace | dict[str, Any], *, opener: Any = None
 def build_parser() -> argparse.ArgumentParser:
     parser = JsonArgumentParser(description="공개 공시 지침 PDF를 매번 새로 조회해 선택 페이지 JSON을 반환합니다.")
     parser.add_argument("--url", required=True, help="허용된 공식 서버 또는 검증된 대학 배포처의 HTTPS PDF 링크")
-    parser.add_argument("--code", help="해시 일치 문서에서 자동으로 읽을 항목군 코드")
+    item_selectors = parser.add_mutually_exclusive_group()
+    item_selectors.add_argument("--code", help="해시 일치 문서에서 자동으로 읽을 항목군 코드")
+    item_selectors.add_argument("--codes", nargs="+", metavar="CODE",
+                                help="여러 항목군 코드를 공백으로 구분; PDF를 한 번 조회해 쪽수 합집합을 읽음")
     parser.add_argument("--page-start", type=_integer, help="명시적으로 읽을 첫 PDF 쪽수(1-based)")
     parser.add_argument("--page-end", type=_integer, help="명시적으로 읽을 마지막 PDF 쪽수; 생략하면 한 쪽")
     return parser

@@ -1,7 +1,8 @@
 """Convert public UbiReport XML to Korean JSON without OCR or an LLM.
 
-The original XML remains the authority.  ``xml_tree`` preserves every element,
-attribute, text and tail; its SHA-256 identifies the separately archived bytes.
+The original XML remains the authority.  By default, ``xml_tree`` preserves every
+element, attribute, text and tail; its SHA-256 identifies the source bytes.
+Live callers may omit duplicate raw trees without skipping table validation.
 Table rows are emitted only when explicit report metadata and rectangular cells
 agree.  Printed display values remain strings, including empty strings and 0.
 The parser never invents identifiers absent from the report.
@@ -88,13 +89,14 @@ def _number(value: str, name: str) -> Decimal:
     return number
 
 
-def _cell(element: ET.Element, item_index: int) -> dict[str, Any]:
+def _cell(element: ET.Element, item_index: int, *, include_raw_tree: bool = True) -> dict[str, Any]:
     text = element.find("Text")
     result = {"item_index": item_index, "attributes": dict(element.attrib),
               "text_attributes": dict(text.attrib) if text is not None else None,
               "text": "".join(text.itertext()) if text is not None else None,
-              "source_text": text.text if text is not None else None,
-              "children": [_tree(child) for child in element]}
+              "source_text": text.text if text is not None else None}
+    if include_raw_tree:
+        result["children"] = [_tree(child) for child in element]
     if all(k in element.attrib for k in ("x", "y", "width", "height")):
         geometry = {k: element.attrib[k] for k in ("x", "y", "width", "height")}
         numbers = {k: _number(v, k) for k, v in geometry.items()}
@@ -181,7 +183,8 @@ def _header_label_matches(head, rendered, selectors=None):
                 ('36', '개인별\n교육지원\n수립여부(O/X)', '개인별 \n교육지원계획\n수립여부(O/X)')})
 
 
-def _expand_bottom_headers(leaves, columns, headers, metadata, bordered, header_end, selectors=None):
+def _expand_bottom_headers(leaves, columns, headers, metadata, bordered, header_end, selectors=None,
+                           *, rect=_rect):
     """Split a colspan header only at a unique partition of actual body cells."""
     count = len(metadata['body'])
     rows = int(metadata['master'][0]['row_num']) + 1
@@ -210,11 +213,11 @@ def _expand_bottom_headers(leaves, columns, headers, metadata, bordered, header_
             continue
         if len(group) > 64:
             raise ReportParseError('병합 헤더의 본문 분할 수가 검증 한도를 초과했습니다.')
-        x, _, width, _ = _rect(leaf)
+        x, _, width, _ = rect(leaf)
         end = x + width
         rectangles = {}
         for cell in bordered:
-            xx, yy, ww, hh = _rect(cell)
+            xx, yy, ww, hh = rect(cell)
             if yy >= header_end and x <= xx and xx + ww <= end:
                 rectangles.setdefault((xx, ww), cell)
         starts = {}
@@ -248,6 +251,17 @@ def _expand_bottom_headers(leaves, columns, headers, metadata, bordered, header_
 
 def _parse_table(cells: list[dict], metadata: dict, page_index: int,
                  selectors: dict[str, str] | None) -> tuple[list[dict], list[dict], list[str]]:
+    # All cells (including expanded header leaves) remain alive during this
+    # parse. Cache exact Decimal rectangles locally, never in emitted values or
+    # across requests. Laziness preserves the existing validation order.
+    rectangles = {}
+
+    def rect(cell):
+        key = id(cell)
+        if key not in rectangles:
+            rectangles[key] = _rect(cell)
+        return rectangles[key]
+
     columns, header_by_no = _metadata_columns(metadata)
     # This template prints one attachment display cell for three metadata
     # variables. Preserve it as a rendered composite, without assigning the
@@ -278,21 +292,22 @@ def _parse_table(cells: list[dict], metadata: dict, page_index: int,
     anchors = [c for c in bordered if (c["text"] or '').strip() == first_label]
     if len(anchors) != 1:
         raise ReportParseError("첫 공개 컬럼 헤더를 유일하게 대응할 수 없습니다.")
-    ax, ay, aw, ah = _rect(anchors[0])
+    ax, ay, aw, ah = rect(anchors[0])
     header_end = ay + ah
-    header_cells = [c for c in bordered if ay <= _rect(c)[1] < header_end and _rect(c)[1] + _rect(c)[3] <= header_end]
-    leaves = sorted([c for c in header_cells if _rect(c)[1] + _rect(c)[3] == header_end], key=lambda c: _rect(c)[0])
+    header_cells = [c for c in bordered if ay <= rect(c)[1] < header_end and rect(c)[1] + rect(c)[3] <= header_end]
+    leaves = sorted([c for c in header_cells if rect(c)[1] + rect(c)[3] == header_end], key=lambda c: rect(c)[0])
     if len(leaves) < len(columns):
-        leaves = _expand_bottom_headers(leaves, columns, header_by_no, metadata, bordered, header_end, selectors)
-    if len(leaves) != len(columns) or _rect(leaves[0])[0] != ax:
+        leaves = _expand_bottom_headers(leaves, columns, header_by_no, metadata, bordered, header_end, selectors,
+                                        rect=rect)
+    if len(leaves) != len(columns) or rect(leaves[0])[0] != ax:
         raise ReportParseError("표 헤더 셀 수와 공개 컬럼 수가 일치하지 않습니다.")
     for left, right in zip(leaves, leaves[1:]):
-        if _rect(left)[0] + _rect(left)[2] != _rect(right)[0]:
+        if rect(left)[0] + rect(left)[2] != rect(right)[0]:
             raise ReportParseError("표 헤더 셀 경계에 중복 또는 공백이 있습니다.")
     for col, leaf in zip(columns, leaves):
-        x, y, width, height = _rect(leaf)
-        parents = [c for c in header_cells if _rect(c)[0] <= x and _rect(c)[0] + _rect(c)[2] >= x + width]
-        parents.sort(key=lambda c: (_rect(c)[1], -_rect(c)[3]))
+        x, y, width, height = rect(leaf)
+        parents = [c for c in header_cells if rect(c)[0] <= x and rect(c)[0] + rect(c)[2] >= x + width]
+        parents.sort(key=lambda c: (rect(c)[1], -rect(c)[3]))
         col.update({"x": leaf["geometry"]["x"], "width": leaf["geometry"]["width"],
                     "header_path": [c["text"] for c in parents],
                     "header_item_indices": [c["item_index"] for c in parents]})
@@ -343,7 +358,7 @@ def _parse_table(cells: list[dict], metadata: dict, page_index: int,
             keys = covered_keys(head)
             candidates = []
             for actual in header_cells:
-                xx, yy, ww, hh = _rect(actual)
+                xx, yy, ww, hh = rect(actual)
                 if actual["item_index"] in assigned or (xx, ww) != (x, width):
                     continue
                 if any(row_start in row_edges[key] and yy != row_edges[key][row_start] for key in keys):
@@ -359,7 +374,7 @@ def _parse_table(cells: list[dict], metadata: dict, page_index: int,
                 remaining.append((head, row_start, row_end, x, width))
                 continue
             actual = candidates[0]
-            xx, yy, ww, hh = _rect(actual)
+            xx, yy, ww, hh = rect(actual)
             if not head.get('h_col_hdr_ofcfmla') and (actual['text'] or '').strip() != label:
                 for col in columns:
                     if Decimal(col['x']) >= xx and Decimal(col['x']) + Decimal(col['width']) <= xx + ww:
@@ -381,29 +396,54 @@ def _parse_table(cells: list[dict], metadata: dict, page_index: int,
     if assigned != {c["item_index"] for c in header_cells}:
         raise ReportParseError("메타데이터에서 대응하지 못한 헤더 셀이 있습니다.")
     bounds = {(Decimal(c["x"]), Decimal(c["width"])): c for c in columns}
-    body_cells = [c for c in bordered if _rect(c)[1] >= header_end and (_rect(c)[0], _rect(c)[2]) in bounds]
+    body_cells = [c for c in bordered if rect(c)[1] >= header_end and (rect(c)[0], rect(c)[2]) in bounds]
     if not body_cells:
         raise ReportParseError("메타데이터와 대응하는 표 본문 셀이 없습니다.")
-    boundaries = sorted({v for c in body_cells for v in (_rect(c)[1], _rect(c)[1] + _rect(c)[3])})
+    boundaries = sorted({v for c in body_cells for v in (rect(c)[1], rect(c)[1] + rect(c)[3])})
     if boundaries[0] != header_end:
         raise ReportParseError("헤더와 본문 사이의 범위를 확인할 수 없습니다.")
+    # Every cell start/end is a row boundary. Sweep those exact boundaries so
+    # active cells cover the entire next band, including merged rowspans. Keep
+    # separate entries by sequence position: overlapping or duplicate source
+    # cells must remain ambiguous rather than overwrite each other in an index.
+    starts, ends = {}, {}
+    for position, cell in enumerate(body_cells):
+        x, y, width, height = rect(cell)
+        end = y + height
+        # An extreme coordinate/height ratio can round a positive height to
+        # no forward Decimal interval. It still contributes the same source
+        # boundaries above, but cannot cover any band in the original overlap
+        # predicate and must not enter the active index.
+        if end <= y:
+            continue
+        entry = (position, (x, width), cell)
+        starts.setdefault(y, []).append(entry)
+        ends.setdefault(end, []).append(entry)
+    column_bounds = [(col, (Decimal(col["x"]), Decimal(col["width"]))) for col in columns]
+    active_by_bound = {bound: {} for bound in bounds}
+    active_count = 0
     rows, warnings = [], []
     for y0, y1 in zip(boundaries, boundaries[1:]):
-        active = [c for c in body_cells if _rect(c)[1] <= y0 and _rect(c)[1] + _rect(c)[3] >= y1]
-        if not active:
+        for position, bound, _ in ends.get(y0, ()):
+            del active_by_bound[bound][position]
+            active_count -= 1
+        for position, bound, cell in starts.get(y0, ()):
+            active_by_bound[bound][position] = cell
+            active_count += 1
+        if not active_count:
             continue
         values, sources, missing, ambiguous = {}, {}, [], []
-        for col in columns:
-            matches = [c for c in active if (_rect(c)[0], _rect(c)[2]) == (Decimal(col["x"]), Decimal(col["width"]))]
+        for col, bound in column_bounds:
+            matches = active_by_bound[bound]
             if len(matches) != 1:
                 (missing if not matches else ambiguous).append(col["key"])
                 values[col["key"]] = None
             else:
-                cell = matches[0]
+                cell = next(iter(matches.values()))
                 values[col["key"]] = cell["text"]
                 sources[col["key"]] = {"item_index": cell["item_index"],
                                        "geometry": cell["geometry"],
-                                       "expanded_rowspan": _rect(cell)[1] != y0 or _rect(cell)[3] != y1 - y0}
+                                       "expanded_rowspan": rect(cell)[1] != y0 or rect(cell)[3] != y1 - y0}
         dimensions = dict(selectors or {})
         for col in columns:
             canonical = {"APY_YR": "refYear", "SCHL_NM": "schoolName", "MJR_KRN_NM": "deptName"}.get(col["source_semantic_code"]) or {"APY_YR": "refYear", "SCHL_NM": "schoolName", "MJR_KRN_NM": "deptName"}.get(col["source_field_id"])
@@ -420,7 +460,7 @@ def _parse_table(cells: list[dict], metadata: dict, page_index: int,
         rows.append(row)
     # Unclassified bordered items within the body may indicate schema drift.
     end = boundaries[-1]
-    ignored = [c for c in bordered if header_end <= _rect(c)[1] < end and (_rect(c)[0], _rect(c)[2]) not in bounds]
+    ignored = [c for c in bordered if header_end <= rect(c)[1] < end and (rect(c)[0], rect(c)[2]) not in bounds]
     if ignored:
         warnings.append(f"page {page_index}: {len(ignored)}개 본문 셀의 컬럼 경계를 대응하지 못했습니다.")
     return columns, rows, warnings
@@ -441,12 +481,17 @@ def _coverage(indices: list[int], expected_pages: int | None) -> dict[str, Any]:
 
 def parse_report_xml(xml_bytes: bytes, *, source_page_index: int = 0,
                      expected_pages: int | None = None, metadata: dict | None = None,
-                     selectors: dict[str, str] | None = None) -> dict[str, Any]:
+                     selectors: dict[str, str] | None = None,
+                     include_raw_tree: bool = True) -> dict[str, Any]:
     """Parse one server page; a fragment's ``pagecount=1`` is never a total.
 
     ``source_page_index`` is the zero-based reqtype=91#n page index.  Only a
     confirmed reqtype=99 total may be passed as ``expected_pages``.  No expected
     total, missing pages or ambiguous cells prevents a complete status.
+
+    ``include_raw_tree=False`` omits page ``xml_tree`` and cell ``children``
+    copies for callers that discard them. XML parsing, item indices, geometry,
+    source hashes and every table/completeness validation remain unchanged.
     """
     source_page_index = _integer(source_page_index, "source_page_index")
     if expected_pages is not None:
@@ -466,11 +511,15 @@ def parse_report_xml(xml_bytes: bytes, *, source_page_index: int = 0,
     pages = root.findall("Page")
     if len(pages) != 1:
         raise ReportParseError("페이지 단위 XML은 Page 하나여야 합니다.")
-    cells = [_cell(element, i) for i, element in enumerate(pages[0]) if element.tag == "Item"]
+    cells = [_cell(element, i, include_raw_tree=include_raw_tree)
+             for i, element in enumerate(pages[0]) if element.tag == "Item"]
     page = {"source_page_index": source_page_index,
             "source_sha256": hashlib.sha256(xml_bytes).hexdigest(),
             "source_byte_length": len(xml_bytes), "doc_attributes": dict(root.attrib),
-            "page_attributes": dict(pages[0].attrib), "xml_tree": _tree(root), "cells": cells}
+            "page_attributes": dict(pages[0].attrib)}
+    if include_raw_tree:
+        page["xml_tree"] = _tree(root)
+    page["cells"] = cells
     columns, rows, warnings = [], [], []
     if metadata is not None:
         try:

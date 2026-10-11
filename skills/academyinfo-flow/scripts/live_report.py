@@ -6,6 +6,8 @@ persists a response, prints bootstrap HTML, or exposes report runtime state.
 from __future__ import annotations
 
 import argparse
+from contextlib import contextmanager
+import copy
 from datetime import datetime, timezone
 from decimal import Decimal, InvalidOperation
 import hashlib
@@ -53,6 +55,78 @@ _PRIVATE_FIELD = re.compile(
 
 class InputError(ValueError):
     """Invalid public selectors; supplied values are never echoed in errors."""
+
+
+@contextmanager
+def _stage(performance: dict[str, Any], name: str):
+    started = time.perf_counter()
+    try:
+        yield
+    finally:
+        stages = performance.setdefault("stages_seconds", {})
+        stages[name] = stages.get(name, 0.0) + time.perf_counter() - started
+
+
+class ReportBatch:
+    """Share freshly retrieved reports only within one explicit batch.
+
+    No process-global or disk cache is used. Completed report sessions are
+    closed by _collect; this context retains only the current batch's public
+    report material and its anonymous HTTP client until close().
+    """
+
+    def __init__(self):
+        self._client = None
+        self._catalogs: dict[tuple, Any] = {}
+        self._snapshots: dict[tuple, tuple[dict, dict]] = {}
+        self.stats = {"hits": 0, "misses": 0, "catalog_hits": 0}
+        self.closed = False
+
+    def __enter__(self):
+        if self.closed:
+            raise InputError("종료한 일괄 조회는 재사용할 수 없습니다. 새 조회를 시작하세요.")
+        return self
+
+    def __exit__(self, *exc):
+        self.close()
+
+    def close(self):
+        self._snapshots.clear()
+        self._catalogs.clear()
+        self._client = None
+        self.closed = True
+
+    def client(self):
+        if self.closed:
+            raise InputError("종료한 일괄 조회는 재사용할 수 없습니다. 새 조회를 시작하세요.")
+        if self._client is None:
+            self._client = ViewerDataClient()
+        return self._client
+
+    @staticmethod
+    def key(args: argparse.Namespace) -> tuple:
+        # Output ranges and school/department filters do not affect the source
+        # report. A different source page cap does, and must remain separate.
+        return (args.command, args.year, args.division, args.item,
+                args.level, args.max_pages)
+
+
+def compact_result(result: dict[str, Any]) -> dict[str, Any]:
+    """Keep answer values and verification evidence without repeated cells.
+
+    Only numeric report rows are projected. Source page numbers/hashes, exact
+    source strings, column definitions, partial/error flags, and warnings stay
+    available. Attachment/PDF output is left intact.
+    """
+    if result.get("command") != "report":
+        return copy.deepcopy(result)
+    compact = {key: value for key, value in result.items() if key != "rows"}
+    compact["rows"] = [{key: value for key, value in row.items()
+                        if key not in {"keys", "cells", "cell_sources"}}
+                       for row in result.get("rows", [])]
+    compact["output_format"] = "compact"
+    compact["omitted_redundant_row_fields"] = ["keys", "cells", "cell_sources"]
+    return copy.deepcopy(compact)
 
 
 class JsonArgumentParser(argparse.ArgumentParser):
@@ -136,6 +210,14 @@ def _base(command: str) -> dict[str, Any]:
 
 
 def _finish(result: dict[str, Any]) -> dict[str, Any]:
+    # A cached projection rebuilds completeness from the captured table. A
+    # source error remains authoritative even when this view's rows are safe.
+    source_error = result.get("error", {}).get("code")
+    if source_error in {"source_validation_error", "source_connection_error"}:
+        result["completeness"]["source_complete"] = False
+        reasons = result["completeness"].setdefault("reasons", [])
+        if source_error not in reasons:
+            reasons.append(source_error)
     result["retrieved_utc"] = result["sources"][-1]["retrieved_utc"] if result["sources"] else None
     result["returned_row_count"] = len(result["rows"])
     result["data_availability"] = ("error" if result["status"] == "error" else
@@ -159,11 +241,22 @@ def _validate(args: argparse.Namespace) -> None:
         args.limit = _integer(getattr(args, "limit", 50), minimum=1, maximum=100000)
         args.offset = _integer(getattr(args, "offset", 0), minimum=0)
         if args.command == "report":
-            args.school_name = getattr(args, "school_name", None)
-            args.dept_name = getattr(args, "dept_name", None)
-            for name in (args.school_name, args.dept_name):
-                if name is not None and (not isinstance(name, str) or not name or len(name) > 200):
-                    raise InputError("학교·학과 이름 필터는 비어 있지 않은 문자열이어야 합니다.")
+            for field in ("school_name", "dept_name"):
+                singular = getattr(args, field, None)
+                names = getattr(args, field + "s", None)
+                if names is None:
+                    names = []
+                if not isinstance(names, list) or len(names) > 100:
+                    raise InputError("학교·학과 이름 목록은 100개 이하의 문자열 목록이어야 합니다.")
+                names = ([singular] if singular is not None else []) + names
+                for name in names:
+                    if not isinstance(name, str) or not name or len(name) > 200:
+                        raise InputError("학교·학과 이름 필터는 비어 있지 않은 문자열이어야 합니다.")
+                names = list(dict.fromkeys(names))
+                if len(names) > 100:
+                    raise InputError("학교·학과 이름 목록은 100개 이하여야 합니다.")
+                setattr(args, field + "s", names)
+                setattr(args, field, names[0] if len(names) == 1 else None)
     else:
         if (not isinstance(args.file_path, str) or not re.fullmatch(
                 r"/infofile/PDF_UPLOAD/PBNF_ITEM_UPLOAD/[0-9]{4}/[0-9]{2}/[0-9]+/", args.file_path)):
@@ -179,11 +272,19 @@ def _validate(args: argparse.Namespace) -> None:
         args.page_end = _integer(end, minimum=args.page_start) if end is not None else None
 
 
-def _catalog(args: argparse.Namespace, client: Any, result: dict[str, Any]) -> dict[str, Any]:
-    exchange = client.catalog(args.year, args.division)
+def _catalog(args: argparse.Namespace, client: Any, result: dict[str, Any],
+             batch: ReportBatch | None = None) -> dict[str, Any]:
+    key = (args.year, args.division)
+    if batch is not None and key in batch._catalogs:
+        exchange = batch._catalogs[key]
+        batch.stats["catalog_hits"] += 1
+    else:
+        exchange = client.catalog(args.year, args.division)
     result["sources"].append(_source(exchange))
     payload = exchange.json()
     collection_plan(payload)  # Reuse the reviewed required-field/schema checks.
+    if batch is not None:
+        batch._catalogs[key] = exchange
     items = rows_at(payload, ["detailItemList"])
     matched = []
     for row in items:
@@ -257,9 +358,13 @@ def _row_context(cells: list[dict[str, Any]], geometry: dict[str, Any]) -> list[
         return []
 
 
-def _collect(args: argparse.Namespace, client: Any, result: dict[str, Any]) -> tuple[list[dict], bool]:
+def _collect(args: argparse.Namespace, client: Any, result: dict[str, Any], *,
+             capture: dict[str, Any] | None = None,
+             performance: dict[str, Any] | None = None) -> tuple[list[dict], bool]:
     """Use one report job, completed before retrieval and checked afterwards."""
-    session = client.start_report(args.year, args.division, args.item, level=args.level)
+    performance = performance if performance is not None else {}
+    with _stage(performance, "report_initialization"):
+        session = client.start_report(args.year, args.division, args.item, level=args.level)
     reports: list[dict] = []
     first_status = None
     final_status = None
@@ -267,21 +372,31 @@ def _collect(args: argparse.Namespace, client: Any, result: dict[str, Any]) -> t
     selectors = {"pubYear": args.year, "schoolDivision": args.division,
                  "itemId": args.item, "level": args.level, "language": "ko"}
     result["selectors"] = selectors
-    result["title"] = _public(session.title)
     try:
+        result["title"] = _public(session.title)
         metadata = None
         if args.command == "report":
-            metadata = {key.removeprefix("result").lower(): parse_java_map_list(value)
-                        for key, value in session.schema_text.items()}
-        first_status = _wait_for_generation(client, session)
+            with _stage(performance, "table_parse"):
+                metadata = {key.removeprefix("result").lower(): parse_java_map_list(value)
+                            for key, value in session.schema_text.items()}
+        with _stage(performance, "generation_wait"):
+            first_status = _wait_for_generation(client, session)
         for page in range(1, min(first_status.expected_pages, args.max_pages) + 1):
             # Initialization already returned page 1 of this freshly created
             # report job. Preserve its source hash, then request pages 2..N.
-            exchange = session.initial if page == 1 else client.fetch_page(
-                session, page, document_local_page_numbers=args.command == "attachments")
+            if page == 1:
+                exchange = session.initial
+            else:
+                with _stage(performance, "page_fetch"):
+                    exchange = client.fetch_page(
+                        session, page, document_local_page_numbers=args.command == "attachments")
             result["sources"].append(_source(exchange, page=page, selectors=selectors))
-            parsed = parse_report_xml(exchange.body, source_page_index=page - 1,
-                                      metadata=metadata, selectors=selectors)
+            with _stage(performance, "table_parse"):
+                parsed = parse_report_xml(exchange.body, source_page_index=page - 1,
+                                          metadata=metadata, selectors=selectors,
+                                          include_raw_tree=False)
+                if page == 1 and parsed["pages"][0].get("page_attributes", {}).get("pagenum") not in {None, "", "1"}:
+                    raise SourceError("초기 보고서의 첫 페이지 번호를 확인할 수 없습니다.")
             if args.command == "attachments":
                 parsed["attachment_links"] = attachment_links(exchange.body)
             # Remove runtime-bearing XML/attributes immediately; the parser has
@@ -293,7 +408,8 @@ def _collect(args: argparse.Namespace, client: Any, result: dict[str, Any]) -> t
             }) for p in parsed["pages"]]
             parsed.pop("source_table_metadata", None)
             reports.append(parsed)
-        final_status = client.report_status(session)
+        with _stage(performance, "final_status"):
+            final_status = client.report_status(session)
         if not final_status.complete or final_status.expected_pages != first_status.expected_pages:
             raise SourceError("보고서의 최종 생성 상태 또는 전체 페이지 수가 변경되었습니다.")
     except Exception as error:
@@ -309,15 +425,21 @@ def _collect(args: argparse.Namespace, client: Any, result: dict[str, Any]) -> t
                             "fetched_pages": len(reports), "max_pages": args.max_pages,
                             "max_pages_allowed": MAX_PAGES}
     if reports:
-        combined = combine_report_pages(reports, expected_pages=expected)
+        with _stage(performance, "combine_validation"):
+            combined = combine_report_pages(reports, expected_pages=expected)
         result["page_coverage"] = combined["coverage"]
         result["pages"] = [{key: value for key, value in p.items()
                             if key not in {"display_cells", "source_sha256"}} for p in combined["pages"]]
         source_complete = stable and combined["coverage"]["complete"]
-        if args.command == "report":
-            _numeric_result(args, result, combined, source_complete)
-        else:
-            _attachment_result(args, result, reports, source_complete)
+        if capture is not None:
+            capture.update(combined=combined, source_complete=source_complete)
+            if args.command == "attachments":
+                capture["reports"] = reports
+        with _stage(performance, "projection"):
+            if args.command == "report":
+                _numeric_result(args, result, combined, source_complete)
+            else:
+                _attachment_result(args, result, reports, source_complete)
     if failure is not None:
         raise failure
     return reports, stable
@@ -326,15 +448,19 @@ def _collect(args: argparse.Namespace, client: Any, result: dict[str, Any]) -> t
 def _numeric_result(args: argparse.Namespace, result: dict[str, Any], combined: dict,
                     source_complete: bool) -> None:
     rows = combined["rows"]
-    filters = {key: value for key, value in (("schoolName", args.school_name),
-                                            ("deptName", args.dept_name)) if value is not None}
+    alternatives = {key: names for key, names in (("schoolName", args.school_names),
+                                                 ("deptName", args.dept_names)) if names}
+    filters = {key: names[0] if len(names) == 1 else names
+               for key, names in alternatives.items()}
     filter_verified = all(isinstance(row.get("dimensions", {}).get(key), str)
                           for row in rows for key in filters)
     # Empty or unparsed responses cannot prove that a dimension filter exists.
     available_dimensions = {key for row in rows for key in row.get("dimensions", {})}
     filter_verified = filter_verified and set(filters).issubset(available_dimensions)
-    matched = [row for row in rows if all(row.get("dimensions", {}).get(key) == value
-                                       for key, value in filters.items())]
+    choices = {key: frozenset(names) for key, names in alternatives.items()}
+    matched = [row for row in rows if all(isinstance(row.get("dimensions", {}).get(key), str)
+                                       and row["dimensions"][key] in names
+                                       for key, names in choices.items())]
     selected = matched[args.offset:args.offset + args.limit]
     result["rows"] = [_public(row | {"source_request_page": row["source_page_index"] + 1})
                       for row in selected]
@@ -342,7 +468,8 @@ def _numeric_result(args: argparse.Namespace, result: dict[str, Any], combined: 
                         "header_path", "source_field_ids", "source_semantic_codes", "value_scope"}
     result["columns"] = [_public({key: value for key, value in col.items() if key in safe_column_keys})
                          for col in combined["columns"]]
-    result["filters"] = {"match": "exact", "dimensions": filters,
+    result["filters"] = {"match": "exact_any" if any(len(names) > 1 for names in alternatives.values()) else "exact",
+                         "dimensions": filters,
                          "verified_on_all_source_rows": filter_verified}
     result["granularity"] = {"requested_level": args.level,
         "catalog_mjr_use_step_cd": result["catalog_item"]["mjr_use_step_cd"],
@@ -426,8 +553,17 @@ def _pdf(args: argparse.Namespace, result: dict[str, Any]) -> None:
         "reasons": ["pdf_content_requires_validation"] + ([] if returned_complete else ["return_range"])}
 
 
-def run_command(args: argparse.Namespace | dict[str, Any]) -> dict[str, Any]:
-    """Create a fresh client for every invocation and return one JSON-safe result."""
+def run_command(args: argparse.Namespace | dict[str, Any], *,
+                batch: ReportBatch | None = None) -> dict[str, Any]:
+    """Fetch afresh, or project a source fetched earlier in this explicit batch.
+
+    A normal invocation always creates a fresh client. The batch caller owns
+    the short-lived ReportBatch context and must close it after one user task.
+    """
+    started = time.perf_counter()
+    performance: dict[str, Any] = {"stages_seconds": {}, "source_reused": False}
+    capture: dict[str, Any] = {}
+    snapshot_key = None
     if isinstance(args, dict):
         args = argparse.Namespace(**args)
     result = _base(getattr(args, "command", "unknown"))
@@ -436,14 +572,43 @@ def run_command(args: argparse.Namespace | dict[str, Any]) -> dict[str, Any]:
         if not _DEPENDENCIES_AVAILABLE:
             raise InputError("스킬에 포함된 공개 조회 어댑터를 찾을 수 없습니다.")
         if args.command == "pdf":
-            _pdf(args, result)
+            with _stage(performance, "pdf_download_and_parse"):
+                _pdf(args, result)
         else:
-            result["query"] = {"year": args.year, "division": args.division, "item": args.item,
-                               "level": args.level, "max_pages": args.max_pages,
-                               "limit": args.limit, "offset": args.offset}
-            client = ViewerDataClient()
-            _catalog(args, client, result)
-            _collect(args, client, result)
+            query = {"year": args.year, "division": args.division, "item": args.item,
+                     "level": args.level, "max_pages": args.max_pages,
+                     "limit": args.limit, "offset": args.offset}
+            if batch is not None:
+                if batch.closed:
+                    raise InputError("종료한 일괄 조회는 재사용할 수 없습니다. 새 조회를 시작하세요.")
+                snapshot_key = batch.key(args)
+            cached = batch._snapshots.get(snapshot_key) if batch is not None else None
+            if cached is not None:
+                batch.stats["hits"] += 1
+                performance["source_reused"] = True
+                saved, capture = cached
+                result = copy.deepcopy(saved)
+                result["query"] = query
+                result["rows"] = []
+                source_error = result.get("error")
+                if "combined" in capture:
+                    with _stage(performance, "projection"):
+                        if args.command == "report":
+                            _numeric_result(args, result, capture["combined"], capture["source_complete"])
+                        else:
+                            _attachment_result(args, result, capture["reports"], capture["source_complete"])
+                if source_error is not None:
+                    result["error"] = source_error
+                    result["status"] = "partial" if result["rows"] else "error"
+                    result["complete"] = False
+            else:
+                result["query"] = query
+                client = batch.client() if batch is not None else ViewerDataClient()
+                if batch is not None:
+                    batch.stats["misses"] += 1
+                with _stage(performance, "catalog"):
+                    _catalog(args, client, result, batch)
+                _collect(args, client, result, capture=capture, performance=performance)
     except (InputError, AttributeError) as error:
         result["status"] = "partial" if result["rows"] else "error"
         result["complete"] = False
@@ -467,14 +632,33 @@ def run_command(args: argparse.Namespace | dict[str, Any]) -> dict[str, Any]:
         result["error"] = {"code": "internal_error",
                            "message": "조회 처리에 실패했습니다. 원문·세션·예외 상세는 출력하지 않습니다."}
     try:
-        return _finish(result)
+        with _stage(performance, "output_validation"):
+            finished = _finish(result)
+        performance["stages_seconds"]["total"] = time.perf_counter() - started
+        performance["stages_seconds"] = {key: round(value, 6)
+                                         for key, value in performance["stages_seconds"].items()}
+        source_pages = finished.get("generation", {}).get("fetched_pages", 0)
+        performance["fetched_report_pages_this_call"] = 0 if performance["source_reused"] else source_pages
+        performance["source_report_pages"] = source_pages
+        performance["total_scope"] = "through_result_validation_before_json_serialization"
+        finished["performance"] = performance
+        if batch is not None and snapshot_key is not None and not performance["source_reused"]:
+            # Rows are projected separately for each view. Retain the combined
+            # table only once, and never a report session or runtime values.
+            saved = copy.deepcopy({key: value for key, value in finished.items()
+                                   if key not in {"rows", "performance"}})
+            batch._snapshots[snapshot_key] = (saved, capture)
+        return finished
     except Exception:
         # Untrusted source strings must not bypass the final output allowlist.
         safe = _base("invalid_source")
         safe["status"] = "error"
         safe["error"] = {"code": "source_output_validation_error",
                          "message": "공개 표시값을 안전한 JSON으로 검증하지 못했습니다."}
-        return _finish(safe)
+        safe = _finish(safe)
+        safe["performance"] = {"stages_seconds": {"total": round(time.perf_counter() - started, 6)},
+                               "source_reused": performance["source_reused"]}
+        return safe
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -491,8 +675,12 @@ def build_parser() -> argparse.ArgumentParser:
         sub.add_argument("--limit", default=50, type=_positive)
         sub.add_argument("--offset", default=0, type=_offset)
         if command == "report":
-            sub.add_argument("--school-name", help="원천 schoolName 차원과 정확히 일치하는 이름")
-            sub.add_argument("--dept-name", help="원천 deptName 차원과 정확히 일치하는 이름")
+            sub.add_argument("--school-name", action="append", dest="school_names",
+                             help="정확한 학교명. 여러 번 지정하면 한 번 받은 장표에서 함께 조회합니다.")
+            sub.add_argument("--dept-name", action="append", dest="dept_names",
+                             help="정확한 학과명. 여러 번 지정 가능; 같은 차원 안에서는 OR 조건입니다.")
+            sub.add_argument("--compact", action="store_true",
+                             help="값·출처·검증 상태를 유지하고 반복되는 셀 상세만 생략합니다.")
     sub = commands.add_parser("pdf")
     sub.add_argument("--file-path", required=True)
     sub.add_argument("--file-name", required=True)
@@ -504,7 +692,10 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     try:
-        result = run_command(build_parser().parse_args(argv))
+        args = build_parser().parse_args(argv)
+        result = run_command(args)
+        if getattr(args, "compact", False):
+            result = compact_result(result)
     except (InputError, ValueError):
         result = _base("invalid")
         result["status"] = "error"

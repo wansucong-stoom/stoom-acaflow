@@ -358,8 +358,14 @@ def _catalog(args: argparse.Namespace, client: _RecordingClient, result: dict[st
               reason="return_limit" if len(matched) > args.limit else None)
 
 
-def run_command(args: argparse.Namespace | dict[str, Any]) -> dict[str, Any]:
-    """Return a JSON-safe result. Each invocation creates a new network client."""
+def run_command(args: argparse.Namespace | dict[str, Any], *,
+                network_client: Any | None = None) -> dict[str, Any]:
+    """Return a JSON-safe result with fresh source requests.
+
+    Standalone calls create a new client. An explicit batch may supply its
+    anonymous client so request pacing also holds across JSON/report boundaries;
+    response recording remains separate for every query.
+    """
     if isinstance(args, dict):
         args = argparse.Namespace(**args)
     result = _base(getattr(args, "command", "unknown"), getattr(args, "year", None))
@@ -371,7 +377,7 @@ def run_command(args: argparse.Namespace | dict[str, Any]) -> dict[str, Any]:
             result["error"] = {"code": "dependency_unavailable",
                                "message": "스킬에 포함된 공개 조회 어댑터를 찾을 수 없습니다."}
             return _finish(result)
-        client = _RecordingClient(DirectClient())
+        client = _RecordingClient(network_client if network_client is not None else DirectClient())
         handler = {"schools": _schools, "departments": _departments,
                    "affiliations": _affiliations, "metric": _metric,
                    "info": _info, "catalog": _catalog, "scope": _scope}[args.command]
