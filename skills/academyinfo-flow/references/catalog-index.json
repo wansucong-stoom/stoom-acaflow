@@ -1,0 +1,3192 @@
+{
+  "format": "academyinfo-flow-catalog-reference-v1",
+  "purpose": "Item metadata and navigation only; never numeric data or a substitute for live lookup",
+  "catalogs": [
+    {
+      "year": "2024",
+      "division": "01",
+      "source": {
+        "source": "대학알리미",
+        "source_url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+        "source_language": "ko",
+        "language": "ko",
+        "fetched_at": "2026-10-11T14:58:22.949693+00:00",
+        "retrieved_utc": "2026-10-11T14:58:22.949693+00:00",
+        "request": {
+          "method": "POST",
+          "url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+          "parameters": {
+            "svyYr": "2024",
+            "schlDivCd": "01",
+            "searchGbn": "0",
+            "category_cd": "",
+            "category_gubun": "category",
+            "searchVal": ""
+          }
+        },
+        "response": {
+          "status": 200,
+          "content_type": "application/json;charset=UTF-8",
+          "final_url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+          "sha256": "37e1de3faf3fd71570ad367f2bbde34a1a9fdee368b1bdb6448e4754545073b4"
+        }
+      },
+      "item_count": 121,
+      "viewer_target_count": 142
+    },
+    {
+      "year": "2024",
+      "division": "02",
+      "source": {
+        "source": "대학알리미",
+        "source_url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+        "source_language": "ko",
+        "language": "ko",
+        "fetched_at": "2026-10-11T14:58:24.052572+00:00",
+        "retrieved_utc": "2026-10-11T14:58:24.052572+00:00",
+        "request": {
+          "method": "POST",
+          "url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+          "parameters": {
+            "svyYr": "2024",
+            "schlDivCd": "02",
+            "searchGbn": "0",
+            "category_cd": "",
+            "category_gubun": "category",
+            "searchVal": ""
+          }
+        },
+        "response": {
+          "status": 200,
+          "content_type": "application/json;charset=UTF-8",
+          "final_url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+          "sha256": "c47fce593912cd638b5b22427c5d352ec5fdb7a852d78fdc6f6757f7e541f268"
+        }
+      },
+      "item_count": 122,
+      "viewer_target_count": 142
+    },
+    {
+      "year": "2024",
+      "division": "03",
+      "source": {
+        "source": "대학알리미",
+        "source_url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+        "source_language": "ko",
+        "language": "ko",
+        "fetched_at": "2026-10-11T14:58:25.073029+00:00",
+        "retrieved_utc": "2026-10-11T14:58:25.073029+00:00",
+        "request": {
+          "method": "POST",
+          "url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+          "parameters": {
+            "svyYr": "2024",
+            "schlDivCd": "03",
+            "searchGbn": "0",
+            "category_cd": "",
+            "category_gubun": "category",
+            "searchVal": ""
+          }
+        },
+        "response": {
+          "status": 200,
+          "content_type": "application/json;charset=UTF-8",
+          "final_url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+          "sha256": "6619a27caef9102e60b2522c99d65096b05306bfbbb90949d168ad78a9a551aa"
+        }
+      },
+      "item_count": 23,
+      "viewer_target_count": 34
+    },
+    {
+      "year": "2024",
+      "division": "04",
+      "source": {
+        "source": "대학알리미",
+        "source_url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+        "source_language": "ko",
+        "language": "ko",
+        "fetched_at": "2026-10-11T14:58:25.674898+00:00",
+        "retrieved_utc": "2026-10-11T14:58:25.674898+00:00",
+        "request": {
+          "method": "POST",
+          "url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+          "parameters": {
+            "svyYr": "2024",
+            "schlDivCd": "04",
+            "searchGbn": "0",
+            "category_cd": "",
+            "category_gubun": "category",
+            "searchVal": ""
+          }
+        },
+        "response": {
+          "status": 200,
+          "content_type": "application/json;charset=UTF-8",
+          "final_url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+          "sha256": "f1361895a5a54e99401242b77134a7e9bfc194b856f72c293a567acac991dbf3"
+        }
+      },
+      "item_count": 95,
+      "viewer_target_count": 113
+    },
+    {
+      "year": "2025",
+      "division": "01",
+      "source": {
+        "source": "대학알리미",
+        "source_url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+        "source_language": "ko",
+        "language": "ko",
+        "fetched_at": "2026-10-11T14:58:26.899125+00:00",
+        "retrieved_utc": "2026-10-11T14:58:26.899125+00:00",
+        "request": {
+          "method": "POST",
+          "url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+          "parameters": {
+            "svyYr": "2025",
+            "schlDivCd": "01",
+            "searchGbn": "0",
+            "category_cd": "",
+            "category_gubun": "category",
+            "searchVal": ""
+          }
+        },
+        "response": {
+          "status": 200,
+          "content_type": "application/json;charset=UTF-8",
+          "final_url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+          "sha256": "45d9967e5e5eb4ec4fceae2dcab7c425190f98310c37f1842399aa41e698bdb3"
+        }
+      },
+      "item_count": 121,
+      "viewer_target_count": 142
+    },
+    {
+      "year": "2025",
+      "division": "02",
+      "source": {
+        "source": "대학알리미",
+        "source_url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+        "source_language": "ko",
+        "language": "ko",
+        "fetched_at": "2026-10-11T14:58:28.161381+00:00",
+        "retrieved_utc": "2026-10-11T14:58:28.161381+00:00",
+        "request": {
+          "method": "POST",
+          "url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+          "parameters": {
+            "svyYr": "2025",
+            "schlDivCd": "02",
+            "searchGbn": "0",
+            "category_cd": "",
+            "category_gubun": "category",
+            "searchVal": ""
+          }
+        },
+        "response": {
+          "status": 200,
+          "content_type": "application/json;charset=UTF-8",
+          "final_url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+          "sha256": "e054f49958622afada4a1e46ff6d5ae9e649a80537a0a38b97e2e8ed8509dbd4"
+        }
+      },
+      "item_count": 122,
+      "viewer_target_count": 142
+    },
+    {
+      "year": "2025",
+      "division": "03",
+      "source": {
+        "source": "대학알리미",
+        "source_url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+        "source_language": "ko",
+        "language": "ko",
+        "fetched_at": "2026-10-11T14:58:29.102237+00:00",
+        "retrieved_utc": "2026-10-11T14:58:29.102237+00:00",
+        "request": {
+          "method": "POST",
+          "url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+          "parameters": {
+            "svyYr": "2025",
+            "schlDivCd": "03",
+            "searchGbn": "0",
+            "category_cd": "",
+            "category_gubun": "category",
+            "searchVal": ""
+          }
+        },
+        "response": {
+          "status": 200,
+          "content_type": "application/json;charset=UTF-8",
+          "final_url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+          "sha256": "c9ba9746805c9ce5ef9f3bb97a3316f08d3fa884d8fa17fe2903f8fa083eab21"
+        }
+      },
+      "item_count": 23,
+      "viewer_target_count": 34
+    },
+    {
+      "year": "2025",
+      "division": "04",
+      "source": {
+        "source": "대학알리미",
+        "source_url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+        "source_language": "ko",
+        "language": "ko",
+        "fetched_at": "2026-10-11T14:58:29.711747+00:00",
+        "retrieved_utc": "2026-10-11T14:58:29.711747+00:00",
+        "request": {
+          "method": "POST",
+          "url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+          "parameters": {
+            "svyYr": "2025",
+            "schlDivCd": "04",
+            "searchGbn": "0",
+            "category_cd": "",
+            "category_gubun": "category",
+            "searchVal": ""
+          }
+        },
+        "response": {
+          "status": 200,
+          "content_type": "application/json;charset=UTF-8",
+          "final_url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+          "sha256": "5a61bb71a0f4362eaf686a04fc95fb650ee2c09b44a45883c12e73fef5a345da"
+        }
+      },
+      "item_count": 95,
+      "viewer_target_count": 113
+    },
+    {
+      "year": "2026",
+      "division": "01",
+      "source": {
+        "source": "대학알리미",
+        "source_url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+        "source_language": "ko",
+        "language": "ko",
+        "fetched_at": "2026-10-11T14:58:30.916115+00:00",
+        "retrieved_utc": "2026-10-11T14:58:30.916115+00:00",
+        "request": {
+          "method": "POST",
+          "url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+          "parameters": {
+            "svyYr": "2026",
+            "schlDivCd": "01",
+            "searchGbn": "0",
+            "category_cd": "",
+            "category_gubun": "category",
+            "searchVal": ""
+          }
+        },
+        "response": {
+          "status": 200,
+          "content_type": "application/json;charset=UTF-8",
+          "final_url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+          "sha256": "d5c9870b3edeb9fa7ccf1abbc68a57524e223ec6cf543869f971f06be68284f9"
+        }
+      },
+      "item_count": 101,
+      "viewer_target_count": 120
+    },
+    {
+      "year": "2026",
+      "division": "02",
+      "source": {
+        "source": "대학알리미",
+        "source_url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+        "source_language": "ko",
+        "language": "ko",
+        "fetched_at": "2026-10-11T14:58:32.090693+00:00",
+        "retrieved_utc": "2026-10-11T14:58:32.090693+00:00",
+        "request": {
+          "method": "POST",
+          "url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+          "parameters": {
+            "svyYr": "2026",
+            "schlDivCd": "02",
+            "searchGbn": "0",
+            "category_cd": "",
+            "category_gubun": "category",
+            "searchVal": ""
+          }
+        },
+        "response": {
+          "status": 200,
+          "content_type": "application/json;charset=UTF-8",
+          "final_url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+          "sha256": "977f3d213e604a3ea5b5ebd485e1866bf3528598776f810232aaefa4df3a055a"
+        }
+      },
+      "item_count": 102,
+      "viewer_target_count": 120
+    },
+    {
+      "year": "2026",
+      "division": "03",
+      "source": {
+        "source": "대학알리미",
+        "source_url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+        "source_language": "ko",
+        "language": "ko",
+        "fetched_at": "2026-10-11T14:58:33.144859+00:00",
+        "retrieved_utc": "2026-10-11T14:58:33.144859+00:00",
+        "request": {
+          "method": "POST",
+          "url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+          "parameters": {
+            "svyYr": "2026",
+            "schlDivCd": "03",
+            "searchGbn": "0",
+            "category_cd": "",
+            "category_gubun": "category",
+            "searchVal": ""
+          }
+        },
+        "response": {
+          "status": 200,
+          "content_type": "application/json;charset=UTF-8",
+          "final_url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+          "sha256": "4317b142bf8108fa49e6812c9b6db24d602dbbdf8de45958802b17c53609594d"
+        }
+      },
+      "item_count": 21,
+      "viewer_target_count": 30
+    },
+    {
+      "year": "2026",
+      "division": "04",
+      "source": {
+        "source": "대학알리미",
+        "source_url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+        "source_language": "ko",
+        "language": "ko",
+        "fetched_at": "2026-10-11T14:58:33.687096+00:00",
+        "retrieved_utc": "2026-10-11T14:58:33.687096+00:00",
+        "request": {
+          "method": "POST",
+          "url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+          "parameters": {
+            "svyYr": "2026",
+            "schlDivCd": "04",
+            "searchGbn": "0",
+            "category_cd": "",
+            "category_gubun": "category",
+            "searchVal": ""
+          }
+        },
+        "response": {
+          "status": 200,
+          "content_type": "application/json;charset=UTF-8",
+          "final_url": "https://m.academyinfo.go.kr/main/main0780/selectItemList.do",
+          "sha256": "90a25493929fac4adbb9162ed8ec4bb520919f5f3a054567d063ec194448b85e"
+        }
+      },
+      "item_count": 83,
+      "viewer_target_count": 99
+    }
+  ],
+  "entries": [
+    {
+      "item_id": "9",
+      "title": "2-가-1. 전공과목 성적 분포",
+      "family_code": "2-가",
+      "category": "학생",
+      "mjr_use_step_cd": "2",
+      "viewer_levels": [
+        "school",
+        "department"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2025/01",
+        "2025/02",
+        "2026/01",
+        "2026/02"
+      ]
+    },
+    {
+      "item_id": "10",
+      "title": "2-가-2. 교양과목 성적 분포",
+      "family_code": "2-가",
+      "category": "학생",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2025/01",
+        "2025/02",
+        "2026/01",
+        "2026/02"
+      ]
+    },
+    {
+      "item_id": "11",
+      "title": "2-가-3. 교직과목 성적 분포",
+      "family_code": "2-가",
+      "category": "학생",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2025/01",
+        "2025/02",
+        "2026/01",
+        "2026/02"
+      ]
+    },
+    {
+      "item_id": "12",
+      "title": "2-가-4. 졸업생의 졸업성적 분포",
+      "family_code": "2-가",
+      "category": "학생",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/03",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/03",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/03",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "19",
+      "title": "3-가-1. 신입생 모집요강[PDF](2024년 이전: 신입생 모집요강(편입학 포함))",
+      "family_code": "3-가",
+      "category": "학생",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "Y",
+      "available_in": [
+        "2024/01",
+        "2025/01",
+        "2026/01"
+      ]
+    },
+    {
+      "item_id": "22",
+      "title": "3-가-2. 편입생 모집요강[PDF]",
+      "family_code": "3-가",
+      "category": "학생",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "Y",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/03",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/03",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/03",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "25",
+      "title": "4-가. 입학전형 유형별 선발 결과",
+      "family_code": "4-가",
+      "category": "학생",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2025/01",
+        "2025/02",
+        "2026/01",
+        "2026/02"
+      ]
+    },
+    {
+      "item_id": "26",
+      "title": "4-나. 기회 균형 선발 결과",
+      "family_code": "4-나",
+      "category": "학생",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2025/01",
+        "2025/02",
+        "2026/01",
+        "2026/02"
+      ]
+    },
+    {
+      "item_id": "27",
+      "title": "4-다. 신입생 충원 현황",
+      "family_code": "4-다",
+      "category": "학생",
+      "mjr_use_step_cd": "2",
+      "viewer_levels": [
+        "school",
+        "department"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/03",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/03",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/03",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "29",
+      "title": "4-라-1. 재학생 충원율",
+      "family_code": "4-라",
+      "category": "학생",
+      "mjr_use_step_cd": "1",
+      "viewer_levels": [
+        "school",
+        "department"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2025/01",
+        "2025/02",
+        "2026/01",
+        "2026/02"
+      ]
+    },
+    {
+      "item_id": "30",
+      "title": "4-라-2. 편입학 선발 결과",
+      "family_code": "4-라",
+      "category": "학생",
+      "mjr_use_step_cd": "2",
+      "viewer_levels": [
+        "school",
+        "department"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2025/01",
+        "2025/02",
+        "2026/01",
+        "2026/02"
+      ]
+    },
+    {
+      "item_id": "31",
+      "title": "4-마. 재적 학생 현황",
+      "family_code": "4-마",
+      "category": "학생",
+      "mjr_use_step_cd": "2",
+      "viewer_levels": [
+        "school",
+        "department"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/03",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/03",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/03",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "33",
+      "title": "4-바-1. 외국학생 현황",
+      "family_code": "4-바",
+      "category": "학생",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/03",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/03",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/03",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "34",
+      "title": "4-바-2. 외국학생 중도탈락 현황",
+      "family_code": "4-바",
+      "category": "학생",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/03",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/03",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/03",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "35",
+      "title": "4-사. 중도탈락 학생 현황",
+      "family_code": "4-사",
+      "category": "학생",
+      "mjr_use_step_cd": "2",
+      "viewer_levels": [
+        "school",
+        "department"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/03",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/03",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/03",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "37",
+      "title": "4-자. 신입생의 출신 고등학교 유형별 현황",
+      "family_code": "4-자",
+      "category": "학생",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2025/01",
+        "2025/02",
+        "2026/01",
+        "2026/02"
+      ]
+    },
+    {
+      "item_id": "39",
+      "title": "5-가. 졸업생 현황",
+      "family_code": "5-가",
+      "category": "학생",
+      "mjr_use_step_cd": "2",
+      "viewer_levels": [
+        "school",
+        "department"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2025/01",
+        "2025/02",
+        "2026/01",
+        "2026/02"
+      ]
+    },
+    {
+      "item_id": "290",
+      "title": "5-나. 졸업생의 진학 현황 ",
+      "family_code": "5-나",
+      "category": "학생",
+      "mjr_use_step_cd": "2",
+      "viewer_levels": [
+        "school",
+        "department"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/03",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/03",
+        "2025/04"
+      ]
+    },
+    {
+      "item_id": "46",
+      "title": "5-다. 졸업생의 취업 현황",
+      "family_code": "5-다",
+      "category": "학생",
+      "mjr_use_step_cd": "2",
+      "viewer_levels": [
+        "school",
+        "department"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2025/01",
+        "2025/02"
+      ]
+    },
+    {
+      "item_id": "129",
+      "title": "8-차-1. 등록금 현황",
+      "family_code": "8-차",
+      "category": "학생",
+      "mjr_use_step_cd": "2",
+      "viewer_levels": [
+        "school",
+        "department"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "130",
+      "title": "8-차-2. 등록금 납부제도 현황",
+      "family_code": "8-차",
+      "category": "학생",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "138",
+      "title": "9-가-1. 등록금 산정근거[PDF]",
+      "family_code": "9-가",
+      "category": "학생",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "Y",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "257",
+      "title": "9-가-2. 등록금심의위원회 회의록",
+      "family_code": "9-가",
+      "category": "학생",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "Y",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "157",
+      "title": "12-다-1. 장학금 수혜 현황",
+      "family_code": "12-다",
+      "category": "학생",
+      "mjr_use_step_cd": "2",
+      "viewer_levels": [
+        "school",
+        "department"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/03",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/03",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/03",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "158",
+      "title": "12-다-2. 학자금 대출 현황",
+      "family_code": "12-다",
+      "category": "학생",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "206",
+      "title": "12-다-4. 학비감면 준수 여부",
+      "family_code": "12-다",
+      "category": "학생",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "161",
+      "title": "12-라-2. 외국대학과 학점 교류 현황",
+      "family_code": "12-라",
+      "category": "학생",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/03",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/03",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/03",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "263",
+      "title": "12-마. 대학의 사회봉사 역량",
+      "family_code": "12-마",
+      "category": "학생",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "163",
+      "title": "12-바. 대학의 원격강좌 현황",
+      "family_code": "12-바",
+      "category": "학생",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "51",
+      "title": "6-가-1. 전체 교원 대비 전임교원 현황",
+      "family_code": "6-가",
+      "category": "교원·연구",
+      "mjr_use_step_cd": "2",
+      "viewer_levels": [
+        "school",
+        "department"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "277",
+      "title": "6-가-2. 전체 신규 전임교원 현황",
+      "family_code": "6-가",
+      "category": "교원·연구",
+      "mjr_use_step_cd": "2",
+      "viewer_levels": [
+        "school",
+        "department"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "52",
+      "title": "6-나-(1). 전임교원 1인당 학생 수 및 전임교원 확보율(전문대학, 기능대학)",
+      "family_code": "6-나",
+      "category": "교원·연구",
+      "mjr_use_step_cd": "1",
+      "viewer_levels": [
+        "school",
+        "department"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2025/01",
+        "2026/01"
+      ]
+    },
+    {
+      "item_id": "265",
+      "title": "6-나-(2). 전임교원 1인당 학생 수 및 전임교원 확보율(사이버대학)(2017~)",
+      "family_code": "6-나",
+      "category": "교원·연구",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2025/01",
+        "2025/02",
+        "2026/01",
+        "2026/02"
+      ]
+    },
+    {
+      "item_id": "60",
+      "title": "6-다-1. 국가별 외국인 전임교원 현황",
+      "family_code": "6-다",
+      "category": "교원·연구",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "61",
+      "title": "6-다-2. 전공계열별 외국인 전임교원 현황",
+      "family_code": "6-다",
+      "category": "교원·연구",
+      "mjr_use_step_cd": "1",
+      "viewer_levels": [
+        "school",
+        "department"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "63",
+      "title": "7-가. 전임교원의 연구 실적",
+      "family_code": "7-가",
+      "category": "교원·연구",
+      "mjr_use_step_cd": "2",
+      "viewer_levels": [
+        "school",
+        "department"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "150",
+      "title": "12-가. 연구비 수혜 실적",
+      "family_code": "12-가",
+      "category": "교원·연구",
+      "mjr_use_step_cd": "2",
+      "viewer_levels": [
+        "school",
+        "department"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "152",
+      "title": "12-나-1. 학생 규모별 강좌수",
+      "family_code": "12-나",
+      "category": "교원·연구",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2025/01",
+        "2025/02",
+        "2026/01",
+        "2026/02"
+      ]
+    },
+    {
+      "item_id": "153",
+      "title": "12-나-2. 교원 강의 담당 비율",
+      "family_code": "12-나",
+      "category": "교원·연구",
+      "mjr_use_step_cd": "2",
+      "viewer_levels": [
+        "school",
+        "department"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/03",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/03",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/03",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "154",
+      "title": "12-나-3. 대학 강의 공개 현황",
+      "family_code": "12-나",
+      "category": "교원·연구",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04"
+      ]
+    },
+    {
+      "item_id": "198",
+      "title": "14-차. 강사 강의료",
+      "family_code": "14-차",
+      "category": "교원·연구",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/03",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/03",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/03",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "185",
+      "title": "13-가 . 장서 보유 및 도서관 자료 구입비 결산 현황",
+      "family_code": "13-가",
+      "category": "교육여건",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04"
+      ]
+    },
+    {
+      "item_id": "187",
+      "title": "13-나. 대학 부설 연구소 현황",
+      "family_code": "13-나",
+      "category": "교육여건",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "191",
+      "title": "14-다. 교지(校地) 확보 현황",
+      "family_code": "14-다",
+      "category": "교육여건",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04"
+      ]
+    },
+    {
+      "item_id": "192",
+      "title": "14-라. 교사(校舍)시설 확보 현황",
+      "family_code": "14-라",
+      "category": "교육여건",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04"
+      ]
+    },
+    {
+      "item_id": "193",
+      "title": "14-마-1. 기숙사 수용 현황",
+      "family_code": "14-마",
+      "category": "교육여건",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04"
+      ]
+    },
+    {
+      "item_id": "262",
+      "title": "14-마-2-(1). 기숙사 운영 결과(국·공립_민자)",
+      "family_code": "14-마",
+      "category": "교육여건",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2025/01",
+        "2025/02"
+      ]
+    },
+    {
+      "item_id": "253",
+      "title": "14-마-2-(2). 기숙사 운영 결과(사립_행복_민자)",
+      "family_code": "14-마",
+      "category": "교육여건",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2025/01",
+        "2025/02"
+      ]
+    },
+    {
+      "item_id": "278",
+      "title": "14-마-2-(3). 기숙사 운영 결과(국·공립_직영)",
+      "family_code": "14-마",
+      "category": "교육여건",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2025/01",
+        "2025/02"
+      ]
+    },
+    {
+      "item_id": "280",
+      "title": "14-마-2-(4). 기숙사 운영 결과(사립_직영)",
+      "family_code": "14-마",
+      "category": "교육여건",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2025/01",
+        "2025/02"
+      ]
+    },
+    {
+      "item_id": "266",
+      "title": "14-마-3. 기숙사비 납부제도 현황",
+      "family_code": "14-마",
+      "category": "교육여건",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04"
+      ]
+    },
+    {
+      "item_id": "194",
+      "title": "14-바-1. 수익용 기본재산 확보 현황",
+      "family_code": "14-바",
+      "category": "교육여건",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04"
+      ]
+    },
+    {
+      "item_id": "205",
+      "title": "14-바-2. 법정부담금 부담 현황",
+      "family_code": "14-바",
+      "category": "교육여건",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04"
+      ]
+    },
+    {
+      "item_id": "199",
+      "title": "14-카. 장애학생지원체제 구축 및 운영 현황",
+      "family_code": "14-카",
+      "category": "교육여건",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "2",
+      "title": "1-가. 학교규칙 및 그 밖에 학교운영에 관한 각종 규정[PDF]",
+      "family_code": "1-가",
+      "category": "대학운영",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "Y",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/03",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/03",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/03",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "143",
+      "title": "10-가. 위반 내용 및 조치 결과",
+      "family_code": "10-가",
+      "category": "대학운영",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "146",
+      "title": "11-가-1. 학교 발전계획 및 특성화 계획[PDF]",
+      "family_code": "11-가",
+      "category": "대학운영",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "Y",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/03",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/03",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/03",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "189",
+      "title": "14-가. 정관[PDF]",
+      "family_code": "14-가",
+      "category": "대학운영",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "Y",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "190",
+      "title": "14-나. 법인의 임원 현황",
+      "family_code": "14-나",
+      "category": "대학운영",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "195",
+      "title": "14-사. 직원 현황",
+      "family_code": "14-사",
+      "category": "대학운영",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "197",
+      "title": "14-자-1. 대학 자체 평가 결과[PDF]",
+      "family_code": "14-자",
+      "category": "대학운영",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "Y",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/03",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/03",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/03",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "267",
+      "title": "14-자-2. 대학별 평가 인증 현황",
+      "family_code": "14-자",
+      "category": "대학운영",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2025/01",
+        "2025/02",
+        "2026/01",
+        "2026/02"
+      ]
+    },
+    {
+      "item_id": "279",
+      "title": "14-타. 성희롱·성폭력·가정폭력·성매매 예방교육 이수 현황",
+      "family_code": "14-타",
+      "category": "대학운영",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04"
+      ]
+    },
+    {
+      "item_id": "287",
+      "title": "14-파. 인권 보호 및 성희롱·성폭력 대응 전담 조직의 운영 현황",
+      "family_code": "14-파",
+      "category": "대학운영",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04"
+      ]
+    },
+    {
+      "item_id": "261",
+      "title": "14-하-1. 실험·실습실 안전관리 현황",
+      "family_code": "14-하",
+      "category": "대학운영",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2025/01",
+        "2025/02"
+      ]
+    },
+    {
+      "item_id": "260",
+      "title": "14-하-2. 시설 안전관리 현황",
+      "family_code": "14-하",
+      "category": "대학운영",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04"
+      ]
+    },
+    {
+      "item_id": "258",
+      "title": "14-하-3. 정보보안 및 개인정보보호 수준 진단",
+      "family_code": "14-하",
+      "category": "대학운영",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04"
+      ]
+    },
+    {
+      "item_id": "288",
+      "title": "14-하-4. 안전관리 계획 및 안전사고 보험(공제) 현황",
+      "family_code": "14-하",
+      "category": "대학운영",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04"
+      ]
+    },
+    {
+      "item_id": "164",
+      "title": "12-사. 산학협력 친화형 교원 인사 운영 현황[PDF]",
+      "family_code": "12-사",
+      "category": "산학협력",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "Y",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2025/01",
+        "2025/02",
+        "2026/01",
+        "2026/02"
+      ]
+    },
+    {
+      "item_id": "165",
+      "title": "12-아. 산업체 경력 전임교원 현황",
+      "family_code": "12-아",
+      "category": "산학협력",
+      "mjr_use_step_cd": "2",
+      "viewer_levels": [
+        "school",
+        "department"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "172",
+      "title": "12-차. 공동활용 연구장비 운영 현황",
+      "family_code": "12-차",
+      "category": "산학협력",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2025/01",
+        "2025/02",
+        "2026/01",
+        "2026/02"
+      ]
+    },
+    {
+      "item_id": "175",
+      "title": "12-카-1. 현장실습 운영 현황",
+      "family_code": "12-카",
+      "category": "산학협력",
+      "mjr_use_step_cd": "2",
+      "viewer_levels": [
+        "school",
+        "department"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2025/01",
+        "2025/02",
+        "2026/01",
+        "2026/02"
+      ]
+    },
+    {
+      "item_id": "176",
+      "title": "12-카-2. 캡스톤 디자인(창의적 설계) 운영 현황",
+      "family_code": "12-카",
+      "category": "산학협력",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2025/01",
+        "2025/02",
+        "2026/01",
+        "2026/02"
+      ]
+    },
+    {
+      "item_id": "177",
+      "title": "12-카-3. 학교기업 운영현황",
+      "family_code": "12-카",
+      "category": "산학협력",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2025/01",
+        "2025/02",
+        "2026/01",
+        "2026/02"
+      ]
+    },
+    {
+      "item_id": "173",
+      "title": "12-카-4-(1). 계약학과 및 계약정원제 설치 운영 현황",
+      "family_code": "12-카",
+      "category": "산학협력",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/03",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/03",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/03",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "264",
+      "title": "12-카-4-(2). 주문식 교육과정 설치 운영 현황",
+      "family_code": "12-카",
+      "category": "산학협력",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/03",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/03",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/03",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "178",
+      "title": "12-타. 기술이전 수입료 및 계약 실적",
+      "family_code": "12-타",
+      "category": "산학협력",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "179",
+      "title": "12-파. 특허 출원 및 등록 실적",
+      "family_code": "12-파",
+      "category": "산학협력",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "180",
+      "title": "12-하-1-(1). 교원의 창업 및 창업지원 현황",
+      "family_code": "12-하",
+      "category": "산학협력",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "182",
+      "title": "12-하-1-(2). 학생의 창업 및 창업지원 현황",
+      "family_code": "12-하",
+      "category": "산학협력",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2025/01",
+        "2025/02",
+        "2026/01",
+        "2026/02"
+      ]
+    },
+    {
+      "item_id": "204",
+      "title": "12-하-2. 창업교육 지원 현황",
+      "family_code": "12-하",
+      "category": "산학협력",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2025/01",
+        "2025/02",
+        "2026/01",
+        "2026/02"
+      ]
+    },
+    {
+      "item_id": "183",
+      "title": "12-거. 기술지주회사 운영 현황",
+      "family_code": "12-거",
+      "category": "산학협력",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2025/01",
+        "2025/02",
+        "2026/01",
+        "2026/02"
+      ]
+    },
+    {
+      "item_id": "72",
+      "title": "8-가-1. 국·공립대 대학회계 예산(2014년 이전 : 기성회회계 현황 - 세입)",
+      "family_code": "8-가",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "74",
+      "title": "8-가-2. 국·공립대 대학회계 결산(2014년 이전 : 기성회회계 현황 - 세출)",
+      "family_code": "8-가",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "78",
+      "title": "8-다-1. 국·공립대 발전기금회계 예산(2014년 이전 : 발전기금회계 현황 - 세입)",
+      "family_code": "8-다",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "80",
+      "title": "8-다-2. 국·공립대 발전기금회계 결산(2014년 이전 : 발전기금회계 현황 - 세출)",
+      "family_code": "8-다",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "82",
+      "title": "8-라. 예·결산(합산재무제표) 현황",
+      "family_code": "8-라",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "255",
+      "title": "8-라-(1). 예·결산(합산재무제표) 현황(국립대법인,특별법법인)[PDF]",
+      "family_code": "8-라",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "Y",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "84",
+      "title": "8-마-1. 자금예산서(예산)",
+      "family_code": "8-마",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "86",
+      "title": "8-마-2. 자금계산서(결산)",
+      "family_code": "8-마",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "259",
+      "title": "8-마-2-(1). 감사증명서[PDF]",
+      "family_code": "8-마",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "Y",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "88",
+      "title": "8-마-3. 운영(손익) 계산서",
+      "family_code": "8-마",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "90",
+      "title": "8-마-4. 재무상태표",
+      "family_code": "8-마",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "284",
+      "title": "8-마-5. 법인회계 적립금 운용계획서[PDF]",
+      "family_code": "8-마",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "Y",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "93",
+      "title": "8-바-1-(1). 교비회계(통합)",
+      "family_code": "8-바",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "95",
+      "title": "8-바-1-(2). 등록금회계",
+      "family_code": "8-바",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "254",
+      "title": "8-바-1-(2)-1. 잉여금처리 원칙[PDF]",
+      "family_code": "8-바",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "Y",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "97",
+      "title": "8-바-1-(3). 비등록금회계",
+      "family_code": "8-바",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "100",
+      "title": "8-바-2-(1). 교비회계(통합)",
+      "family_code": "8-바",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "102",
+      "title": "8-바-2-(2). 등록금회계",
+      "family_code": "8-바",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "104",
+      "title": "8-바-2-(3). 비등록금회계",
+      "family_code": "8-바",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "107",
+      "title": "8-바-3-(1). 교비회계(통합)",
+      "family_code": "8-바",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "109",
+      "title": "8-바-3-(2). 등록금회계",
+      "family_code": "8-바",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "111",
+      "title": "8-바-3-(3). 비등록금회계",
+      "family_code": "8-바",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "114",
+      "title": "8-바-4-(1). 교비회계(통합)",
+      "family_code": "8-바",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "115",
+      "title": "8-바-4-(2). 등록금회계",
+      "family_code": "8-바",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "116",
+      "title": "8-바-4-(3). 비등록금회계",
+      "family_code": "8-바",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "285",
+      "title": "8-바-5. 교비회계 적립금 운용계획서[PDF]",
+      "family_code": "8-바",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "Y",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "117",
+      "title": "8-사. 적립금 현황",
+      "family_code": "8-사",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "119",
+      "title": "8-아. 기부금 현황",
+      "family_code": "8-아",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "121",
+      "title": "8-자-1. 현금예산서(예산)",
+      "family_code": "8-자",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "123",
+      "title": "8-자-2. 현금흐름표(결산)",
+      "family_code": "8-자",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "125",
+      "title": "8-자-3. 운영(손익) 계산서",
+      "family_code": "8-자",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "127",
+      "title": "8-자-4. 재무상태표",
+      "family_code": "8-자",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "132",
+      "title": "8-카-1-(1). 입학전형료 수입 현황",
+      "family_code": "8-카",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2025/01",
+        "2025/02",
+        "2026/01",
+        "2026/02"
+      ]
+    },
+    {
+      "item_id": "133",
+      "title": "8-카-1-(2). 입학전형 관련 지출 현황",
+      "family_code": "8-카",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2025/01",
+        "2025/02",
+        "2026/01",
+        "2026/02"
+      ]
+    },
+    {
+      "item_id": "134",
+      "title": "8-카-2. 입학전형료 산정 근거[PDF]",
+      "family_code": "8-카",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "Y",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2025/01",
+        "2025/02",
+        "2026/01",
+        "2026/02"
+      ]
+    },
+    {
+      "item_id": "286",
+      "title": "8-타. 대학의 장, 이사장 및 상근 이사의 업무추진비 사용 현황",
+      "family_code": "8-타",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "140",
+      "title": "9-나-1. 학생 1인당 교육비(국·공립대, 국립대법인, 특별법국립, 특별법법인)",
+      "family_code": "9-나",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "141",
+      "title": "9-나-2. 학생 1인당 교육비(사립)",
+      "family_code": "9-나",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2024/02",
+        "2024/04",
+        "2025/01",
+        "2025/02",
+        "2025/04",
+        "2026/01",
+        "2026/02",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "36",
+      "title": "4-아. 학사학위 전공심화과정 학생 현황",
+      "family_code": "4-아",
+      "category": null,
+      "mjr_use_step_cd": "2",
+      "viewer_levels": [
+        "school",
+        "department"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/01",
+        "2025/01",
+        "2026/01"
+      ]
+    },
+    {
+      "item_id": "19",
+      "title": "3-가-1. 신입생 모집요강[PDF]",
+      "family_code": "3-가",
+      "category": "학생",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "Y",
+      "available_in": [
+        "2024/02",
+        "2024/03",
+        "2024/04",
+        "2025/02",
+        "2025/03",
+        "2025/04",
+        "2026/02",
+        "2026/03",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "52",
+      "title": "6-나-(1). 전임교원 1인당 학생 수 및 전임교원 확보율",
+      "family_code": "6-나",
+      "category": "교원·연구",
+      "mjr_use_step_cd": "1",
+      "viewer_levels": [
+        "school",
+        "department"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/02",
+        "2025/02",
+        "2026/02"
+      ]
+    },
+    {
+      "item_id": "282",
+      "title": "3-나. 전임 입학사정관 현황",
+      "family_code": "3-나",
+      "category": "교육여건",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/02",
+        "2025/02",
+        "2026/02"
+      ]
+    },
+    {
+      "item_id": "283",
+      "title": "3-다. 학교생활기록부의 기록 등 교과성적 외의 자료를 활용하는 입학전형에서 서류평가를 담당한 평가자 1명당 서류평가 건수",
+      "family_code": "3-다",
+      "category": "교육여건",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/02",
+        "2025/02",
+        "2026/02"
+      ]
+    },
+    {
+      "item_id": "9",
+      "title": "2-가-1. 성적평가 결과(성적평가 분포)",
+      "family_code": "2-가",
+      "category": "학생",
+      "mjr_use_step_cd": "2",
+      "viewer_levels": [
+        "school",
+        "department"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/03",
+        "2024/04",
+        "2025/03",
+        "2025/04",
+        "2026/03",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "29",
+      "title": "4-라. 학생 충원 현황(편입학 포함)",
+      "family_code": "4-라",
+      "category": "학생",
+      "mjr_use_step_cd": "1",
+      "viewer_levels": [
+        "school",
+        "department"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/03",
+        "2024/04",
+        "2025/03",
+        "2025/04",
+        "2026/03",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "289",
+      "title": "5-가. 졸업생 현황",
+      "family_code": "5-가",
+      "category": "학생",
+      "mjr_use_step_cd": "2",
+      "viewer_levels": [
+        "school",
+        "department"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/03",
+        "2024/04",
+        "2025/03",
+        "2025/04",
+        "2026/03",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "291",
+      "title": "5-다. 졸업생의 취업 현황",
+      "family_code": "5-다",
+      "category": "학생",
+      "mjr_use_step_cd": "2",
+      "viewer_levels": [
+        "school",
+        "department"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/03",
+        "2024/04",
+        "2025/03",
+        "2025/04"
+      ]
+    },
+    {
+      "item_id": "129",
+      "title": "8-차. 등록금 현황",
+      "family_code": "8-차",
+      "category": "학생",
+      "mjr_use_step_cd": "2",
+      "viewer_levels": [
+        "school",
+        "department"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/03",
+        "2025/03",
+        "2026/03"
+      ]
+    },
+    {
+      "item_id": "52",
+      "title": "6-나. 전임교원 1인당 학생 수 및 전임교원 확보율",
+      "family_code": "6-나",
+      "category": "교원·연구",
+      "mjr_use_step_cd": "1",
+      "viewer_levels": [
+        "school",
+        "department"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2024/04",
+        "2025/04",
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "132",
+      "title": "8-카-1-(1). 입학전형료 수입 현황(2022년 삭제항목)",
+      "family_code": "8-카",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "133",
+      "title": "8-카-1-(2). 입학전형료 지출 현황(2022년 삭제항목)",
+      "family_code": "8-카",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "N",
+      "available_in": [
+        "2026/04"
+      ]
+    },
+    {
+      "item_id": "134",
+      "title": "8-카-2. 입학전형료 산정 근거[PDF](2022년 삭제항목)",
+      "family_code": "8-카",
+      "category": "예·결산",
+      "mjr_use_step_cd": "0",
+      "viewer_levels": [
+        "school"
+      ],
+      "pdf_use_yn": "Y",
+      "available_in": [
+        "2026/04"
+      ]
+    }
+  ]
+}
+

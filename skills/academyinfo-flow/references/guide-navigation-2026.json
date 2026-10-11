@@ -1,0 +1,4527 @@
+{
+  "schema_version": 1,
+  "edition_year": 2026,
+  "purpose": "Document navigation and concise interpretation notes; no statistical observations or manual full text",
+  "source": {
+    "title": "2026년 대학정보공시 지침서",
+    "publisher": "한국대학교육협의회",
+    "report_number": "RM 2026-7-1156",
+    "pdf_pages": 338,
+    "sha256": "77b489ae054a2fe741d6b41071a79b3e2e04d949197c2d30f9dd84419990dde7",
+    "public_institution_pdf_url": "https://www.jangan.ac.kr/bbs/jangan/301/26420/download.do",
+    "public_institution_landing_url": "https://www.jangan.ac.kr/bbs/jangan/301/20715/artclView.do",
+    "official_publisher_pdf_url": null,
+    "latest_training_landing_url": "https://www.jangan.ac.kr/bbs/jangan/301/22315/artclView.do",
+    "latest_training_manual_url": "https://www.jangan.ac.kr/bbs/jangan/301/27729/download.do",
+    "latest_training_changes_url": "https://www.jangan.ac.kr/bbs/jangan/301/27727/download.do",
+    "revision_status": "Latest October-training PDF freshly fetched; SHA256 matches the indexed 338-page RM 2026-7-1156 edition. Changes/errata still require item-specific review.",
+    "latest_training_verified_utc": "2026-10-11T15:10:58.309143+00:00",
+    "latest_training_manual_sha256": "77b489ae054a2fe741d6b41071a79b3e2e04d949197c2d30f9dd84419990dde7"
+  },
+  "chapters": [
+    {
+      "field": 1,
+      "title": "학교규칙 등 학교운영에 관한 규정"
+    },
+    {
+      "field": 2,
+      "title": "교육과정 편성 및 운영 등에 관한 사항"
+    },
+    {
+      "field": 3,
+      "title": "학생의 선발 방법 및 일정에 관한 사항"
+    },
+    {
+      "field": 4,
+      "title": "충원율, 재학생 수 등 학생 현황에 관한 사항"
+    },
+    {
+      "field": 5,
+      "title": "졸업 후 진학 및 취업 현황 등 학생의 진로에 관한 사항"
+    },
+    {
+      "field": 6,
+      "title": "전임교원 현황에 관한 사항"
+    },
+    {
+      "field": 7,
+      "title": "전임교원의 연구 성과에 관한 사항"
+    },
+    {
+      "field": 8,
+      "title": "예･결산 내역 등 학교 및 법인의 회계에 관한 사항"
+    },
+    {
+      "field": 9,
+      "title": "등록금 및 학생 1인당 교육비의 산정근거에 관한 사항"
+    },
+    {
+      "field": 10,
+      "title": "｢고등교육법｣ 제60조부터 제62조까지의 시정명령 등에 관한 사항"
+    },
+    {
+      "field": 11,
+      "title": "학교 발전계획 및 특성화계획"
+    },
+    {
+      "field": 12,
+      "title": "교원의 연구･학생에 대한 교육 및 산학협력 현황"
+    },
+    {
+      "field": 13,
+      "title": "도서관 및 연구에 대한 지원 현황"
+    },
+    {
+      "field": 14,
+      "title": "그 밖에 교육여건 및 학교운영 상태 등에 관한 사항"
+    }
+  ],
+  "families": [
+    {
+      "code": "1-가",
+      "title": "학교규칙 및 그 밖에 학교운영에 관한 각종 규정[PDF]",
+      "pdf_pages": [
+        49,
+        50
+      ],
+      "printed_pages": [
+        41,
+        42
+      ],
+      "applicable_divisions": [
+        "02",
+        "03",
+        "01",
+        "04"
+      ],
+      "publication_timing": "수시",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "2",
+          "title": "1-가. 학교규칙 및 그 밖에 학교운영에 관한 각종 규정[PDF]",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "Y",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/03",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/03",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/03",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "2-가",
+      "title": "성적평가 결과(성적평가 분포)",
+      "pdf_pages": [
+        53,
+        60
+      ],
+      "printed_pages": [
+        45,
+        52
+      ],
+      "applicable_divisions": [
+        "02",
+        "03",
+        "01",
+        "04"
+      ],
+      "publication_timing": "8월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "9",
+          "title": "2-가-1. 전공과목 성적 분포",
+          "viewer_levels": [
+            "school",
+            "department"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2025/01",
+            "2025/02",
+            "2026/01",
+            "2026/02"
+          ]
+        },
+        {
+          "item_id": "10",
+          "title": "2-가-2. 교양과목 성적 분포",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2025/01",
+            "2025/02",
+            "2026/01",
+            "2026/02"
+          ]
+        },
+        {
+          "item_id": "11",
+          "title": "2-가-3. 교직과목 성적 분포",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2025/01",
+            "2025/02",
+            "2026/01",
+            "2026/02"
+          ]
+        },
+        {
+          "item_id": "12",
+          "title": "2-가-4. 졸업생의 졸업성적 분포",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/03",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/03",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/03",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "9",
+          "title": "2-가-1. 성적평가 결과(성적평가 분포)",
+          "viewer_levels": [
+            "school",
+            "department"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/03",
+            "2024/04",
+            "2025/03",
+            "2025/04",
+            "2026/03",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "3-가",
+      "title": "모집요강(편입학 포함)",
+      "pdf_pages": [
+        63,
+        66
+      ],
+      "printed_pages": [
+        55,
+        58
+      ],
+      "applicable_divisions": [
+        "02",
+        "03",
+        "01",
+        "04"
+      ],
+      "publication_timing": "수시",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "19",
+          "title": "3-가-1. 신입생 모집요강[PDF](2024년 이전: 신입생 모집요강(편입학 포함))",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "Y",
+          "available_in": [
+            "2024/01",
+            "2025/01",
+            "2026/01"
+          ]
+        },
+        {
+          "item_id": "22",
+          "title": "3-가-2. 편입생 모집요강[PDF]",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "Y",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/03",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/03",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/03",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "19",
+          "title": "3-가-1. 신입생 모집요강[PDF]",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "Y",
+          "available_in": [
+            "2024/02",
+            "2024/03",
+            "2024/04",
+            "2025/02",
+            "2025/03",
+            "2025/04",
+            "2026/02",
+            "2026/03",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "3-나",
+      "title": "전임(專任) 입학사정관 현황",
+      "pdf_pages": [
+        67,
+        67
+      ],
+      "printed_pages": [
+        59,
+        59
+      ],
+      "applicable_divisions": [
+        "02"
+      ],
+      "publication_timing": "6월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "282",
+          "title": "3-나. 전임 입학사정관 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/02",
+            "2025/02",
+            "2026/02"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "3-다",
+      "title": "학교생활기록부의 기록 등 교과성적 외의 자료를 활용하는 입학전형에서 서류평가를 담당한 평가자 1명당 서류평가 건수",
+      "pdf_pages": [
+        68,
+        68
+      ],
+      "printed_pages": [
+        60,
+        60
+      ],
+      "applicable_divisions": [
+        "02"
+      ],
+      "publication_timing": "6월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "283",
+          "title": "3-다. 학교생활기록부의 기록 등 교과성적 외의 자료를 활용하는 입학전형에서 서류평가를 담당한 평가자 1명당 서류평가 건수",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/02",
+            "2025/02",
+            "2026/02"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "4-가",
+      "title": "입학전형 유형별 선발 결과",
+      "pdf_pages": [
+        71,
+        75
+      ],
+      "printed_pages": [
+        63,
+        67
+      ],
+      "applicable_divisions": [
+        "02",
+        "01"
+      ],
+      "publication_timing": "6월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "25",
+          "title": "4-가. 입학전형 유형별 선발 결과",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2025/01",
+            "2025/02",
+            "2026/01",
+            "2026/02"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "4-나",
+      "title": "기회 균형 선발 결과",
+      "pdf_pages": [
+        76,
+        80
+      ],
+      "printed_pages": [
+        68,
+        72
+      ],
+      "applicable_divisions": [
+        "02",
+        "01"
+      ],
+      "publication_timing": "6월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "26",
+          "title": "4-나. 기회 균형 선발 결과",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2025/01",
+            "2025/02",
+            "2026/01",
+            "2026/02"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "4-다",
+      "title": "신입생 충원 현황",
+      "pdf_pages": [
+        81,
+        85
+      ],
+      "printed_pages": [
+        73,
+        77
+      ],
+      "applicable_divisions": [
+        "02",
+        "03",
+        "01",
+        "04"
+      ],
+      "publication_timing": "8월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "27",
+          "title": "4-다. 신입생 충원 현황",
+          "viewer_levels": [
+            "school",
+            "department"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/03",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/03",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/03",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "4-라",
+      "title": "학생 충원 현황(편입학 포함)",
+      "pdf_pages": [
+        86,
+        94
+      ],
+      "printed_pages": [
+        78,
+        86
+      ],
+      "applicable_divisions": [
+        "02",
+        "03",
+        "01",
+        "04"
+      ],
+      "publication_timing": "8월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "29",
+          "title": "4-라-1. 재학생 충원율",
+          "viewer_levels": [
+            "school",
+            "department"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2025/01",
+            "2025/02",
+            "2026/01",
+            "2026/02"
+          ]
+        },
+        {
+          "item_id": "30",
+          "title": "4-라-2. 편입학 선발 결과",
+          "viewer_levels": [
+            "school",
+            "department"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2025/01",
+            "2025/02",
+            "2026/01",
+            "2026/02"
+          ]
+        },
+        {
+          "item_id": "29",
+          "title": "4-라. 학생 충원 현황(편입학 포함)",
+          "viewer_levels": [
+            "school",
+            "department"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/03",
+            "2024/04",
+            "2025/03",
+            "2025/04",
+            "2026/03",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "4-마",
+      "title": "재적 학생 현황",
+      "pdf_pages": [
+        95,
+        98
+      ],
+      "printed_pages": [
+        87,
+        90
+      ],
+      "applicable_divisions": [
+        "02",
+        "03",
+        "01",
+        "04"
+      ],
+      "publication_timing": "8월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "31",
+          "title": "4-마. 재적 학생 현황",
+          "viewer_levels": [
+            "school",
+            "department"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/03",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/03",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/03",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "4-바",
+      "title": "외국인 학생 현황",
+      "pdf_pages": [
+        99,
+        103
+      ],
+      "printed_pages": [
+        91,
+        95
+      ],
+      "applicable_divisions": [
+        "02",
+        "03",
+        "01",
+        "04"
+      ],
+      "publication_timing": "8월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "33",
+          "title": "4-바-1. 외국학생 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/03",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/03",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/03",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "34",
+          "title": "4-바-2. 외국학생 중도탈락 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/03",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/03",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/03",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "4-사",
+      "title": "중도탈락 학생 현황",
+      "pdf_pages": [
+        104,
+        105
+      ],
+      "printed_pages": [
+        96,
+        97
+      ],
+      "applicable_divisions": [
+        "02",
+        "03",
+        "01",
+        "04"
+      ],
+      "publication_timing": "8월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "35",
+          "title": "4-사. 중도탈락 학생 현황",
+          "viewer_levels": [
+            "school",
+            "department"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/03",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/03",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/03",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "4-아",
+      "title": "학사학위 전공심화과정 학생 현황",
+      "pdf_pages": [
+        106,
+        106
+      ],
+      "printed_pages": [
+        98,
+        98
+      ],
+      "applicable_divisions": [
+        "01"
+      ],
+      "publication_timing": "8월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "36",
+          "title": "4-아. 학사학위 전공심화과정 학생 현황",
+          "viewer_levels": [
+            "school",
+            "department"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2025/01",
+            "2026/01"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "4-자",
+      "title": "신입생의 출신 고등학교 유형별 현황",
+      "pdf_pages": [
+        107,
+        108
+      ],
+      "printed_pages": [
+        99,
+        100
+      ],
+      "applicable_divisions": [
+        "02",
+        "01"
+      ],
+      "publication_timing": "6월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "37",
+          "title": "4-자. 신입생의 출신 고등학교 유형별 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2025/01",
+            "2025/02",
+            "2026/01",
+            "2026/02"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "5-가",
+      "title": "졸업생 현황",
+      "pdf_pages": [
+        111,
+        112
+      ],
+      "printed_pages": [
+        103,
+        104
+      ],
+      "applicable_divisions": [
+        "02",
+        "03",
+        "01",
+        "04"
+      ],
+      "publication_timing": "8월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "39",
+          "title": "5-가. 졸업생 현황",
+          "viewer_levels": [
+            "school",
+            "department"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2025/01",
+            "2025/02",
+            "2026/01",
+            "2026/02"
+          ]
+        },
+        {
+          "item_id": "289",
+          "title": "5-가. 졸업생 현황",
+          "viewer_levels": [
+            "school",
+            "department"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/03",
+            "2024/04",
+            "2025/03",
+            "2025/04",
+            "2026/03",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "5-나",
+      "title": "졸업생의 진학 현황",
+      "pdf_pages": [
+        113,
+        116
+      ],
+      "printed_pages": [
+        105,
+        108
+      ],
+      "applicable_divisions": [
+        "02",
+        "03",
+        "01",
+        "04"
+      ],
+      "publication_timing": "취업통계 발표일부터 2개월 이내",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "290",
+          "title": "5-나. 졸업생의 진학 현황 ",
+          "viewer_levels": [
+            "school",
+            "department"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/03",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/03",
+            "2025/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "5-다",
+      "title": "졸업생의 취업 현황",
+      "pdf_pages": [
+        117,
+        122
+      ],
+      "printed_pages": [
+        109,
+        114
+      ],
+      "applicable_divisions": [
+        "02",
+        "03",
+        "01",
+        "04"
+      ],
+      "publication_timing": "취업통계 발표일부터 2개월 이내",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "46",
+          "title": "5-다. 졸업생의 취업 현황",
+          "viewer_levels": [
+            "school",
+            "department"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2025/01",
+            "2025/02"
+          ]
+        },
+        {
+          "item_id": "291",
+          "title": "5-다. 졸업생의 취업 현황",
+          "viewer_levels": [
+            "school",
+            "department"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/03",
+            "2024/04",
+            "2025/03",
+            "2025/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "6-가",
+      "title": "전체 교원 대비 전임교원 현황",
+      "pdf_pages": [
+        125,
+        130
+      ],
+      "printed_pages": [
+        117,
+        122
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "8월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "51",
+          "title": "6-가-1. 전체 교원 대비 전임교원 현황",
+          "viewer_levels": [
+            "school",
+            "department"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "277",
+          "title": "6-가-2. 전체 신규 전임교원 현황",
+          "viewer_levels": [
+            "school",
+            "department"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "6-나",
+      "title": "전임교원 1인당 학생 수 및 전임교원 확보율",
+      "pdf_pages": [
+        131,
+        141
+      ],
+      "printed_pages": [
+        123,
+        133
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "8월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "52",
+          "title": "6-나-(1). 전임교원 1인당 학생 수 및 전임교원 확보율(전문대학, 기능대학)",
+          "viewer_levels": [
+            "school",
+            "department"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2025/01",
+            "2026/01"
+          ]
+        },
+        {
+          "item_id": "265",
+          "title": "6-나-(2). 전임교원 1인당 학생 수 및 전임교원 확보율(사이버대학)(2017~)",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2025/01",
+            "2025/02",
+            "2026/01",
+            "2026/02"
+          ]
+        },
+        {
+          "item_id": "52",
+          "title": "6-나-(1). 전임교원 1인당 학생 수 및 전임교원 확보율",
+          "viewer_levels": [
+            "school",
+            "department"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/02",
+            "2025/02",
+            "2026/02"
+          ]
+        },
+        {
+          "item_id": "52",
+          "title": "6-나. 전임교원 1인당 학생 수 및 전임교원 확보율",
+          "viewer_levels": [
+            "school",
+            "department"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/04",
+            "2025/04",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "6-다",
+      "title": "외국인 전임교원 현황",
+      "pdf_pages": [
+        142,
+        144
+      ],
+      "printed_pages": [
+        134,
+        136
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "8월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "60",
+          "title": "6-다-1. 국가별 외국인 전임교원 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "61",
+          "title": "6-다-2. 전공계열별 외국인 전임교원 현황",
+          "viewer_levels": [
+            "school",
+            "department"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "7-가",
+      "title": "전임교원의 연구 실적",
+      "pdf_pages": [
+        147,
+        150
+      ],
+      "printed_pages": [
+        139,
+        142
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "8월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "63",
+          "title": "7-가. 전임교원의 연구 실적",
+          "viewer_levels": [
+            "school",
+            "department"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "8-가",
+      "title": "대학회계 예･결산 현황",
+      "pdf_pages": [
+        153,
+        156
+      ],
+      "printed_pages": [
+        145,
+        148
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "예산 6월 / 결산 8월",
+      "establishment_scope": "national_public",
+      "live_item_candidates": [
+        {
+          "item_id": "72",
+          "title": "8-가-1. 국·공립대 대학회계 예산(2014년 이전 : 기성회회계 현황 - 세입)",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "74",
+          "title": "8-가-2. 국·공립대 대학회계 결산(2014년 이전 : 기성회회계 현황 - 세출)",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "8-다",
+      "title": "발전기금 예･결산 현황",
+      "pdf_pages": [
+        157,
+        158
+      ],
+      "printed_pages": [
+        149,
+        150
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "예산 6월 / 결산 8월",
+      "establishment_scope": "national_public",
+      "live_item_candidates": [
+        {
+          "item_id": "78",
+          "title": "8-다-1. 국·공립대 발전기금회계 예산(2014년 이전 : 발전기금회계 현황 - 세입)",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "80",
+          "title": "8-다-2. 국·공립대 발전기금회계 결산(2014년 이전 : 발전기금회계 현황 - 세출)",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "8-라",
+      "title": "예･결산(합산 재무제표) 현황",
+      "pdf_pages": [
+        159,
+        159
+      ],
+      "printed_pages": [
+        151,
+        151
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "예산 6월 / 결산 8월",
+      "establishment_scope": "private",
+      "live_item_candidates": [
+        {
+          "item_id": "82",
+          "title": "8-라. 예·결산(합산재무제표) 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "255",
+          "title": "8-라-(1). 예·결산(합산재무제표) 현황(국립대법인,특별법법인)[PDF]",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "Y",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "8-마",
+      "title": "법인회계 예･결산 현황",
+      "pdf_pages": [
+        160,
+        165
+      ],
+      "printed_pages": [
+        152,
+        157
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "예산 6월 / 결산 8월",
+      "establishment_scope": "private",
+      "live_item_candidates": [
+        {
+          "item_id": "84",
+          "title": "8-마-1. 자금예산서(예산)",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "86",
+          "title": "8-마-2. 자금계산서(결산)",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "259",
+          "title": "8-마-2-(1). 감사증명서[PDF]",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "Y",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "88",
+          "title": "8-마-3. 운영(손익) 계산서",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "90",
+          "title": "8-마-4. 재무상태표",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "284",
+          "title": "8-마-5. 법인회계 적립금 운용계획서[PDF]",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "Y",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "8-바",
+      "title": "교비회계 예･결산 현황",
+      "pdf_pages": [
+        166,
+        180
+      ],
+      "printed_pages": [
+        158,
+        172
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "예산 6월 / 결산 8월",
+      "establishment_scope": "private",
+      "live_item_candidates": [
+        {
+          "item_id": "93",
+          "title": "8-바-1-(1). 교비회계(통합)",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "95",
+          "title": "8-바-1-(2). 등록금회계",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "254",
+          "title": "8-바-1-(2)-1. 잉여금처리 원칙[PDF]",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "Y",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "97",
+          "title": "8-바-1-(3). 비등록금회계",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "100",
+          "title": "8-바-2-(1). 교비회계(통합)",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "102",
+          "title": "8-바-2-(2). 등록금회계",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "104",
+          "title": "8-바-2-(3). 비등록금회계",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "107",
+          "title": "8-바-3-(1). 교비회계(통합)",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "109",
+          "title": "8-바-3-(2). 등록금회계",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "111",
+          "title": "8-바-3-(3). 비등록금회계",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "114",
+          "title": "8-바-4-(1). 교비회계(통합)",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "115",
+          "title": "8-바-4-(2). 등록금회계",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "116",
+          "title": "8-바-4-(3). 비등록금회계",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "285",
+          "title": "8-바-5. 교비회계 적립금 운용계획서[PDF]",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "Y",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "8-사",
+      "title": "적립금 현황",
+      "pdf_pages": [
+        181,
+        182
+      ],
+      "printed_pages": [
+        173,
+        174
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "결산 8월",
+      "establishment_scope": "private",
+      "live_item_candidates": [
+        {
+          "item_id": "117",
+          "title": "8-사. 적립금 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "8-아",
+      "title": "기부금 현황",
+      "pdf_pages": [
+        183,
+        183
+      ],
+      "printed_pages": [
+        175,
+        175
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "결산 8월",
+      "establishment_scope": "private",
+      "live_item_candidates": [
+        {
+          "item_id": "119",
+          "title": "8-아. 기부금 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "8-자",
+      "title": "산학협력단회계 현황",
+      "pdf_pages": [
+        184,
+        187
+      ],
+      "printed_pages": [
+        176,
+        179
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "예산 6월 / 결산 8월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "121",
+          "title": "8-자-1. 현금예산서(예산)",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "123",
+          "title": "8-자-2. 현금흐름표(결산)",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "125",
+          "title": "8-자-3. 운영(손익) 계산서",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "127",
+          "title": "8-자-4. 재무상태표",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "8-차",
+      "title": "등록금 현황",
+      "pdf_pages": [
+        188,
+        194
+      ],
+      "printed_pages": [
+        180,
+        186
+      ],
+      "applicable_divisions": [
+        "02",
+        "03",
+        "01",
+        "04"
+      ],
+      "publication_timing": "4월 / 8월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "129",
+          "title": "8-차-1. 등록금 현황",
+          "viewer_levels": [
+            "school",
+            "department"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "130",
+          "title": "8-차-2. 등록금 납부제도 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "129",
+          "title": "8-차. 등록금 현황",
+          "viewer_levels": [
+            "school",
+            "department"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/03",
+            "2025/03",
+            "2026/03"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "8-카",
+      "title": "입학 전형료 수입･지출 현황",
+      "pdf_pages": [
+        195,
+        199
+      ],
+      "printed_pages": [
+        187,
+        191
+      ],
+      "applicable_divisions": [
+        "02",
+        "01"
+      ],
+      "publication_timing": "8월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "132",
+          "title": "8-카-1-(1). 입학전형료 수입 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2025/01",
+            "2025/02",
+            "2026/01",
+            "2026/02"
+          ]
+        },
+        {
+          "item_id": "133",
+          "title": "8-카-1-(2). 입학전형 관련 지출 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2025/01",
+            "2025/02",
+            "2026/01",
+            "2026/02"
+          ]
+        },
+        {
+          "item_id": "134",
+          "title": "8-카-2. 입학전형료 산정 근거[PDF]",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "Y",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2025/01",
+            "2025/02",
+            "2026/01",
+            "2026/02"
+          ]
+        },
+        {
+          "item_id": "132",
+          "title": "8-카-1-(1). 입학전형료 수입 현황(2022년 삭제항목)",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "133",
+          "title": "8-카-1-(2). 입학전형료 지출 현황(2022년 삭제항목)",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "134",
+          "title": "8-카-2. 입학전형료 산정 근거[PDF](2022년 삭제항목)",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "Y",
+          "available_in": [
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "8-타",
+      "title": "대학의 장, 이사장 및 상근(常勤) 이사의 업무추진비 사용 현황",
+      "pdf_pages": [
+        200,
+        200
+      ],
+      "printed_pages": [
+        192,
+        192
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "8월",
+      "establishment_scope": "private",
+      "live_item_candidates": [
+        {
+          "item_id": "286",
+          "title": "8-타. 대학의 장, 이사장 및 상근 이사의 업무추진비 사용 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "9-가",
+      "title": "등록금 산정근거",
+      "pdf_pages": [
+        203,
+        219
+      ],
+      "printed_pages": [
+        195,
+        211
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "4월 / 수시",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "138",
+          "title": "9-가-1. 등록금 산정근거[PDF]",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "Y",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "257",
+          "title": "9-가-2. 등록금심의위원회 회의록",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "Y",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "9-나",
+      "title": "학생 1인당 교육비 산정근거",
+      "pdf_pages": [
+        220,
+        222
+      ],
+      "printed_pages": [
+        212,
+        214
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "8월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "140",
+          "title": "9-나-1. 학생 1인당 교육비(국·공립대, 국립대법인, 특별법국립, 특별법법인)",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "141",
+          "title": "9-나-2. 학생 1인당 교육비(사립)",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "10-가",
+      "title": "위반 내용 및 조치 결과",
+      "pdf_pages": [
+        225,
+        226
+      ],
+      "printed_pages": [
+        217,
+        218
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "수시",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "143",
+          "title": "10-가. 위반 내용 및 조치 결과",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "11-가",
+      "title": "학교 발전계획 및 특성화계획",
+      "pdf_pages": [
+        229,
+        230
+      ],
+      "printed_pages": [
+        221,
+        222
+      ],
+      "applicable_divisions": [
+        "02",
+        "03",
+        "01",
+        "04"
+      ],
+      "publication_timing": "수시",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "146",
+          "title": "11-가-1. 학교 발전계획 및 특성화 계획[PDF]",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "Y",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/03",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/03",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/03",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "12-가",
+      "title": "연구비 수혜 실적",
+      "pdf_pages": [
+        233,
+        234
+      ],
+      "printed_pages": [
+        225,
+        226
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "8월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "150",
+          "title": "12-가. 연구비 수혜 실적",
+          "viewer_levels": [
+            "school",
+            "department"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "12-나",
+      "title": "교원 강의 담당 현황",
+      "pdf_pages": [
+        235,
+        240
+      ],
+      "printed_pages": [
+        227,
+        232
+      ],
+      "applicable_divisions": [
+        "02",
+        "03",
+        "01",
+        "04"
+      ],
+      "publication_timing": "8월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "152",
+          "title": "12-나-1. 학생 규모별 강좌수",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2025/01",
+            "2025/02",
+            "2026/01",
+            "2026/02"
+          ]
+        },
+        {
+          "item_id": "153",
+          "title": "12-나-2. 교원 강의 담당 비율",
+          "viewer_levels": [
+            "school",
+            "department"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/03",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/03",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/03",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "154",
+          "title": "12-나-3. 대학 강의 공개 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "12-다",
+      "title": "장학금 수혜 현황",
+      "pdf_pages": [
+        241,
+        250
+      ],
+      "printed_pages": [
+        233,
+        242
+      ],
+      "applicable_divisions": [
+        "02",
+        "03",
+        "01",
+        "04"
+      ],
+      "publication_timing": "8월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "157",
+          "title": "12-다-1. 장학금 수혜 현황",
+          "viewer_levels": [
+            "school",
+            "department"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/03",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/03",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/03",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "158",
+          "title": "12-다-2. 학자금 대출 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "206",
+          "title": "12-다-4. 학비감면 준수 여부",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "12-라",
+      "title": "외국대학과 교류 현황",
+      "pdf_pages": [
+        251,
+        251
+      ],
+      "printed_pages": [
+        243,
+        243
+      ],
+      "applicable_divisions": [
+        "02",
+        "03",
+        "01",
+        "04"
+      ],
+      "publication_timing": "8월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "161",
+          "title": "12-라-2. 외국대학과 학점 교류 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/03",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/03",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/03",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "12-마",
+      "title": "대학의 사회봉사 역량",
+      "pdf_pages": [
+        252,
+        253
+      ],
+      "printed_pages": [
+        244,
+        245
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "4월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "263",
+          "title": "12-마. 대학의 사회봉사 역량",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "12-바",
+      "title": "대학의 원격강좌 현황",
+      "pdf_pages": [
+        254,
+        256
+      ],
+      "printed_pages": [
+        246,
+        248
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "6월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "163",
+          "title": "12-바. 대학의 원격강좌 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "12-사",
+      "title": "산학협력 친화형 교원인사 운영 현황[PDF]",
+      "pdf_pages": [
+        257,
+        258
+      ],
+      "printed_pages": [
+        249,
+        250
+      ],
+      "applicable_divisions": [
+        "02",
+        "01"
+      ],
+      "publication_timing": "6월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "164",
+          "title": "12-사. 산학협력 친화형 교원 인사 운영 현황[PDF]",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "Y",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2025/01",
+            "2025/02",
+            "2026/01",
+            "2026/02"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "12-아",
+      "title": "산업체 경력 전임교원 현황",
+      "pdf_pages": [
+        259,
+        260
+      ],
+      "printed_pages": [
+        251,
+        252
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "6월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "165",
+          "title": "12-아. 산업체 경력 전임교원 현황",
+          "viewer_levels": [
+            "school",
+            "department"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "12-차",
+      "title": "공동활용 연구장비 운영 현황",
+      "pdf_pages": [
+        261,
+        261
+      ],
+      "printed_pages": [
+        253,
+        253
+      ],
+      "applicable_divisions": [
+        "02",
+        "01"
+      ],
+      "publication_timing": "6월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "172",
+          "title": "12-차. 공동활용 연구장비 운영 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2025/01",
+            "2025/02",
+            "2026/01",
+            "2026/02"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "12-카",
+      "title": "현장중심 실무형 교육과정 개설 현황",
+      "pdf_pages": [
+        262,
+        274
+      ],
+      "printed_pages": [
+        254,
+        266
+      ],
+      "applicable_divisions": [
+        "02",
+        "03",
+        "01",
+        "04"
+      ],
+      "publication_timing": "6월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "175",
+          "title": "12-카-1. 현장실습 운영 현황",
+          "viewer_levels": [
+            "school",
+            "department"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2025/01",
+            "2025/02",
+            "2026/01",
+            "2026/02"
+          ]
+        },
+        {
+          "item_id": "176",
+          "title": "12-카-2. 캡스톤 디자인(창의적 설계) 운영 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2025/01",
+            "2025/02",
+            "2026/01",
+            "2026/02"
+          ]
+        },
+        {
+          "item_id": "177",
+          "title": "12-카-3. 학교기업 운영현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2025/01",
+            "2025/02",
+            "2026/01",
+            "2026/02"
+          ]
+        },
+        {
+          "item_id": "173",
+          "title": "12-카-4-(1). 계약학과 및 계약정원제 설치 운영 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/03",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/03",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/03",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "264",
+          "title": "12-카-4-(2). 주문식 교육과정 설치 운영 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/03",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/03",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/03",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "12-타",
+      "title": "기술이전 수입료 및 계약 실적",
+      "pdf_pages": [
+        275,
+        275
+      ],
+      "printed_pages": [
+        267,
+        267
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "6월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "178",
+          "title": "12-타. 기술이전 수입료 및 계약 실적",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "12-파",
+      "title": "특허 출원 및 등록 실적",
+      "pdf_pages": [
+        276,
+        276
+      ],
+      "printed_pages": [
+        268,
+        268
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "6월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "179",
+          "title": "12-파. 특허 출원 및 등록 실적",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "12-하",
+      "title": "창업 현황 및 창업교육 등 지원 현황",
+      "pdf_pages": [
+        277,
+        281
+      ],
+      "printed_pages": [
+        269,
+        273
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "6월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "180",
+          "title": "12-하-1-(1). 교원의 창업 및 창업지원 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "182",
+          "title": "12-하-1-(2). 학생의 창업 및 창업지원 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2025/01",
+            "2025/02",
+            "2026/01",
+            "2026/02"
+          ]
+        },
+        {
+          "item_id": "204",
+          "title": "12-하-2. 창업교육 지원 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2025/01",
+            "2025/02",
+            "2026/01",
+            "2026/02"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "12-거",
+      "title": "기술지주회사 운영 현황",
+      "pdf_pages": [
+        282,
+        284
+      ],
+      "printed_pages": [
+        274,
+        276
+      ],
+      "applicable_divisions": [
+        "02",
+        "01"
+      ],
+      "publication_timing": "6월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "183",
+          "title": "12-거. 기술지주회사 운영 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2025/01",
+            "2025/02",
+            "2026/01",
+            "2026/02"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "13-가",
+      "title": "장서 보유 및 도서관 자료 구입비 결산 현황",
+      "pdf_pages": [
+        287,
+        288
+      ],
+      "printed_pages": [
+        279,
+        280
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "10월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "185",
+          "title": "13-가 . 장서 보유 및 도서관 자료 구입비 결산 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "13-나",
+      "title": "대학 부설 연구소 현황",
+      "pdf_pages": [
+        289,
+        290
+      ],
+      "printed_pages": [
+        281,
+        282
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "8월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "187",
+          "title": "13-나. 대학 부설 연구소 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "14-가",
+      "title": "정관[PDF]",
+      "pdf_pages": [
+        293,
+        293
+      ],
+      "printed_pages": [
+        285,
+        285
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "수시",
+      "establishment_scope": "private",
+      "live_item_candidates": [
+        {
+          "item_id": "189",
+          "title": "14-가. 정관[PDF]",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "Y",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "14-나",
+      "title": "법인의 임원 현황",
+      "pdf_pages": [
+        294,
+        294
+      ],
+      "printed_pages": [
+        286,
+        286
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "수시",
+      "establishment_scope": "private",
+      "live_item_candidates": [
+        {
+          "item_id": "190",
+          "title": "14-나. 법인의 임원 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "14-다",
+      "title": "교지(校地) 확보 현황",
+      "pdf_pages": [
+        295,
+        295
+      ],
+      "printed_pages": [
+        287,
+        287
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "10월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "191",
+          "title": "14-다. 교지(校地) 확보 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "14-라",
+      "title": "교사(校舍)시설 확보 현황",
+      "pdf_pages": [
+        296,
+        298
+      ],
+      "printed_pages": [
+        288,
+        290
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "10월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "192",
+          "title": "14-라. 교사(校舍)시설 확보 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "14-마",
+      "title": "기숙사 현황",
+      "pdf_pages": [
+        299,
+        309
+      ],
+      "printed_pages": [
+        291,
+        301
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "10월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "193",
+          "title": "14-마-1. 기숙사 수용 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04"
+          ]
+        },
+        {
+          "item_id": "262",
+          "title": "14-마-2-(1). 기숙사 운영 결과(국·공립_민자)",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2025/01",
+            "2025/02"
+          ]
+        },
+        {
+          "item_id": "253",
+          "title": "14-마-2-(2). 기숙사 운영 결과(사립_행복_민자)",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2025/01",
+            "2025/02"
+          ]
+        },
+        {
+          "item_id": "278",
+          "title": "14-마-2-(3). 기숙사 운영 결과(국·공립_직영)",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2025/01",
+            "2025/02"
+          ]
+        },
+        {
+          "item_id": "280",
+          "title": "14-마-2-(4). 기숙사 운영 결과(사립_직영)",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2025/01",
+            "2025/02"
+          ]
+        },
+        {
+          "item_id": "266",
+          "title": "14-마-3. 기숙사비 납부제도 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "14-바",
+      "title": "수익용 기본재산 확보 현황",
+      "pdf_pages": [
+        310,
+        312
+      ],
+      "printed_pages": [
+        302,
+        304
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "10월",
+      "establishment_scope": "private",
+      "live_item_candidates": [
+        {
+          "item_id": "194",
+          "title": "14-바-1. 수익용 기본재산 확보 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04"
+          ]
+        },
+        {
+          "item_id": "205",
+          "title": "14-바-2. 법정부담금 부담 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "14-사",
+      "title": "직원 현황",
+      "pdf_pages": [
+        313,
+        314
+      ],
+      "printed_pages": [
+        305,
+        306
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "8월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "195",
+          "title": "14-사. 직원 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "14-자",
+      "title": "｢고등교육법｣ 제11조의2에 따른 대학 평가 결과[PDF]",
+      "pdf_pages": [
+        315,
+        318
+      ],
+      "printed_pages": [
+        307,
+        310
+      ],
+      "applicable_divisions": [
+        "02",
+        "03",
+        "01",
+        "04"
+      ],
+      "publication_timing": "수시",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "197",
+          "title": "14-자-1. 대학 자체 평가 결과[PDF]",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "Y",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/03",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/03",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/03",
+            "2026/04"
+          ]
+        },
+        {
+          "item_id": "267",
+          "title": "14-자-2. 대학별 평가 인증 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2025/01",
+            "2025/02",
+            "2026/01",
+            "2026/02"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "14-차",
+      "title": "강사 강의료",
+      "pdf_pages": [
+        319,
+        320
+      ],
+      "printed_pages": [
+        311,
+        312
+      ],
+      "applicable_divisions": [
+        "02",
+        "03",
+        "01",
+        "04"
+      ],
+      "publication_timing": "8월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "198",
+          "title": "14-차. 강사 강의료",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/03",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/03",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/03",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "14-카",
+      "title": "장애학생지원체제 구축 및 운영 현황",
+      "pdf_pages": [
+        321,
+        322
+      ],
+      "printed_pages": [
+        313,
+        314
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "8월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "199",
+          "title": "14-카. 장애학생지원체제 구축 및 운영 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04",
+            "2026/01",
+            "2026/02",
+            "2026/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "14-타",
+      "title": "성희롱･성폭력･가정폭력･성매매 예방교육 이수 현황",
+      "pdf_pages": [
+        323,
+        324
+      ],
+      "printed_pages": [
+        315,
+        316
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "10월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "279",
+          "title": "14-타. 성희롱·성폭력·가정폭력·성매매 예방교육 이수 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "14-파",
+      "title": "인권 보호 및 성희롱･성폭력 대응 전담 조직의 운영 현황",
+      "pdf_pages": [
+        325,
+        327
+      ],
+      "printed_pages": [
+        317,
+        319
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "10월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "287",
+          "title": "14-파. 인권 보호 및 성희롱·성폭력 대응 전담 조직의 운영 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    },
+    {
+      "code": "14-하",
+      "title": "안전관리 현황",
+      "pdf_pages": [
+        328,
+        336
+      ],
+      "printed_pages": [
+        320,
+        328
+      ],
+      "applicable_divisions": [
+        "02",
+        "01",
+        "04"
+      ],
+      "publication_timing": "10월",
+      "establishment_scope": "all",
+      "live_item_candidates": [
+        {
+          "item_id": "261",
+          "title": "14-하-1. 실험·실습실 안전관리 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2025/01",
+            "2025/02"
+          ]
+        },
+        {
+          "item_id": "260",
+          "title": "14-하-2. 시설 안전관리 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04"
+          ]
+        },
+        {
+          "item_id": "258",
+          "title": "14-하-3. 정보보안 및 개인정보보호 수준 진단",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04"
+          ]
+        },
+        {
+          "item_id": "288",
+          "title": "14-하-4. 안전관리 계획 및 안전사고 보험(공제) 현황",
+          "viewer_levels": [
+            "school"
+          ],
+          "pdf_use_yn": "N",
+          "available_in": [
+            "2024/01",
+            "2024/02",
+            "2024/04",
+            "2025/01",
+            "2025/02",
+            "2025/04"
+          ]
+        }
+      ],
+      "mapping_status": "title_code_candidates_confirm_against_live_catalog_and_form"
+    }
+  ],
+  "curated_notes": [
+    {
+      "item_codes": [
+        "2-가-1",
+        "2-가-2",
+        "2-가-3"
+      ],
+      "title": "성적분포",
+      "definition_edition": 2026,
+      "verification": "source_text_checked",
+      "source_pages": [
+        {
+          "pdf_page": 53,
+          "printed_page": 45
+        },
+        {
+          "pdf_page": 56,
+          "printed_page": 48
+        },
+        {
+          "pdf_page": 58,
+          "printed_page": 50
+        }
+      ],
+      "period": {
+        "academic_year": 2025,
+        "reference_date": "2026-04-01",
+        "collection_year": 2026
+      },
+      "units": [
+        "명",
+        "%",
+        "평점"
+      ],
+      "population_scope": "대학·전문대학 학부의 전공·교양·교직 인정 성적; 대학원용 별도 성적 양식에는 자동 적용하지 않음",
+      "denominator": "과목별 성적인정 학생수의 합",
+      "formula": null,
+      "cautions": [
+        "실인원과 다를 수 있다.",
+        "PASS/FAIL·비학위과정 등의 제외기준과 양식 차이를 유지한다."
+      ],
+      "runtime_item_id": null,
+      "runtime_mapping_status": "not_joined_to_current_catalog",
+      "automatic_application": false,
+      "required_before_application": [
+        "공시연도별 지침판 확인",
+        "해당 기관·학위과정 세부양식 일치",
+        "실제 서버 장표 ID와 공시항목 매핑 확인"
+      ],
+      "form_applicability_status": "requires_per_form_review"
+    },
+    {
+      "item_codes": [
+        "2-가-4"
+      ],
+      "title": "졸업성적",
+      "definition_edition": 2026,
+      "verification": "source_text_checked",
+      "source_pages": [
+        {
+          "pdf_page": 60,
+          "printed_page": 52
+        }
+      ],
+      "period": {
+        "graduation_cohorts": [
+          "2025-08",
+          "2026-02"
+        ],
+        "reference_date_kind": "졸업 시점",
+        "collection_year": 2026
+      },
+      "units": [
+        "명",
+        "%",
+        "점",
+        "평점"
+      ],
+      "population_scope": "2025년 후기와 2026년 전기 졸업자",
+      "denominator": "총 졸업자 수",
+      "formula": "구간별 졸업자 수 / 총 졸업자 수 × 100",
+      "cautions": [
+        "졸업 백분율 환산방법은 학교별로 다를 수 있다."
+      ],
+      "runtime_item_id": null,
+      "runtime_mapping_status": "not_joined_to_current_catalog",
+      "automatic_application": false,
+      "required_before_application": [
+        "공시연도별 지침판 확인",
+        "해당 기관·학위과정 세부양식 일치",
+        "실제 서버 장표 ID와 공시항목 매핑 확인"
+      ],
+      "form_applicability_status": "requires_per_form_review"
+    },
+    {
+      "item_codes": [
+        "4-가"
+      ],
+      "title": "전형별 선발",
+      "definition_edition": 2026,
+      "verification": "source_text_checked",
+      "source_pages": [
+        {
+          "pdf_page": 71,
+          "printed_page": 63
+        }
+      ],
+      "period": {
+        "academic_year": 2026,
+        "student_reference_month": "2026-03"
+      },
+      "units": [
+        "명",
+        "%"
+      ],
+      "population_scope": "2026년 3월 신입생",
+      "denominator": "해당 전형 모집인원",
+      "formula": null,
+      "cautions": [
+        "기술대학 제외. 원격대학은 최종 결과만 입력한다."
+      ],
+      "runtime_item_id": null,
+      "runtime_mapping_status": "not_joined_to_current_catalog",
+      "automatic_application": false,
+      "required_before_application": [
+        "공시연도별 지침판 확인",
+        "해당 기관·학위과정 세부양식 일치",
+        "실제 서버 장표 ID와 공시항목 매핑 확인"
+      ],
+      "form_applicability_status": "requires_per_form_review"
+    },
+    {
+      "item_codes": [
+        "4-나"
+      ],
+      "title": "기회균형 선발",
+      "definition_edition": 2026,
+      "verification": "source_text_checked",
+      "source_pages": [
+        {
+          "pdf_page": 76,
+          "printed_page": 68
+        },
+        {
+          "pdf_page": 77,
+          "printed_page": 69
+        }
+      ],
+      "period": {
+        "academic_year": 2026,
+        "student_reference_month": "2026-03"
+      },
+      "units": [
+        "명",
+        "%"
+      ],
+      "population_scope": "2026년 3월 신입생",
+      "denominator": "정원내와 정원외 총 입학자",
+      "formula": "기회균형 입학자 / 총 입학자 × 100",
+      "cautions": [
+        "기술대학 제외."
+      ],
+      "runtime_item_id": null,
+      "runtime_mapping_status": "not_joined_to_current_catalog",
+      "automatic_application": false,
+      "required_before_application": [
+        "공시연도별 지침판 확인",
+        "해당 기관·학위과정 세부양식 일치",
+        "실제 서버 장표 ID와 공시항목 매핑 확인"
+      ],
+      "form_applicability_status": "requires_per_form_review"
+    },
+    {
+      "item_codes": [
+        "4-다"
+      ],
+      "title": "신입생 충원",
+      "definition_edition": 2026,
+      "verification": "source_text_checked",
+      "source_pages": [
+        {
+          "pdf_page": 81,
+          "printed_page": 73
+        },
+        {
+          "pdf_page": 82,
+          "printed_page": 74
+        }
+      ],
+      "period": {
+        "quota_academic_year": 2026,
+        "student_cohort_month": "2026-03",
+        "student_reference_month": "2026-04"
+      },
+      "units": [
+        "명",
+        "%"
+      ],
+      "population_scope": "신입생이 있는 학과 또는 모집단위",
+      "denominator": "정원내 모집인원",
+      "formula": "충원율 = 정원내 입학자 / 정원내 모집인원 × 100; 경쟁률 = 정원내 지원자 / 정원내 모집인원",
+      "cautions": [
+        "입학정원과 모집인원은 다르다.",
+        "모집단위를 실제 학과로 임의 분할하지 않는다."
+      ],
+      "runtime_item_id": null,
+      "runtime_mapping_status": "not_joined_to_current_catalog",
+      "automatic_application": false,
+      "required_before_application": [
+        "공시연도별 지침판 확인",
+        "해당 기관·학위과정 세부양식 일치",
+        "실제 서버 장표 ID와 공시항목 매핑 확인"
+      ],
+      "form_applicability_status": "requires_per_form_review"
+    },
+    {
+      "item_codes": [
+        "4-라-1"
+      ],
+      "title": "재학생 충원",
+      "definition_edition": 2026,
+      "verification": "source_text_checked",
+      "source_pages": [
+        {
+          "pdf_page": 86,
+          "printed_page": 78
+        },
+        {
+          "pdf_page": 87,
+          "printed_page": 79
+        },
+        {
+          "pdf_page": 88,
+          "printed_page": 80
+        },
+        {
+          "pdf_page": 89,
+          "printed_page": 81
+        }
+      ],
+      "period": {
+        "observations": [
+          {
+            "label": "2025년 하반기",
+            "quota_date": "2025-04-01",
+            "student_date": "2025-10-01"
+          },
+          {
+            "label": "2026년 상반기",
+            "quota_date": "2026-04-01",
+            "student_date": "2026-04-01"
+          }
+        ]
+      },
+      "units": [
+        "명",
+        "%"
+      ],
+      "population_scope": "양식별 학생정원·재학생",
+      "denominator": "학생정원 - 학생모집정지인원",
+      "formula": "재학생 / (학생정원 - 학생모집정지인원) × 100",
+      "cautions": [
+        "학생정원 기준일과 재학생 기준일을 서로 분리한다.",
+        "법정 대계열을 표준분류 계열과 동일시하지 않는다."
+      ],
+      "runtime_item_id": null,
+      "runtime_mapping_status": "not_joined_to_current_catalog",
+      "automatic_application": false,
+      "required_before_application": [
+        "공시연도별 지침판 확인",
+        "해당 기관·학위과정 세부양식 일치",
+        "실제 서버 장표 ID와 공시항목 매핑 확인"
+      ],
+      "form_applicability_status": "requires_per_form_review"
+    },
+    {
+      "item_codes": [
+        "4-마"
+      ],
+      "title": "재적학생",
+      "definition_edition": 2026,
+      "verification": "source_text_checked",
+      "source_pages": [
+        {
+          "pdf_page": 95,
+          "printed_page": 87
+        },
+        {
+          "pdf_page": 96,
+          "printed_page": 88
+        }
+      ],
+      "period": {
+        "reference_date": "2026-04-01"
+      },
+      "units": [
+        "명"
+      ],
+      "population_scope": "재학생·휴학생·학사학위취득유예학생",
+      "denominator": null,
+      "formula": null,
+      "cautions": [
+        "재적과 재학을 동일한 수치로 사용하지 않는다."
+      ],
+      "runtime_item_id": null,
+      "runtime_mapping_status": "not_joined_to_current_catalog",
+      "automatic_application": false,
+      "required_before_application": [
+        "공시연도별 지침판 확인",
+        "해당 기관·학위과정 세부양식 일치",
+        "실제 서버 장표 ID와 공시항목 매핑 확인"
+      ],
+      "form_applicability_status": "requires_per_form_review"
+    },
+    {
+      "item_codes": [
+        "4-바-1"
+      ],
+      "title": "외국 학생",
+      "definition_edition": 2026,
+      "verification": "source_text_checked",
+      "source_pages": [
+        {
+          "pdf_page": 99,
+          "printed_page": 91
+        },
+        {
+          "pdf_page": 100,
+          "printed_page": 92
+        }
+      ],
+      "period": {
+        "reference_date": "2026-04-01"
+      },
+      "units": [
+        "명"
+      ],
+      "population_scope": "양식에 명시한 학위과정·공동운영·연수과정 외국 학생",
+      "denominator": null,
+      "formula": null,
+      "cautions": [
+        "재적 외국인 유학생과 모든 외국 학생 합계를 혼합하지 않는다."
+      ],
+      "runtime_item_id": null,
+      "runtime_mapping_status": "not_joined_to_current_catalog",
+      "automatic_application": false,
+      "required_before_application": [
+        "공시연도별 지침판 확인",
+        "해당 기관·학위과정 세부양식 일치",
+        "실제 서버 장표 ID와 공시항목 매핑 확인"
+      ],
+      "form_applicability_status": "requires_per_form_review"
+    },
+    {
+      "item_codes": [
+        "4-사"
+      ],
+      "title": "중도탈락",
+      "definition_edition": 2026,
+      "verification": "source_text_checked",
+      "source_pages": [
+        {
+          "pdf_page": 104,
+          "printed_page": 96
+        },
+        {
+          "pdf_page": 105,
+          "printed_page": 97
+        }
+      ],
+      "period": {
+        "academic_year": 2025,
+        "event_from": "2025-03-01",
+        "event_to": "2026-02-28",
+        "denominator_date": "2025-04-01"
+      },
+      "units": [
+        "명",
+        "%"
+      ],
+      "population_scope": "발생기간의 제적생과 자퇴생",
+      "denominator": "2025년 4월 1일 재적학생",
+      "formula": "중도탈락 학생 / 기준일 재적학생 × 100",
+      "cautions": [
+        "현재 재학생 수를 과거 발생기간의 분모로 대체하지 않는다."
+      ],
+      "runtime_item_id": null,
+      "runtime_mapping_status": "not_joined_to_current_catalog",
+      "automatic_application": false,
+      "required_before_application": [
+        "공시연도별 지침판 확인",
+        "해당 기관·학위과정 세부양식 일치",
+        "실제 서버 장표 ID와 공시항목 매핑 확인"
+      ],
+      "form_applicability_status": "requires_per_form_review"
+    },
+    {
+      "item_codes": [
+        "4-자"
+      ],
+      "title": "신입생 출신고",
+      "definition_edition": 2026,
+      "verification": "source_text_checked",
+      "source_pages": [
+        {
+          "pdf_page": 107,
+          "printed_page": 99
+        },
+        {
+          "pdf_page": 108,
+          "printed_page": 100
+        }
+      ],
+      "period": {
+        "academic_year": 2026,
+        "reference_month": "2026-03",
+        "classification_date_kind": "학생의 고교 입학 당시 학교유형"
+      },
+      "units": [
+        "명",
+        "%"
+      ],
+      "population_scope": "정원내와 정원외 신입생",
+      "denominator": "총 입학자",
+      "formula": null,
+      "cautions": [
+        "대학과 전문대학의 전형유형 분류가 다르다.",
+        "기술대학 제외."
+      ],
+      "runtime_item_id": null,
+      "runtime_mapping_status": "not_joined_to_current_catalog",
+      "automatic_application": false,
+      "required_before_application": [
+        "공시연도별 지침판 확인",
+        "해당 기관·학위과정 세부양식 일치",
+        "실제 서버 장표 ID와 공시항목 매핑 확인"
+      ],
+      "form_applicability_status": "requires_per_form_review"
+    },
+    {
+      "item_codes": [
+        "5-다"
+      ],
+      "title": "졸업생 취업",
+      "definition_edition": 2026,
+      "verification": "source_text_checked",
+      "source_pages": [
+        {
+          "pdf_page": 117,
+          "printed_page": 109
+        },
+        {
+          "pdf_page": 118,
+          "printed_page": 110
+        },
+        {
+          "pdf_page": 119,
+          "printed_page": 111
+        }
+      ],
+      "period": {
+        "graduation_cohorts": [
+          "2024-08",
+          "2025-02"
+        ],
+        "employment_reference_date": "2025-12-31",
+        "collection_year": 2026,
+        "retention_observation_months": [
+          "2026-03",
+          "2026-06",
+          "2026-09",
+          "2026-11"
+        ]
+      },
+      "units": [
+        "명",
+        "%"
+      ],
+      "population_scope": "대상 졸업 코호트가 있는 학과",
+      "denominator": "졸업자 - 진학자 - 입대자 - 취업불가능자 - 외국인유학생 - 제외인정자",
+      "formula": "취업자 / 취업대상자 × 100",
+      "cautions": [
+        "공시연도·졸업연도·취업 기준일·원자료 조사연도가 서로 다르다.",
+        "2026 조사 전용 예외를 과거에 소급하지 않는다."
+      ],
+      "runtime_item_id": null,
+      "runtime_mapping_status": "not_joined_to_current_catalog",
+      "automatic_application": false,
+      "required_before_application": [
+        "공시연도별 지침판 확인",
+        "해당 기관·학위과정 세부양식 일치",
+        "실제 서버 장표 ID와 공시항목 매핑 확인"
+      ],
+      "form_applicability_status": "requires_per_form_review"
+    },
+    {
+      "item_codes": [
+        "6-나-(1)"
+      ],
+      "title": "교원당 학생과 교원 확보율",
+      "definition_edition": 2026,
+      "verification": "source_text_checked",
+      "source_pages": [
+        {
+          "pdf_page": 131,
+          "printed_page": 123
+        },
+        {
+          "pdf_page": 132,
+          "printed_page": 124
+        },
+        {
+          "pdf_page": 133,
+          "printed_page": 125
+        },
+        {
+          "pdf_page": 134,
+          "printed_page": 126
+        }
+      ],
+      "period": {
+        "reference_date": "2026-04-01"
+      },
+      "units": [
+        "명",
+        "%"
+      ],
+      "population_scope": "대학 양식은 학부와 대학원 학생을 함께 포함하며 전문대학·대학원대학 양식은 따로 있다.",
+      "denominator": "교원당 학생 수: 해당 전임교원; 확보율: 해당 법정 교원정원",
+      "formula": "학생 수 / 전임교원 수; 전임교원 수 / 법정 교원정원 × 100",
+      "cautions": [
+        "사이버대학의 별도 양식과 환산규칙에 이 산식을 자동 적용하지 않는다."
+      ],
+      "runtime_item_id": null,
+      "runtime_mapping_status": "not_joined_to_current_catalog",
+      "automatic_application": false,
+      "required_before_application": [
+        "공시연도별 지침판 확인",
+        "해당 기관·학위과정 세부양식 일치",
+        "실제 서버 장표 ID와 공시항목 매핑 확인"
+      ],
+      "form_applicability_status": "requires_per_form_review"
+    },
+    {
+      "item_codes": [
+        "12-다-1"
+      ],
+      "title": "장학금",
+      "definition_edition": 2026,
+      "verification": "source_text_checked",
+      "source_pages": [
+        {
+          "pdf_page": 241,
+          "printed_page": 233
+        },
+        {
+          "pdf_page": 242,
+          "printed_page": 234
+        },
+        {
+          "pdf_page": 243,
+          "printed_page": 235
+        },
+        {
+          "pdf_page": 244,
+          "printed_page": 236
+        }
+      ],
+      "period": {
+        "academic_year": 2025,
+        "terms": [
+          "1학기",
+          "2학기"
+        ],
+        "student_reference_dates": [
+          "2025-04-01",
+          "2025-10-01"
+        ]
+      },
+      "units": [
+        "명",
+        "원"
+      ],
+      "population_scope": "2025학년도 장학금; 기관별 양식과 학위과정 범위를 유지한다.",
+      "denominator": "(4월 1일 재학생 + 10월 1일 재학생) / 2",
+      "formula": "(교내 장학금 + 교외 장학금) / 학기평균 재학생",
+      "cautions": [
+        "학부·대학원 통합 학비감면 장표와 학생당 장학금 장표를 구분한다."
+      ],
+      "runtime_item_id": null,
+      "runtime_mapping_status": "not_joined_to_current_catalog",
+      "automatic_application": false,
+      "required_before_application": [
+        "공시연도별 지침판 확인",
+        "해당 기관·학위과정 세부양식 일치",
+        "실제 서버 장표 ID와 공시항목 매핑 확인"
+      ],
+      "form_applicability_status": "requires_per_form_review"
+    }
+  ],
+  "coverage": {
+    "item_families": 65,
+    "detail_forms_in_guide": 103,
+    "curated_notes": 13,
+    "all_form_semantics_verified": false
+  },
+  "policy": {
+    "page_range_requires_matching_pdf_hash": true,
+    "edition_must_match_publication_year": true,
+    "current_catalog_required": true,
+    "full_text_bundled": false
+  }
+}
+

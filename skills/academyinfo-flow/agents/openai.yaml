@@ -1,0 +1,5 @@
+interface:
+  display_name: "대학알리미FLOW"
+  short_description: "대학알리미 공식 서버에서 공시를 직접 조회하고 연도별 지침으로 해석"
+  default_prompt: "$academyinfo-flow로 대학알리미 공시를 직접 조회하고 대학·학과 단위 및 해당 연도 지침을 확인해 설명해 줘."
+
