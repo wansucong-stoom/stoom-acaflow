@@ -1,0 +1,16 @@
+{
+  "name": "stoom-acaflow",
+  "owner": {
+    "name": "STOOM"
+  },
+  "description": "대학알리미FLOW 공개 스킬 플러그인",
+  "plugins": [
+    {
+      "name": "academyinfo-flow",
+      "displayName": "대학알리미FLOW",
+      "source": "./",
+      "description": "대학알리미FLOW. 공식 대학·학과 공시 조회와 지침 확인.",
+      "version": "0.2.0"
+    }
+  ]
+}

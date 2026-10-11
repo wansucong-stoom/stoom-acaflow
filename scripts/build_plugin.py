@@ -22,6 +22,8 @@ def build(output: Path | None = None) -> Path:
     output = output.resolve()
     output.parent.mkdir(parents=True, exist_ok=True)
     files = [ROOT / "plugin.json", ROOT / ".codex-plugin/plugin.json"]
+    files.extend(ROOT / relative for relative in (".claude-plugin/plugin.json", "LICENSE")
+                 if (ROOT / relative).is_file())
     files.extend(path for path in sorted((ROOT / "skills").rglob("*"))
                  if path.is_file() and "__pycache__" not in path.parts
                  and path.suffix not in {".pyc", ".pyo"})

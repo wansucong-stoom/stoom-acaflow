@@ -457,9 +457,9 @@ def _numeric_result(args: argparse.Namespace, result: dict[str, Any], combined: 
     # Empty or unparsed responses cannot prove that a dimension filter exists.
     available_dimensions = {key for row in rows for key in row.get("dimensions", {})}
     filter_verified = filter_verified and set(filters).issubset(available_dimensions)
-    choices = {key: frozenset(names) for key, names in alternatives.items()}
+    choices = {key: frozenset(name.strip() for name in names) for key, names in alternatives.items()}
     matched = [row for row in rows if all(isinstance(row.get("dimensions", {}).get(key), str)
-                                       and row["dimensions"][key] in names
+                                       and row["dimensions"][key].strip() in names
                                        for key, names in choices.items())]
     selected = matched[args.offset:args.offset + args.limit]
     result["rows"] = [_public(row | {"source_request_page": row["source_page_index"] + 1})
@@ -469,6 +469,7 @@ def _numeric_result(args: argparse.Namespace, result: dict[str, Any], combined: 
     result["columns"] = [_public({key: value for key, value in col.items() if key in safe_column_keys})
                          for col in combined["columns"]]
     result["filters"] = {"match": "exact_any" if any(len(names) > 1 for names in alternatives.values()) else "exact",
+                         "normalization": "outer_whitespace_trim",
                          "dimensions": filters,
                          "verified_on_all_source_rows": filter_verified}
     result["granularity"] = {"requested_level": args.level,

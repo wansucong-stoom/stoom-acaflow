@@ -1,6 +1,14 @@
 __pycache__/
 *.py[cod]
-.pytest_cache/
 .venv/
+.pytest_cache/
+node_modules/
+outputs/
+*.xlsx
+*.pdf
+*.sqlite*
+*.db
+.env
+*.log
 dist/
 .coverage

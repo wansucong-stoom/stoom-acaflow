@@ -1,0 +1,14 @@
+{
+  "name": "academyinfo-flow",
+  "displayName": "대학알리미FLOW",
+  "version": "0.2.0",
+  "description": "대학알리미FLOW. 공식 공시를 새로 조회하고 연도별 지침으로 해석하는 스킬 플러그인.",
+  "author": {
+    "name": "STOOM",
+    "url": "https://github.com/wansucong-stoom"
+  },
+  "homepage": "https://github.com/wansucong-stoom/stoom-acaflow#readme",
+  "repository": "https://github.com/wansucong-stoom/stoom-acaflow",
+  "license": "MIT",
+  "keywords": ["대학알리미", "대학알리미FLOW", "대학정보공시", "대학", "학과", "공시지침"]
+}
