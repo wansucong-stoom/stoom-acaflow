@@ -41,7 +41,7 @@ AI는 저장소를 읽어 현재 클라이언트를 확인하고 설치·검증�
 | Codex | 개인 스킬 폴더 또는 스킬 플러그인 설치 | 읽기 도구를 먼저 확인하고, 없으면 제공 Python·원천 네트워크 점검. 파일·로딩·조회 각각 확인 |
 | Claude Code | 개인 스킬 또는 네이티브 플러그인 설치 | 플러그인의 MCP 설정과 실제 도구 로딩 확인. 개인 스킬 설치만으로 MCP가 등록되지는 않음 |
 
-현재 읽기 MCP는 서버 응답·7개 도구 발견과 2026 공개 연도·항목 목록, 한남대학교 캡스톤 장표 9쪽의 조회를 확인했습니다. ChatGPT 웹 한 대화의 scope·catalog·report MCP 조회 기록과 사용자 제공 Claude 웹 응답의 실제 원격 장표 조회 성공도 확인했습니다. 이는 모든 계정의 스킬 설치·연결 성공이나 지침 정의 검증 완료를 보장하지 않습니다. 계정 설정·Skills 설치 UI 전체는 별도 미검증입니다. 패키지 형식은 [OpenAI 플러그인 구성](https://developers.openai.com/plugins/concepts/plugins)을 참고하세요.
+현재 읽기 MCP는 ChatGPT 웹 한 대화의 scope·catalog·report MCP 조회 기록과 사용자 제공 Claude 웹 응답의 실제 원격 장표 조회 성공도 확인했습니다. 이는 모든 계정의 스킬 설치·연결 성공이나 지침 정의 검증 완료를 보장하지 않습니다. 계정 설정·Skills 설치 UI 전체는 별도 미검증입니다. 패키지 형식은 [OpenAI 플러그인 구성](https://developers.openai.com/plugins/concepts/plugins)을 참고하세요.
 
 웹의 계정별 등록·활성화·도구 응답은 [웹 전용 안내](docs/WEB-MCP.md)에 따라 확인합니다.
 
