@@ -14,7 +14,18 @@
 
 AI는 저장소를 읽어 현재 클라이언트를 확인하고 설치·검증까지 진행할 수 있습니다. Python 3.11 이상, Git 또는 다운로드 도구, 설치 경로에 대한 쓰기 권한이 필요합니다. 클라이언트가 둘 이상이거나 식별되지 않으면 설치 대상을 선택해야 합니다. 실행 환경에서 요구하는 권한 승인은 그대로 따릅니다.
 
-**일반 ChatGPT·Claude 웹 대화에 주소만 붙이는 것으로 로컬 스크립트가 실행되지는 않습니다.** 파일·Python·네트워크 실행 도구가 있는 환경이나, 별도로 구축한 원격 MCP 연결이 필요합니다. 이 저장소는 원격 서버 주소나 모든 웹 챗 환경의 자동 설치를 제공하지 않습니다. GitHub 공개와 각 서비스의 공식 플러그인 디렉터리 등록은 별도 절차입니다.
+**스킬은 현재 환경의 파일·Python 실행 도구와 공식 원천 네트워크를 사용합니다. MCP 연결은 필수 조건이 아닙니다.** 주소를 붙이거나 스킬을 불러오는 것만으로 최신 수치 조회가 성공하지는 않습니다. 이 저장소는 원격 서버 주소나 모든 웹 환경의 자동 실행을 제공하지 않습니다.
+
+| 환경 | 설치·불러오기 | 실제 조회 조건과 확인 범위 |
+| --- | --- | --- |
+| 일반 ChatGPT Chat | 계정·클라이언트가 제공하는 Skills/플러그인 설치 절차 | Python 3.11 이상 실행 도구와 원천 네트워크 필요. 이 저장소의 일반 웹 대화 전체 실행은 미검증 |
+| Claude 웹 | Claude 웹용 스킬 ZIP을 Skills에 업로드하고 활성화 | Code execution 활성화 후 런타임·원천 접근 확인. ZIP 검사와 실제 웹 세션 조회는 별개 |
+| Codex | 개인 스킬 폴더 또는 스킬 플러그인 설치 | 제공 Python과 허용된 원천 네트워크 사용. 파일 검증 후 조회 결과 확인 |
+| Claude Code | 개인 스킬 또는 네이티브 플러그인 설치 | 제공 Python과 허용된 원천 네트워크 사용. 실제 로딩은 해당 클라이언트에서 확인 |
+
+OpenAI는 Skills only 플러그인 형식을 안내합니다. 0.2.2는 특정 로컬 실행기 필수 선언을 해제하고 스킬의 실행 전 점검으로 조건을 확인합니다. 이 변경이 일반 ChatGPT 웹에서의 원천 조회 성공을 보장하지는 않습니다. [OpenAI 플러그인 구성](https://developers.openai.com/plugins/concepts/plugins)
+
+Claude 웹에서는 `academyinfo-flow-skill-claude-web-0.2.2.zip`을 **그대로** 업로드하세요. 최상위 `academyinfo-flow/` 안에 `SKILL.md`, `scripts/`, `references/`가 들어 있습니다. 플러그인 전체 ZIP이나 GitHub 소스 ZIP은 Skills 업로드용 파일과 구분합니다. 이미 이 단일 폴더 구조인 스킬 ZIP의 구조가 잘못됐다는 뜻이 아닙니다. [Claude 스킬 생성·업로드](https://support.claude.com/en/articles/12512198-how-to-create-custom-skills)
 
 ## 직접 설치하기
 
@@ -74,7 +85,13 @@ docs/INSTALL.md                 상세 설치 안내
 
 로컬 설치기는 같은 내용이면 그대로 두며, 다른 내용이 이미 있으면 `--update` 없이 덮어쓰지 않습니다. 업데이트는 이전 디렉터리를 스킬 탐색 경로 밖에 백업한 후 교체합니다. `--check`는 모든 포함 파일의 해시를 비교하고 파일을 변경하지 않습니다. 이것은 파일 설치 확인이며, 실제 서비스의 네트워크 조회나 화면에서의 스킬 로딩까지 증명하지는 않습니다.
 
-## 0.2.0에서 개선한 것
+## 0.2.2에서 개선한 것
+
+- **환경별 실행 전 점검:** Python과 선택 PDF 패키지를 확인하고, `--check-source`를 요청한 경우에만 공식 공개 연도를 새로 조회합니다.
+- **용도별 세 ZIP:** 플러그인, Codex 폴더 설치용 스킬, Claude 웹 업로드용 스킬을 별도 파일로 만듭니다. Claude 웹판은 Codex용 `agents/`만 제외하며 같은 핵심 코드를 담습니다.
+- **열 선택과 독자용 표기:** 전체 상위 헤더와 하위 열을 확인하고 원천 값과 파생 합계를 구분합니다. 본문은 학교·항목명·기간·단위·링크·조회일로 표기하며 원천 JSON의 식별자·좌표·해시는 유지합니다.
+
+0.2.0의 기존 조회·최적화 기능도 유지합니다.
 
 - **한 질문 안의 중복 조회 감소:** 같은 장표를 여러 대학·학과·반환 범위에 재사용하는 `live_batch.py`를 추가했습니다. 실행이 끝나면 재사용 자료를 폐기하고 다음 실행은 새로 조회합니다.
 - **다중 학교 필터:** `--school-name`, `--dept-name`을 반복 지정할 수 있습니다. 학교와 학과의 특정 쌍을 비교할 때는 일괄 조회의 개별 질문으로 나눕니다.
@@ -90,6 +107,7 @@ docs/INSTALL.md                 상세 설치 안내
 저장소를 받은 위치에서 실행합니다. 기본 통계 조회·표 복원은 Python 표준 라이브러리를 사용합니다. 지침/PDF 추출에만 추가로 `pdfplumber>=0.11,<1`이 필요합니다.
 
 ```sh
+python -B -X utf8 skills/academyinfo-flow/scripts/runtime_preflight.py
 python -B -X utf8 skills/academyinfo-flow/scripts/live_json.py scope
 python -B -X utf8 skills/academyinfo-flow/scripts/live_batch.py --input queries.json
 python -B -X utf8 skills/academyinfo-flow/scripts/live_batch.py --input queries.json --full-output
@@ -105,7 +123,15 @@ python -B -X utf8 scripts/build_plugin.py
 claude plugin validate .
 ```
 
-빌더는 `dist/academyinfo-flow-0.2.0.zip`을 만듭니다. 루트와 호환용 매니페스트, 스킬과 실행 파일을 포함하며 테스트·실행 캐시는 제외합니다. 플러그인 식별자와 기존 기본 프롬프트, 로컬 실행 요구조건을 보존합니다.
+빌더는 다음 세 파일을 만듭니다. 기존 식별자와 기본 프롬프트를 유지하며 테스트·실행 캐시는 제외합니다.
+
+| 파일 | 용도 |
+| --- | --- |
+| `dist/academyinfo-flow-plugin-0.2.2.zip` | 플러그인 설치·배포용 |
+| `dist/academyinfo-flow-skill-codex-0.2.2.zip` | 압축을 풀어 개인 스킬 상위 폴더에 설치 |
+| `dist/academyinfo-flow-skill-claude-web-0.2.2.zip` | Claude 웹 Skills에 그대로 업로드 |
+
+두 스킬 ZIP의 최상위 폴더는 `academyinfo-flow/`입니다. Codex판에는 `agents/openai.yaml`이 포함되며 Claude 웹판에서는 `agents/`를 제외합니다. 업로드·클라이언트 로딩·원천 조회를 각각 검증합니다.
 
 이전 설치본은 Git 이력의 `Import installed academyinfo-flow 0.1.0 source` 커밋에 보존했습니다. 해당 버전을 다른 경로에 체크아웃한 다음 다음 명령으로 표 복원 출력과 시간을 비교할 수 있습니다.
 

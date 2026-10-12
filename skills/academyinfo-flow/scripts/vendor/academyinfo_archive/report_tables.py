@@ -310,7 +310,9 @@ def _parse_table(cells: list[dict], metadata: dict, page_index: int,
         parents.sort(key=lambda c: (rect(c)[1], -rect(c)[3]))
         col.update({"x": leaf["geometry"]["x"], "width": leaf["geometry"]["width"],
                     "header_path": [c["text"] for c in parents],
-                    "header_item_indices": [c["item_index"] for c in parents]})
+                    "header_item_indices": [c["item_index"] for c in parents],
+                    "header_cells": [{"item_index": c["item_index"], "text": c["text"],
+                                      "geometry": dict(c["geometry"])} for c in parents]})
     # Confirm every header merge against the report's explicit row/column spans.
     # Formula headers may render differently, but their exact rectangles still
     # establish column identity; original formula and rendered text are retained.

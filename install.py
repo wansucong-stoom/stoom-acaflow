@@ -18,8 +18,9 @@ from uuid import uuid4
 SKILL_ID = "academyinfo-flow"
 DISPLAY_NAME = "대학알리미FLOW"
 REPOSITORY = "https://github.com/wansucong-stoom/stoom-acaflow"
-REQUIRED_FILES = ("SKILL.md", "scripts/live_json.py", "scripts/live_report.py", "scripts/live_guide.py")
-IGNORED_DIRS = {"__pycache__", ".git", ".pytest_cache"}
+REQUIRED_FILES = ("SKILL.md", "scripts/live_json.py", "scripts/live_report.py", "scripts/live_guide.py",
+                  "scripts/runtime_preflight.py", "scripts/select_columns.py")
+IGNORED_DIRS = {"__pycache__", ".git", ".pytest_cache", ".venv", "node_modules"}
 
 
 class InstallError(Exception):

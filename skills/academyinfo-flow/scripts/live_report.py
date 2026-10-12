@@ -465,7 +465,8 @@ def _numeric_result(args: argparse.Namespace, result: dict[str, Any], combined: 
     result["rows"] = [_public(row | {"source_request_page": row["source_page_index"] + 1})
                       for row in selected]
     safe_column_keys = {"key", "source_col_no", "source_field_id", "source_semantic_code",
-                        "header_path", "source_field_ids", "source_semantic_codes", "value_scope"}
+                        "header_path", "source_field_ids", "source_semantic_codes", "value_scope",
+                        "x", "width", "source_col_nos", "header_item_indices", "header_cells"}
     result["columns"] = [_public({key: value for key, value in col.items() if key in safe_column_keys})
                          for col in combined["columns"]]
     result["filters"] = {"match": "exact_any" if any(len(names) > 1 for names in alternatives.values()) else "exact",

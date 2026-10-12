@@ -15,10 +15,10 @@
         ],
         "developerName": "STOOM",
         "displayName": "대학알리미FLOW",
-        "longDescription": "대학알리미 공시 데이터를 새로 조회합니다. 공식 목록에서 대학·학과 조회 단위와 PDF 여부를 확인해 서버의 응답을 JSON으로 받아 분석하며, 해당 연도 지침의 단위·기준기간·산식·제외대상을 확인합니다. 한 질문 안의 중복 조회를 줄이는 일괄 조회를 지원합니다. Python을 실행할 수 있는 Codex 또는 로컬 실행 환경이 필요합니다.",
+        "longDescription": "대학알리미 공시 데이터를 새로 조회합니다. 공식 목록에서 대학·학과 조회 단위와 PDF 여부를 확인해 서버의 응답을 JSON으로 받아 분석하며, 해당 연도 지침의 단위·기준기간·산식·제외대상을 확인합니다. 한 질문 안의 중복 조회를 줄이는 일괄 조회를 지원합니다. Python 3.11 이상과 공식 원천 네트워크를 사용할 수 있는 실행 환경이 필요합니다. 웹·클라우드 환경은 실행 전 조건과 원천 조회 결과를 확인합니다.",
         "shortDescription": "공식 공시를 직접 조회하고 지침으로 해석"
       },
-      "requires_local_executor": true
+      "requires_local_executor": false
     }
   },
   "keywords": [
@@ -31,7 +31,7 @@
   ],
   "license": "MIT",
   "name": "academyinfo-flow",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "homepage": "https://github.com/wansucong-stoom/stoom-acaflow",
   "repository": "https://github.com/wansucong-stoom/stoom-acaflow"
 }
