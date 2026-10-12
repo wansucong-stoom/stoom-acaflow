@@ -4,6 +4,8 @@
 
 ## 사용자가 설치를 요청했을 때
 
+웹 설치·연결 요청은 먼저 [웹 MCP 연결 안내](docs/WEB-MCP.md)를 읽고 Claude와 ChatGPT의 등록·설치·대화 활성화 단계를 구분한다. 일반 채팅 첨부, Skills 업로드, MCP 등록은 서로 다르다. 전용 연결과 scope 실응답을 먼저 확인하고, 선택적인 스킬 ZIP은 [실제 배포 파일](downloads/README.md)에서 제공한다. GitHub 소스 ZIP을 웹 Skills ZIP으로 안내하거나 존재하지 않는 Releases 다운로드 링크를 제시하지 않는다. ChatGPT는 현재 공식 Plugins 등록·설치와 Work Quickstart 경로를 안내하며, 다른 Chat 화면의 가용성은 해당 계정에서 실제 확인한다.
+
 먼저 일반 ChatGPT Chat, Claude 웹, Codex, Claude Code 중 현재 환경을 구분한다. 연결된 읽기 MCP 도구가 실제로 제공되는지 발견하고 입력 schema를 확인한다. 가용 도구는 사용자 Python 없이 지원 범위의 공식 새 조회에 사용할 수 있다. Claude 웹에서 전용 도구가 없으면 아래 커넥터 등록·활성화를 먼저 안내한다. Python 대체 경로는 사용자의 선택과 실제 Python 3.11 이상 실행 도구·스킬 파일 접근·공식 원천 네트워크 조건에 따라 사용한다. 스킬 불러오기·파일 설치·MCP 연결·도구 가용성·원천 조회를 따로 보고한다.
 
 Claude 웹에는 `academyinfo-flow-skill-claude-web-<버전>.zip`을 그대로 업로드한다. 최상위 `academyinfo-flow/` 아래 `SKILL.md`, `scripts/`, `references/`를 확인한다. 단독 스킬 ZIP에는 MCP 설정이 없으며 계정의 연결 절차는 별도다. 현재 공식 안내상 Skills 기능은 Code execution 활성화를 요구하므로 계정·클라이언트의 활성 조건을 따른다. 읽기 MCP 조회에 사용자 Python 실행이 필요하지 않다는 점과 구분한다. Python 대체 경로를 쓸 때는 실행·원천 네트워크를 추가로 확인한다. 플러그인 ZIP·GitHub 소스 ZIP과 구분하며 이미 맞는 ZIP 계층을 불량으로 단정하지 않는다. 웹에서 개인 홈 설치기를 실행하지 않는다.

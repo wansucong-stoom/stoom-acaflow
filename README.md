@@ -6,7 +6,23 @@
 
 실제 작업 규칙은 `skills/academyinfo-flow/SKILL.md`에 있는 **스킬**, 이를 설치·공유하는 묶음은 **플러그인**입니다. 플러그인은 대학알리미 공식 원천을 새로 조회하는 STOOM 호스팅 읽기 MCP의 연결 설정을 포함합니다. endpoint는 `https://h-rules.stoom.win/api/academyinfo/mcp`입니다. 표시명은 모든 지원 화면에서 **대학알리미FLOW**로 통일하며, 설치 명령에 쓰는 내부 식별자는 `academyinfo-flow`입니다.
 
-## AI에게 주소를 주고 설치하기
+## 웹에서 먼저 연결하기
+
+**웹의 원격 MCP 연결과 선택적인 스킬 추가는 별도입니다.** 공식 수치 조회부터 시작하려면 전용 연결을 등록하고 대화에서 켜세요. 원격 MCP 조회에는 사용자의 Python 설치가 필요하지 않습니다.
+
+**[웹 MCP 연결 안내 바로 보기](docs/WEB-MCP.md)** — [Claude](docs/WEB-MCP.md#claude-웹) · [ChatGPT](docs/WEB-MCP.md#chatgpt-웹) · [실제 조회 확인](docs/WEB-MCP.md#연결과-실제-조회를-확인하기) · [문제 해결](docs/WEB-MCP.md#잘-안될-때)
+
+| 설정 | Claude 웹 | ChatGPT 웹 |
+| --- | --- | --- |
+| 이름 | 대학알리미FLOW | 대학알리미FLOW |
+| 서버 URL | `https://h-rules.stoom.win/api/academyinfo/mcp` | 같은 주소 |
+| 인증 | No sign in | No authentication |
+| 사용 준비 | 커넥터 등록 → 대화에서 켜기 | MCP 플러그인 생성 → 설치 → 대화에서 선택 |
+| 분석 지침 추가 | [웹용 스킬 ZIP](https://github.com/wansucong-stoom/stoom-acaflow/raw/refs/heads/main/downloads/academyinfo-flow-skill-claude-web-0.2.6.zip)을 Skills에 업로드 | 스킬과 MCP를 포함한 플러그인의 실제 로딩 확인 |
+
+[한남대 규정용 연결과의 구분, 계정 조건, 업로드 파일 형식](docs/WEB-MCP.md)을 먼저 확인하세요. 로컬 Codex·Claude Code 설치는 아래 절차입니다.
+
+## 로컬 AI에게 주소를 주고 설치하기
 
 파일을 읽고 명령을 실행할 수 있는 Codex 또는 Claude Code에 아래 요청을 전달하세요.
 
@@ -18,16 +34,14 @@ AI는 저장소를 읽어 현재 클라이언트를 확인하고 설치·검증�
 
 | 환경 | 설치·불러오기 | 실제 조회 조건과 확인 범위 |
 | --- | --- | --- |
-| 일반 ChatGPT Chat | 계정·클라이언트가 제공하는 Skills/플러그인·MCP 연결 절차 | 한 대화의 MCP 조회 기록 확인. 계정별 스킬 설치·연결·실제 도구·원천 응답은 각각 확인. 선택한 Python 경로는 런타임·네트워크 점검 |
+| ChatGPT 웹 | [MCP 플러그인 등록·설치·호출](docs/WEB-MCP.md#chatgpt-웹), Work부터 확인 | 한 대화의 MCP 조회 기록 확인. 계정별 스킬 설치·연결·실제 도구·원천 응답은 각각 확인. 선택한 Python 경로는 런타임·네트워크 점검 |
 | Claude 웹 | Skills ZIP 업로드와 전용 Connectors 등록·대화 활성화를 각각 수행 | Skills는 공식 활성 조건을 따름. 원격 MCP는 사용자 Python 없이 실행. 실제 도구·scope 응답 확인. 웹 전체 실행은 미검증 |
 | Codex | 개인 스킬 폴더 또는 스킬 플러그인 설치 | 읽기 도구를 먼저 확인하고, 없으면 제공 Python·원천 네트워크 점검. 파일·로딩·조회 각각 확인 |
 | Claude Code | 개인 스킬 또는 네이티브 플러그인 설치 | 플러그인의 MCP 설정과 실제 도구 로딩 확인. 개인 스킬 설치만으로 MCP가 등록되지는 않음 |
 
 현재 읽기 MCP는 서버 응답·7개 도구 발견과 2026 공개 연도·항목 목록, 한남대학교 캡스톤 장표 9쪽의 조회를 확인했습니다. ChatGPT 웹 한 대화의 scope·catalog·report MCP 조회 기록도 확인했습니다. 이는 모든 계정의 스킬 설치·연결 성공을 보장하지 않으며, 실제 스킬 설치까지 검증한 결과는 아닙니다. Claude 웹의 등록부터 조회까지 전체 실행은 미검증입니다. 패키지 형식은 [OpenAI 플러그인 구성](https://developers.openai.com/plugins/concepts/plugins)을 참고하세요.
 
-Claude 웹에서는 `academyinfo-flow-skill-claude-web-0.2.6.zip`을 **그대로** 업로드하세요. 최상위 `academyinfo-flow/` 안에 `SKILL.md`, `scripts/`, `references/`가 들어 있습니다. 현재 공식 안내상 Skills 기능은 Code execution 활성화를 요구하지만, Skills ZIP 업로드는 Connectors를 자동 등록하지 않습니다. 플러그인 전체 ZIP·GitHub 소스 ZIP과 구분하며 이미 이 단일 폴더 구조인 스킬 ZIP은 구조 조건을 충족합니다. [Claude 스킬 생성·업로드](https://support.claude.com/en/articles/12512198-how-to-create-custom-skills)
-
-Claude 웹의 **Settings 또는 Customize > Connectors**에서 **+ Add > Add custom connector** 또는 **Add > Custom > Web**을 엽니다. 이름은 **대학알리미FLOW**, URL은 `https://h-rules.stoom.win/api/academyinfo/mcp`로 등록합니다. 현재 공개 읽기 서버는 **No sign in**을 사용하며 추가 헤더·API 키가 필요하지 않습니다. 한남대 규정의 `/api/mcp`와는 별도 주소입니다. 대화의 **+ > Connectors** 또는 **Search and tools**에서 활성화한 뒤 `academyinfo_scope`, `academyinfo_catalog`, `academyinfo_report`의 실제 가용성과 schema를 확인하고 scope 응답부터 검증합니다. 상세한 계정 조건과 단계는 [Claude 웹 연결 안내](docs/INSTALL.md#claude-웹의-전용-커넥터-등록)를 읽으세요. [Claude 커넥터 사용](https://support.claude.com/en/articles/11176164-use-connectors-to-extend-claude-s-capabilities)
+웹의 계정별 등록·활성화·도구 응답은 [웹 전용 안내](docs/WEB-MCP.md)에 따라 확인합니다.
 
 ## 직접 설치하기
 

@@ -4,7 +4,18 @@
 
 0.2.6은 Claude 웹의 전용 커넥터 등록과 대화 활성화 안내를 추가합니다. 0.2.5에서 통합한 장표별 경로 관리·공식 파일 조회·읽기 MCP·평균 분석 기준은 유지합니다. 새 수치·현재 비교는 공식 원천에서 새로 조회하고, 사용자가 지정한 보존본·역사·스냅샷에는 자료 시점을 표시합니다. 경로 목록은 공개 호출 경로·인자·검증 근거의 메타데이터이며 이전 통계값으로 새 조회를 대신하지 않습니다. `route_registry.py lookup`은 Python 경로의 도구로, Python 없이 가용 읽기 MCP를 사용하는 환경에 실행을 강제하지 않습니다. 경로 기록·파일 조회는 [경로 관리](../skills/academyinfo-flow/references/route-management.md)를 참고하세요.
 
-## 가장 간단한 설치 요청
+## 사용할 환경부터 선택하세요
+
+| 환경 | 먼저 볼 안내 |
+| --- | --- |
+| Claude 웹 | [전용 MCP 등록과 대화 활성화](WEB-MCP.md#claude-웹), [선택적 스킬 ZIP 업로드](WEB-MCP.md#claude-웹에-스킬을-추가하기) |
+| ChatGPT 웹 | [MCP 플러그인 생성·설치·호출](WEB-MCP.md#chatgpt-웹) |
+| 연결했는데 조회가 안 됨 | [실제 조회 확인](WEB-MCP.md#연결과-실제-조회를-확인하기), [문제 해결](WEB-MCP.md#잘-안될-때) |
+| 로컬 Codex·Claude Code | 아래 개인 스킬·플러그인 설치 절차 |
+
+**웹에서는 GitHub 주소를 채팅에 붙이거나 스킬 ZIP을 올리는 것만으로 MCP가 등록되지 않습니다.** 연결 URL·인증·계정 조건·성공 기준은 [웹 MCP 연결 안내](WEB-MCP.md)에 정리했습니다.
+
+## 로컬 환경의 가장 간단한 설치 요청
 
 파일과 명령을 실행할 수 있는 AI에게 다음 문장을 전달합니다.
 
@@ -110,17 +121,14 @@ python -m pip install "pdfplumber>=0.11,<1"
 
 서버의 endpoint 응답, 7개 읽기 도구 발견, 2026 공개 연도·공시 목록과 한남대학교 캡스톤 장표 9쪽의 조회는 확인했습니다. **ChatGPT 웹 한 대화의 scope·catalog·report MCP 조회 기록도 확인했습니다.** 이는 모든 계정의 스킬 설치·연결 성공을 보장하지 않으며, 실제 스킬 설치까지 검증한 결과는 아닙니다. **Claude 웹의 등록부터 조회까지 전체 실행은 미검증입니다.** endpoint 존재, 계정의 실제 연결, 도구 가용성, 원천 조회를 구분합니다. 스킬을 불러오거나 ZIP을 검사한 결과만으로 최신 수치 조회 성공을 주장하지 않습니다.
 
-### Claude 웹의 전용 커넥터 등록
+### 웹 전용 등록·확인 안내
 
-**Skills ZIP 업로드는 Connectors 등록을 대신하지 않습니다.** Claude 웹 계정에서 전용 원격 MCP를 따로 등록하고 사용할 대화에서 켭니다. 현재 Free·Pro·Max·Team·Enterprise가 지원하며 Free는 custom connector 1개 제한이 있습니다. Team·Enterprise는 조직 소유자 등 등록 권한자가 먼저 조직에 추가해야 합니다. 계정의 실제 권한·제한을 확인하세요. [Claude 원격 MCP 등록 조건](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp)
+[웹 MCP 연결 안내](WEB-MCP.md)에서 호스트별 절차를 따릅니다. Claude는 커넥터 등록과 대화 활성화, ChatGPT는 MCP 플러그인 생성·설치와 대화 선택이 필요합니다. 공통 전용 주소와 무인증 설정, 공개 연도 조회로 연결을 확인하는 질문, 수치 장표 성공 기준을 제공합니다.
 
-1. **Settings 또는 Customize > Connectors**에서 **+ Add > Add custom connector**를 선택합니다. 현재 화면이 **Add > Custom > Web**이면 그 경로를 사용합니다.
-2. 이름은 **대학알리미FLOW**, 원격 MCP URL은 `https://h-rules.stoom.win/api/academyinfo/mcp`를 입력합니다. 한남대 규정의 `https://h-rules.stoom.win/api/mcp`와 구분합니다.
-3. 현재 공개 무인증 읽기 서버이므로 인증은 **No sign in**, 추가 Request headers는 비워 둡니다. 임의 API 키·토큰·OAuth 자격정보를 만들지 않습니다. 화면 절차에 따라 등록을 마칩니다.
-4. 사용할 대화의 **+ > Connectors** 또는 **Search and tools**에서 **대학알리미FLOW**를 활성화합니다. 메뉴 명칭은 현재 클라이언트 표시를 따릅니다. [Claude 커넥터 등록·대화 활성화](https://support.claude.com/en/articles/11176164-use-connectors-to-extend-claude-s-capabilities)
-5. `academyinfo_scope`, `academyinfo_catalog`, `academyinfo_report`가 실제로 제공되는지와 입력 schema를 확인합니다. 호스트가 도구 이름에 접두사를 붙이면 실제 발견된 이름을 사용합니다. 먼저 scope의 실응답으로 공개 연도를 확인한 뒤 그 연도·항목·조회 단위에 맞는 도구를 사용합니다. 등록 화면의 완료 표시만으로 공식 조회 성공을 주장하지 않습니다.
-
-Skills의 Code execution 활성 조건, 원격 MCP 연결, Python 실행 환경의 외부 통신은 서로 다른 조건입니다. 원격 커넥터 호출은 Anthropic 클라우드에서 서버에 도달합니다. 사용자의 Python 실행이나 로컬 네트워크 경로를 사용하는 조회와 구분합니다. [Claude 원격 MCP 네트워크 설명](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp)
+- [Claude 웹 커넥터 등록](WEB-MCP.md#claude-웹)
+- [ChatGPT 웹 MCP 플러그인 등록](WEB-MCP.md#chatgpt-웹)
+- [Claude 웹용 스킬 ZIP 다운로드·업로드](WEB-MCP.md#claude-웹에-스킬을-추가하기)
+- [미연결·권한·원천 실패·부분 응답 문제 해결](WEB-MCP.md#잘-안될-때)
 
 ### 연결 설정 파일의 용도
 
@@ -155,7 +163,7 @@ Skills의 Code execution 활성 조건, 원격 MCP 연결, Python 실행 환경�
 
 | 환경 | 설치 방식 | 검증할 조건 |
 | --- | --- | --- |
-| 일반 ChatGPT Chat | 현재 계정·클라이언트의 Skills/플러그인·MCP 연결 절차 | 한 대화의 MCP 조회 기록 확인. 계정별 스킬 설치·로딩·연결·실제 도구·원천 응답은 각각 확인 |
+| ChatGPT 웹 | [MCP 플러그인 등록·설치·호출](WEB-MCP.md#chatgpt-웹), Work부터 확인 | 한 대화의 MCP 조회 기록 확인. 계정별 스킬 설치·로딩·연결·실제 도구·원천 응답은 각각 확인 |
 | Claude 웹 | `academyinfo-flow-skill-claude-web-0.2.6.zip` 업로드와 전용 Connectors 등록·대화 활성화 | Skills는 공식 활성 조건을 따름. 실제 읽기 도구·scope 응답 확인. MCP 조회에는 사용자 Python 실행 불필요. 웹 전체 실행은 미검증 |
 | Codex | 위 설치기 또는 `academyinfo-flow-skill-codex-0.2.6.zip` 폴더 설치, 또는 플러그인 설치 | 파일 일치·클라이언트 로딩·가용 MCP 도구 확인. 선택한 Python 경로는 런타임·네트워크 점검 |
 | Claude Code | 위 개인 스킬 또는 네이티브 플러그인 | 파일·목록·클라이언트 로딩·실제 MCP 도구·원천 응답 확인. 필요하면 Python 점검 |
