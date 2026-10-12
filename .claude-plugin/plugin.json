@@ -1,8 +1,8 @@
 {
   "name": "academyinfo-flow",
   "displayName": "대학알리미FLOW",
-  "version": "0.2.2",
-  "description": "대학알리미FLOW. 공식 공시를 새로 조회하고 연도별 지침으로 해석하는 스킬 플러그인.",
+  "version": "0.2.3",
+  "description": "대학알리미FLOW. 검증된 장표별 경로·아카이브·공식 공시를 활용하고 조회 이력과 호출 규칙을 누적하는 스킬 플러그인.",
   "author": {
     "name": "STOOM",
     "url": "https://github.com/wansucong-stoom"

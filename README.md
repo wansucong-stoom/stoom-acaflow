@@ -2,7 +2,7 @@
 
 [GitHub 소스 · 설치 주소](https://github.com/wansucong-stoom/stoom-acaflow)
 
-**대학알리미FLOW는 대학알리미 공식 서버에서 대학·학과 공시를 새로 조회하고, 해당 연도 지침의 기준·단위·산식을 확인해 답변하는 스킬 플러그인입니다.** STOOM이 개발하며, 공개 조회 스크립트와 사용 지침을 함께 제공합니다.
+**대학알리미FLOW는 확보한 장표별 조회 경로와 연결된 아카이브를 먼저 활용하고, 필요한 범위를 공식 원천에서 보완해 대학·학과 공시를 분석하는 스킬 플러그인입니다.** 실제 조회에서 검증한 경로와 공통 호출 규칙을 누적하며 해당 연도 지침의 기준·단위·산식을 확인합니다. STOOM이 개발합니다.
 
 실제 작업 규칙은 `skills/academyinfo-flow/SKILL.md`에 있는 **스킬**, 이를 설치·공유하는 묶음은 **플러그인**입니다. 이 버전에는 **MCP 서버가 없습니다.** 표시명은 모든 지원 화면에서 **대학알리미FLOW**로 통일하며, 설치 명령에 쓰는 내부 식별자는 `academyinfo-flow`입니다.
 
@@ -25,7 +25,7 @@ AI는 저장소를 읽어 현재 클라이언트를 확인하고 설치·검증�
 
 OpenAI는 Skills only 플러그인 형식을 안내합니다. 0.2.2는 특정 로컬 실행기 필수 선언을 해제하고 스킬의 실행 전 점검으로 조건을 확인합니다. 이 변경이 일반 ChatGPT 웹에서의 원천 조회 성공을 보장하지는 않습니다. [OpenAI 플러그인 구성](https://developers.openai.com/plugins/concepts/plugins)
 
-Claude 웹에서는 `academyinfo-flow-skill-claude-web-0.2.2.zip`을 **그대로** 업로드하세요. 최상위 `academyinfo-flow/` 안에 `SKILL.md`, `scripts/`, `references/`가 들어 있습니다. 플러그인 전체 ZIP이나 GitHub 소스 ZIP은 Skills 업로드용 파일과 구분합니다. 이미 이 단일 폴더 구조인 스킬 ZIP의 구조가 잘못됐다는 뜻이 아닙니다. [Claude 스킬 생성·업로드](https://support.claude.com/en/articles/12512198-how-to-create-custom-skills)
+Claude 웹에서는 `academyinfo-flow-skill-claude-web-0.2.3.zip`을 **그대로** 업로드하세요. 최상위 `academyinfo-flow/` 안에 `SKILL.md`, `scripts/`, `references/`가 들어 있습니다. 플러그인 전체 ZIP이나 GitHub 소스 ZIP은 Skills 업로드용 파일과 구분합니다. 이미 이 단일 폴더 구조인 스킬 ZIP의 구조가 잘못됐다는 뜻이 아닙니다. [Claude 스킬 생성·업로드](https://support.claude.com/en/articles/12512198-how-to-create-custom-skills)
 
 ## 직접 설치하기
 
@@ -65,7 +65,7 @@ claude plugin list
 
 요청할 때마다 공개 연도와 관련 원천 값을 확인합니다. 대학·학과·계열과 캠퍼스, 공시연도·기준기간, 단위·분모를 구분합니다. 빈 결과·미공개·미지원은 숫자 0으로 바꾸지 않습니다. 수치와 출처, 조회 시각, 확인한 범위 및 제한을 함께 제시합니다.
 
-일반 공시 장표는 공식 전국 표를 조회한 후 학교·학과로 필터링하므로 응답 시간이 달라질 수 있습니다. 같은 대화에서 확인한 선택자나 지침 정의를 재사용할 수 있지만, 새로운 수치 요청은 공식 원천을 다시 조회합니다. 모든 장표가 동일한 속도로 처리되거나 항상 몇 초 안에 완료되는 것은 아닙니다.
+확보한 경로·연결된 아카이브를 우선 확인하고 부족한 범위나 변경분을 공식 원천에서 보완합니다. 같은 내용의 공식 추이 파일이 있으면 필요한 파일 한 개를 받아 장기 시계열을 분석할 수 있습니다. 일반 라이브 장표는 전국 표를 받은 뒤 학교·학과로 필터링하므로 응답 시간이 달라질 수 있습니다. 보존본과 새 조회의 시점은 구분해 표시합니다.
 
 ## 실행 조건과 포함 범위
 
@@ -85,7 +85,16 @@ docs/INSTALL.md                 상세 설치 안내
 
 로컬 설치기는 같은 내용이면 그대로 두며, 다른 내용이 이미 있으면 `--update` 없이 덮어쓰지 않습니다. 업데이트는 이전 디렉터리를 스킬 탐색 경로 밖에 백업한 후 교체합니다. `--check`는 모든 포함 파일의 해시를 비교하고 파일을 변경하지 않습니다. 이것은 파일 설치 확인이며, 실제 서비스의 네트워크 조회나 화면에서의 스킬 로딩까지 증명하지는 않습니다.
 
-## 0.2.2에서 개선한 것
+## 0.2.3에서 개선한 것
+
+- **장표별 경로 목록:** 기존 아카이브 다운로드 명세와 기관별 공식 공시목록을 `references/query-routes.json`으로 보관합니다. 필요한 장표만 조회하고 설치된 캐시 밖의 작업 폴더에 검증 이력을 누적합니다.
+- **공통 호출 규칙 학습:** 같은 방식·호스트·경로·공개 인자 키를 묶고, 공식 목록에 있는 선택자만 새 후보로 만듭니다. 후보와 본문 검증 성공을 구분하며 실패가 마지막 성공 기록을 덮어쓰지 않습니다.
+- **공식 시계열 파일 직접 조회:** `live_files.py`가 실제 파일 목록·목적 등록·첨부파일 검증을 수행합니다. 웹의 HTTP 도구도 같은 공개 경로와 명세를 사용할 수 있습니다.
+- **조회 때 자동 기록:** JSON·장표·일괄·파일 CLI가 공개 경로 메타데이터를 기록합니다. 숫자·쿠키·SQL·세션 URL은 경로 저장소에 넣지 않습니다. 저장 실패는 통계 조회 결과를 바꾸지 않습니다.
+
+경로 정책과 사용법은 [경로 관리](skills/academyinfo-flow/references/route-management.md)를 참고하세요. 같은 기록을 여러 웹 세션에서 누적하려면 상태 파일을 영속 저장소에 보관하고 다음 실행에 제공해야 합니다.
+
+## 0.2.2의 개선 사항
 
 - **환경별 실행 전 점검:** Python과 선택 PDF 패키지를 확인하고, `--check-source`를 요청한 경우에만 공식 공개 연도를 새로 조회합니다.
 - **용도별 세 ZIP:** 플러그인, Codex 폴더 설치용 스킬, Claude 웹 업로드용 스킬을 별도 파일로 만듭니다. Claude 웹판은 Codex용 `agents/`만 제외하며 같은 핵심 코드를 담습니다.
@@ -111,6 +120,8 @@ python -B -X utf8 skills/academyinfo-flow/scripts/runtime_preflight.py
 python -B -X utf8 skills/academyinfo-flow/scripts/live_json.py scope
 python -B -X utf8 skills/academyinfo-flow/scripts/live_batch.py --input queries.json
 python -B -X utf8 skills/academyinfo-flow/scripts/live_batch.py --input queries.json --full-output
+python -B -X utf8 skills/academyinfo-flow/scripts/route_registry.py lookup --keyword "신입생 충원" --division 02 --level department
+python -B -X utf8 skills/academyinfo-flow/scripts/live_files.py catalog --division 02
 ```
 
 조회조건 JSON에는 먼저 공식 목록으로 확인한 연도·항목 ID·학교/학과 식별자를 넣습니다. 지원 명령·입력 예시·반환 상태·측정 구간은 [실행 지침](skills/academyinfo-flow/SKILL.md)과 [일괄 조회 명세](skills/academyinfo-flow/references/performance.md)를 참조하세요.
@@ -127,9 +138,9 @@ claude plugin validate .
 
 | 파일 | 용도 |
 | --- | --- |
-| `dist/academyinfo-flow-plugin-0.2.2.zip` | 플러그인 설치·배포용 |
-| `dist/academyinfo-flow-skill-codex-0.2.2.zip` | 압축을 풀어 개인 스킬 상위 폴더에 설치 |
-| `dist/academyinfo-flow-skill-claude-web-0.2.2.zip` | Claude 웹 Skills에 그대로 업로드 |
+| `dist/academyinfo-flow-plugin-0.2.3.zip` | 플러그인 설치·배포용 |
+| `dist/academyinfo-flow-skill-codex-0.2.3.zip` | 압축을 풀어 개인 스킬 상위 폴더에 설치 |
+| `dist/academyinfo-flow-skill-claude-web-0.2.3.zip` | Claude 웹 Skills에 그대로 업로드 |
 
 두 스킬 ZIP의 최상위 폴더는 `academyinfo-flow/`입니다. Codex판에는 `agents/openai.yaml`이 포함되며 Claude 웹판에서는 `agents/`를 제외합니다. 업로드·클라이언트 로딩·원천 조회를 각각 검증합니다.
 

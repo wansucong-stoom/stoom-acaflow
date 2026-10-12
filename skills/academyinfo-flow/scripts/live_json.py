@@ -443,6 +443,12 @@ def main(argv: list[str] | None = None) -> int:
         result = _finish(result)
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
+    try:
+        import route_registry
+        result["route_registry"] = route_registry.observe_result(result)
+    except Exception:
+        result["route_registry"] = {"recorded": False, "route_count": 0,
+                                    "warning": "경로 메타데이터를 기록하지 못했습니다. 원천 조회 결과는 유지합니다."}
     print(json.dumps(result, ensure_ascii=False, allow_nan=False))
     return 0 if result["status"] == "ok" and not result.get("error") else 2
 
