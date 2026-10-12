@@ -17,7 +17,17 @@ description: 대학알리미FLOW. 대학·학과 공시의 새 수치·현재 �
 4. 어느 경로든 같은 요청에서 확보한 scope 응답을 재사용하여 중복 조회하지 않는다. Python preflight의 `source.scope_response`도 첫 scope 결과로 사용할 수 있다. Python PDF 파싱이 필요할 때만 `--require-pdf`로 선택 의존성을 확인한다. 필요한 도구·네트워크가 없거나 점검이 실패하면 확보한 범위와 미검증·제한을 설명하고, 최신 수치를 조회했다고 주장하지 않는다. 스킬을 읽는 것만으로 파일·실행·네트워크 권한이 생기지 않는다.
 5. 사용자가 지정한 보존본·역사·스냅샷만 분석하는 요청은 실제 아카이브 접근과 자료 시점을 확인한다. 그 범위가 충분하면 공식 원천의 Python preflight를 강제하지 않는다. 현재 값도 요청했다면 그 범위는 별도로 새 조회한다. 로컬 PC·웹·클라우드라는 이름만으로 실행 가능 여부를 단정하지 않는다.
 
-플러그인은 공통 `mcp.json`(`streamable-http`)과 Codex·Claude Code 호환 `.mcp.json`(`http`)에 같은 원격 endpoint를 선언한다. 호환 manifest의 `mcpServers: "./.mcp.json"` 포인터는 후자를 가리킨다. 개인 스킬 설치기는 개인 MCP 설정을 수정하지 않으며, 단독 스킬 ZIP은 MCP 설정 없는 단일 `academyinfo-flow/` 폴더다. Claude 웹의 Skills 활성 조건은 공식 클라이언트를 따르며 현재 공식 안내상 Code execution 활성화가 필요하다. 이를 실제 읽기 MCP 조회에 사용자의 Python 실행이 필요하지 않다는 점과 구분한다. 서버 응답·7개 도구 발견·2026 scope/catalog·한남대 캡스톤 장표 9쪽 조회와 ChatGPT 웹 한 대화의 scope·catalog·report MCP 조회 기록은 확인했다. 이는 모든 계정의 스킬 설치·연결 성공을 보장하지 않으며 실제 스킬 설치까지 검증한 결과는 아니다. Claude 웹의 등록부터 조회까지 전체 실행은 미검증이다. 계정별 연결·도구 로딩·원천 조회를 각각 확인하며 설치·불러오기만으로 모든 조회가 가능하다고 보장하지 않는다.
+플러그인은 공통 `mcp.json`(`streamable-http`)과 Codex·Claude Code 호환 `.mcp.json`(`http`)에 같은 원격 endpoint를 선언한다. 호환 manifest의 `mcpServers: "./.mcp.json"` 포인터는 후자를 가리킨다. 개인 스킬 설치기는 개인 MCP 설정을 수정하지 않으며, 단독 스킬 ZIP은 MCP 설정 없는 단일 `academyinfo-flow/` 폴더다. Claude 웹의 Skills 활성 조건은 공식 클라이언트를 따르며 현재 공식 안내상 Code execution 활성화가 필요하다. 이를 실제 읽기 MCP 조회에 사용자의 Python 실행이 필요하지 않다는 점과 구분한다. 서버 응답·7개 도구 발견·2026 scope/catalog·한남대 캡스톤 장표 9쪽 조회와 ChatGPT 웹 한 대화의 scope·catalog·report MCP 조회 기록은 확인했다. 사용자 제공 Claude 웹 응답에서도 실제 원격 장표 조회 성공을 확인했으며, 계정 설정·Skills 설치 UI 전체 과정은 별도로 미검증이다. 이는 모든 계정의 스킬 설치·연결 성공이나 해당 연도 지침의 정의 검증까지 보장한 결과는 아니다. 계정별 연결·도구 로딩·원천 조회를 각각 확인하며 설치·불러오기만으로 모든 조회가 가능하다고 보장하지 않는다.
+
+### Claude 웹의 계정 등록과 대화에서 할 수 있는 일을 구분한다
+
+계정 설정을 변경할 실제 도구가 없는 일반 Claude 웹 대화에서는 AI가 사용자를 대신해 Code execution을 켜거나 Skills에 등록·활성화할 수 없다. 가능한 도구로 ZIP을 준비하거나 구조를 확인하고 사용자가 수행할 단계를 안내한다. 이를 다른 클라이언트나 계정 설정 도구를 가진 환경까지 모두 설치 불가로 확대하지 않는다.
+
+1. 개인 Free·Pro·Max 계정은 **Settings > Capabilities**에서 **Code execution and file creation**을 켠다. Team·Enterprise는 조직의 **Organization settings > Plugins & skills > Policy**에서 해당 기능과 Skills의 허용 상태·개인 업로드 권한을 확인한다.
+2. 사용자가 **Customize > Skills > + > Create skill > Upload a skill**에서 올바른 스킬 ZIP을 업로드하고 목록에서 켠다. 화면의 **+ Create skill** 표시는 같은 생성 단계다. [Claude 공식 Skills 활성화·업로드 절차](https://support.claude.com/en/articles/12512180-use-skills-in-claude)
+3. **대화에 ZIP 첨부**, **ZIP 구조 검수**, **계정 Skills 등록**, **Skills 활성화**, **MCP 연결·도구 가용성**은 각각 확인하고 보고한다. ZIP을 읽거나 검사한 것만으로 계정 등록·활성화 성공을 주장하지 않는다. MCP는 아래 절차로 별도 확인한다.
+
+현재 대화에 실제 MCP 도구가 제공되고 사용자가 공시 조회를 요청했다면 스킬 수동 설치가 끝나기를 기다리지 않고 그 조회를 진행할 수 있다. 계정 등록이 확인되지 않은 스킬이 자동 적용됐다고 주장하지 않는다. 설치 안내만 요청한 경우에는 새 통계 조회를 임의로 추가하지 않는다.
 
 ### Claude 웹에서는 커넥터를 별도로 등록한다
 
