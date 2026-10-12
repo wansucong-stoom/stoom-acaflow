@@ -4,11 +4,15 @@
 
 ## 사용자가 설치를 요청했을 때
 
-먼저 일반 ChatGPT Chat, Claude 웹, Codex, Claude Code 중 현재 환경을 구분한다. 연결된 읽기 MCP 도구가 실제로 제공되는지 발견하고 입력 schema를 확인한다. 가용 도구는 사용자 Python 없이 지원 범위의 공식 새 조회에 사용할 수 있다. MCP가 없거나 요청 기능을 지원하지 않으면 Python 3.11 이상 실행 도구·스킬 파일 접근·공식 원천 네트워크를 점검한다. 스킬 불러오기·파일 설치·MCP 연결·도구 가용성·원천 조회를 따로 보고한다.
+먼저 일반 ChatGPT Chat, Claude 웹, Codex, Claude Code 중 현재 환경을 구분한다. 연결된 읽기 MCP 도구가 실제로 제공되는지 발견하고 입력 schema를 확인한다. 가용 도구는 사용자 Python 없이 지원 범위의 공식 새 조회에 사용할 수 있다. Claude 웹에서 전용 도구가 없으면 아래 커넥터 등록·활성화를 먼저 안내한다. Python 대체 경로는 사용자의 선택과 실제 Python 3.11 이상 실행 도구·스킬 파일 접근·공식 원천 네트워크 조건에 따라 사용한다. 스킬 불러오기·파일 설치·MCP 연결·도구 가용성·원천 조회를 따로 보고한다.
 
 Claude 웹에는 `academyinfo-flow-skill-claude-web-<버전>.zip`을 그대로 업로드한다. 최상위 `academyinfo-flow/` 아래 `SKILL.md`, `scripts/`, `references/`를 확인한다. 단독 스킬 ZIP에는 MCP 설정이 없으며 계정의 연결 절차는 별도다. 현재 공식 안내상 Skills 기능은 Code execution 활성화를 요구하므로 계정·클라이언트의 활성 조건을 따른다. 읽기 MCP 조회에 사용자 Python 실행이 필요하지 않다는 점과 구분한다. Python 대체 경로를 쓸 때는 실행·원천 네트워크를 추가로 확인한다. 플러그인 ZIP·GitHub 소스 ZIP과 구분하며 이미 맞는 ZIP 계층을 불량으로 단정하지 않는다. 웹에서 개인 홈 설치기를 실행하지 않는다.
 
-일반 ChatGPT Chat은 현재 계정·클라이언트가 제공하는 Skills/플러그인·MCP 연결 기능을 사용한다. endpoint가 존재한다는 사실을 계정 연결이나 도구 로딩 성공으로 취급하지 않는다. 서버 응답·7개 읽기 도구 발견·2026 scope/catalog·한남대 캡스톤 장표 9쪽 조회는 확인했지만 일반 ChatGPT 웹의 스킬·MCP 전체 실행은 미검증이다. 로컬 파일·ZIP 또는 서버 호출 검증을 웹 전체 실행 검증으로 확대하지 않는다.
+Claude 웹 Skills ZIP은 원격 MCP를 자동 등록하지 않는다. **Settings 또는 Customize > Connectors > + Add > Add custom connector**(화면에 따라 **Add > Custom > Web**)에서 이름 **대학알리미FLOW**, URL `https://h-rules.stoom.win/api/academyinfo/mcp`를 입력하도록 안내한다. 현재 공개 읽기 서버에는 별도 로그인·고정 헤더가 필요하지 않으며 임의 인증키를 요구하지 않는다. 등록 뒤 대화의 **+ > Connectors** 또는 **Search and tools**에서 활성화하고 `academyinfo_scope`, `academyinfo_catalog`, `academyinfo_report` 등의 실제 도구·schema와 scope 응답을 확인한다. 한남대 규정용 `https://h-rules.stoom.win/api/mcp`는 다른 서비스다. 규정 도구만 있으면 대학알리미 연결로 취급하지 않는다. Free custom connector 1개 제한과 조직 관리자·개인 활성화 조건은 [공식 연결 안내](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp)를 따른다. 기존 커넥터를 임의 삭제하거나 URL을 교체하지 않는다.
+
+원격 MCP 연결은 Anthropic 클라우드에서 이루어지고, Python 원천 조회는 현재 코드 실행 환경의 네트워크를 사용한다. Skills 활성 조건·계정의 커넥터 조건·Python 네트워크 조건을 구분한다. `source_connection_error`만으로 대학알리미 도메인 허용목록 누락이나 요금제 문제를 단정하지 않는다. 실제 도구·오류·설정 근거를 확인하며 네트워크 확대나 요금제 변경부터 요구하지 않는다. 구체적인 등록·진단 절차는 [설치 안내](docs/INSTALL.md)를 따른다.
+
+일반 ChatGPT Chat은 현재 계정·클라이언트가 제공하는 Skills/플러그인·MCP 연결 기능을 사용한다. endpoint가 존재한다는 사실을 계정 연결이나 도구 로딩 성공으로 취급하지 않는다. 서버 응답·7개 읽기 도구 발견·2026 scope/catalog·한남대 캡스톤 장표 9쪽 조회와 ChatGPT 웹 한 대화의 scope·catalog·report MCP 조회 기록은 확인했다. 이를 모든 계정의 스킬 설치·연결 성공으로 확대하지 않으며, 실제 스킬 설치까지 검증한 것으로 보고하지 않는다. Claude 웹의 등록부터 조회까지 전체 실행은 미검증이다.
 
 다음 개인 폴더 설치 단계는 Codex·Claude Code에 적용한다.
 

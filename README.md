@@ -14,18 +14,20 @@
 
 AI는 저장소를 읽어 현재 클라이언트를 확인하고 설치·검증까지 진행할 수 있습니다. Python 3.11 이상, Git 또는 다운로드 도구, 설치 경로에 대한 쓰기 권한이 필요합니다. 클라이언트가 둘 이상이거나 식별되지 않으면 설치 대상을 선택해야 합니다. 실행 환경에서 요구하는 권한 승인은 그대로 따릅니다.
 
-**먼저 현재 대화에서 사용할 수 있는 읽기 MCP 도구를 발견하고 입력 schema를 확인합니다.** 연결된 도구가 있으면 공개 연도·공시 목록·학교·소속·학과·학과 주요지표·일반 장표를 새로 조회할 수 있으며, 이 경로에는 사용자의 Python이 필요하지 않습니다. MCP 도구가 없거나 요청 기능을 지원하지 않으면 현재 환경의 Python 3.11 이상 실행 도구와 공식 원천 네트워크를 점검해 번들 스크립트를 사용합니다. endpoint의 존재, 계정의 실제 연결, 도구 가용성, 웹에서의 전체 실행은 각각 확인해야 합니다.
+**먼저 현재 대화에서 사용할 수 있는 읽기 MCP 도구를 발견하고 입력 schema를 확인합니다.** 연결된 도구가 있으면 공개 연도·공시 목록·학교·소속·학과·학과 주요지표·일반 장표를 새로 조회할 수 있으며, 이 경로에는 사용자의 Python이 필요하지 않습니다. 도구가 없으면 먼저 현재 클라이언트의 MCP 등록·대화 활성화 절차를 확인합니다. 사용자가 Python 대체 경로를 선택한 경우 실행 도구·Python 3.11 이상·공식 원천 네트워크를 실제로 점검해 번들 스크립트를 사용합니다. endpoint의 존재, 계정의 실제 연결, 도구 가용성, 웹에서의 전체 실행은 각각 확인해야 합니다.
 
 | 환경 | 설치·불러오기 | 실제 조회 조건과 확인 범위 |
 | --- | --- | --- |
-| 일반 ChatGPT Chat | 계정·클라이언트가 제공하는 Skills/플러그인·MCP 연결 절차 | 실제 읽기 도구·schema·원천 응답 확인. MCP가 없으면 Python·네트워크 확인. 일반 웹 대화의 스킬·MCP 전체 실행은 미검증 |
-| Claude 웹 | Claude 웹용 스킬 ZIP을 Skills에 업로드하고 활성화. MCP 연결은 별도 절차 | 공식 안내상 Skills 사용에는 Code execution 활성화 필요. 가용 읽기 MCP 조회에는 사용자 Python 실행 불필요. 실제 웹 세션 전체 실행은 미검증 |
+| 일반 ChatGPT Chat | 계정·클라이언트가 제공하는 Skills/플러그인·MCP 연결 절차 | 한 대화의 MCP 조회 기록 확인. 계정별 스킬 설치·연결·실제 도구·원천 응답은 각각 확인. 선택한 Python 경로는 런타임·네트워크 점검 |
+| Claude 웹 | Skills ZIP 업로드와 전용 Connectors 등록·대화 활성화를 각각 수행 | Skills는 공식 활성 조건을 따름. 원격 MCP는 사용자 Python 없이 실행. 실제 도구·scope 응답 확인. 웹 전체 실행은 미검증 |
 | Codex | 개인 스킬 폴더 또는 스킬 플러그인 설치 | 읽기 도구를 먼저 확인하고, 없으면 제공 Python·원천 네트워크 점검. 파일·로딩·조회 각각 확인 |
 | Claude Code | 개인 스킬 또는 네이티브 플러그인 설치 | 플러그인의 MCP 설정과 실제 도구 로딩 확인. 개인 스킬 설치만으로 MCP가 등록되지는 않음 |
 
-현재 읽기 MCP는 서버 응답·7개 도구 발견과 2026 공개 연도·항목 목록, 한남대학교 캡스톤 장표 9쪽의 조회를 확인했습니다. 이 검증은 일반 ChatGPT 웹 계정에서 플러그인·스킬·MCP를 연결해 실행하는 전체 절차의 검증과 별개입니다. 패키지 형식은 [OpenAI 플러그인 구성](https://developers.openai.com/plugins/concepts/plugins)을 참고하세요.
+현재 읽기 MCP는 서버 응답·7개 도구 발견과 2026 공개 연도·항목 목록, 한남대학교 캡스톤 장표 9쪽의 조회를 확인했습니다. ChatGPT 웹 한 대화의 scope·catalog·report MCP 조회 기록도 확인했습니다. 이는 모든 계정의 스킬 설치·연결 성공을 보장하지 않으며, 실제 스킬 설치까지 검증한 결과는 아닙니다. Claude 웹의 등록부터 조회까지 전체 실행은 미검증입니다. 패키지 형식은 [OpenAI 플러그인 구성](https://developers.openai.com/plugins/concepts/plugins)을 참고하세요.
 
-Claude 웹에서는 `academyinfo-flow-skill-claude-web-0.2.5.zip`을 **그대로** 업로드하세요. 최상위 `academyinfo-flow/` 안에 `SKILL.md`, `scripts/`, `references/`가 들어 있습니다. 현재 공식 안내상 Skills 기능은 Code execution 활성화를 요구하므로 계정·클라이언트의 활성 조건을 따릅니다. 이는 읽기 MCP 조회에 사용자의 Python 실행이 필요하다는 뜻은 아닙니다. 단독 스킬 ZIP에는 MCP 연결 설정이 없으므로 계정에서 제공하는 연결 절차를 별도로 사용합니다. 플러그인 전체 ZIP이나 GitHub 소스 ZIP은 Skills 업로드용 파일과 구분합니다. 이미 이 단일 폴더 구조인 스킬 ZIP은 구조 조건을 충족합니다. [Claude 스킬 생성·업로드](https://support.claude.com/en/articles/12512198-how-to-create-custom-skills)
+Claude 웹에서는 `academyinfo-flow-skill-claude-web-0.2.6.zip`을 **그대로** 업로드하세요. 최상위 `academyinfo-flow/` 안에 `SKILL.md`, `scripts/`, `references/`가 들어 있습니다. 현재 공식 안내상 Skills 기능은 Code execution 활성화를 요구하지만, Skills ZIP 업로드는 Connectors를 자동 등록하지 않습니다. 플러그인 전체 ZIP·GitHub 소스 ZIP과 구분하며 이미 이 단일 폴더 구조인 스킬 ZIP은 구조 조건을 충족합니다. [Claude 스킬 생성·업로드](https://support.claude.com/en/articles/12512198-how-to-create-custom-skills)
+
+Claude 웹의 **Settings 또는 Customize > Connectors**에서 **+ Add > Add custom connector** 또는 **Add > Custom > Web**을 엽니다. 이름은 **대학알리미FLOW**, URL은 `https://h-rules.stoom.win/api/academyinfo/mcp`로 등록합니다. 현재 공개 읽기 서버는 **No sign in**을 사용하며 추가 헤더·API 키가 필요하지 않습니다. 한남대 규정의 `/api/mcp`와는 별도 주소입니다. 대화의 **+ > Connectors** 또는 **Search and tools**에서 활성화한 뒤 `academyinfo_scope`, `academyinfo_catalog`, `academyinfo_report`의 실제 가용성과 schema를 확인하고 scope 응답부터 검증합니다. 상세한 계정 조건과 단계는 [Claude 웹 연결 안내](docs/INSTALL.md#claude-웹의-전용-커넥터-등록)를 읽으세요. [Claude 커넥터 사용](https://support.claude.com/en/articles/11176164-use-connectors-to-extend-claude-s-capabilities)
 
 ## 직접 설치하기
 
@@ -87,6 +89,10 @@ docs/INSTALL.md                 상세 설치 안내
 
 로컬 설치기는 같은 내용이면 그대로 두며, 다른 내용이 이미 있으면 `--update` 없이 덮어쓰지 않습니다. 업데이트는 이전 디렉터리를 스킬 탐색 경로 밖에 백업한 후 교체합니다. `--check`는 모든 포함 파일의 해시를 비교하고 파일을 변경하지 않습니다. 이것은 파일 설치 확인이며, 실제 서비스의 네트워크 조회나 화면에서의 스킬 로딩까지 증명하지는 않습니다.
 
+## 0.2.6에서 개선한 것
+
+- **Claude 웹 전용 커넥터 안내:** Skills ZIP 업로드와 MCP 등록·대화 활성화를 구분하고 전용 URL·무인증 설정·실제 읽기 도구 확인을 안내합니다. 연결 도구가 없으면 등록부터 확인하며 Python 대체 경로는 사용자가 선택하고 실행 조건을 점검합니다.
+
 ## 0.2.5에서 통합한 것
 
 - **읽기 MCP 우선 조회:** 검증한 원격 endpoint 연결 설정을 플러그인에 포함하고, 스킬은 실제 도구·schema를 먼저 확인합니다. Python 없는 환경도 가용 읽기 도구 범위에서 조회하며, 지원 밖의 PDF·지침은 기존 경로를 사용합니다.
@@ -126,7 +132,7 @@ docs/INSTALL.md                 상세 설치 안내
 
 ## 실행
 
-연결된 MCP의 실제 도구와 schema를 확인한 뒤 요청에 맞는 읽기 도구를 사용합니다. 다음은 MCP가 없거나 지원하지 않는 기능을 조회할 때 사용하는 Python 대체 경로입니다. 저장소를 받은 위치에서 실행하며, 기본 통계 조회·표 복원은 Python 표준 라이브러리를 사용합니다. 지침/PDF 추출에만 추가로 `pdfplumber>=0.11,<1`이 필요합니다.
+연결된 MCP의 실제 도구와 schema를 확인한 뒤 요청에 맞는 읽기 도구를 사용합니다. Claude 웹에서 도구가 없으면 전용 커넥터 등록·대화 활성화를 먼저 확인합니다. 다음은 사용자가 선택한 Python 대체 경로입니다. 실제 실행 도구·Python·원천 네트워크가 확인된 환경에서 저장소를 받은 위치를 기준으로 실행하며, 기본 통계 조회·표 복원은 Python 표준 라이브러리를 사용합니다. 지침/PDF 추출에만 추가로 `pdfplumber>=0.11,<1`이 필요합니다.
 
 ```sh
 python -B -X utf8 skills/academyinfo-flow/scripts/runtime_preflight.py
@@ -151,9 +157,9 @@ claude plugin validate .
 
 | 파일 | 용도 |
 | --- | --- |
-| `dist/academyinfo-flow-plugin-0.2.5.zip` | 플러그인 설치·배포용 |
-| `dist/academyinfo-flow-skill-codex-0.2.5.zip` | 압축을 풀어 개인 스킬 상위 폴더에 설치 |
-| `dist/academyinfo-flow-skill-claude-web-0.2.5.zip` | Claude 웹 Skills에 그대로 업로드 |
+| `dist/academyinfo-flow-plugin-0.2.6.zip` | 플러그인 설치·배포용 |
+| `dist/academyinfo-flow-skill-codex-0.2.6.zip` | 압축을 풀어 개인 스킬 상위 폴더에 설치 |
+| `dist/academyinfo-flow-skill-claude-web-0.2.6.zip` | Claude 웹 Skills에 그대로 업로드 |
 
 두 스킬 ZIP의 최상위 폴더는 `academyinfo-flow/`이며 MCP 설정 파일은 포함하지 않습니다. Codex판에는 `agents/openai.yaml`이 포함되며 Claude 웹판에서는 `agents/`를 제외합니다. 플러그인 ZIP에는 공통 `mcp.json`과 Codex·Claude Code 호환 `.mcp.json`이 포함됩니다. 업로드·클라이언트 로딩·MCP 연결·도구 가용성·원천 조회를 각각 검증합니다.
 

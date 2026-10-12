@@ -2,7 +2,7 @@
 
 **대학알리미FLOW**는 읽기 MCP 연결 설정과 Python 대체 경로를 포함한 스킬 플러그인입니다. [GitHub 소스](https://github.com/wansucong-stoom/stoom-acaflow). 대학알리미 공식 원천을 새로 조회하는 STOOM 호스팅 읽기 MCP endpoint는 `https://h-rules.stoom.win/api/academyinfo/mcp`입니다.
 
-0.2.5는 기존 장표별 경로 관리·공식 파일 조회 기능과 읽기 MCP를 함께 제공합니다. 새 수치·현재 비교는 공식 원천에서 새로 조회하고, 사용자가 지정한 보존본·역사·스냅샷에는 자료 시점을 표시합니다. 경로 목록은 공개 호출 경로·인자·검증 근거의 메타데이터이며 이전 통계값으로 새 조회를 대신하지 않습니다. `route_registry.py lookup`은 Python 경로의 도구로, Python 없이 가용 읽기 MCP를 사용하는 환경에 실행을 강제하지 않습니다. 경로 기록·파일 조회는 [경로 관리](../skills/academyinfo-flow/references/route-management.md)를 참고하세요.
+0.2.6은 Claude 웹의 전용 커넥터 등록과 대화 활성화 안내를 추가합니다. 0.2.5에서 통합한 장표별 경로 관리·공식 파일 조회·읽기 MCP·평균 분석 기준은 유지합니다. 새 수치·현재 비교는 공식 원천에서 새로 조회하고, 사용자가 지정한 보존본·역사·스냅샷에는 자료 시점을 표시합니다. 경로 목록은 공개 호출 경로·인자·검증 근거의 메타데이터이며 이전 통계값으로 새 조회를 대신하지 않습니다. `route_registry.py lookup`은 Python 경로의 도구로, Python 없이 가용 읽기 MCP를 사용하는 환경에 실행을 강제하지 않습니다. 경로 기록·파일 조회는 [경로 관리](../skills/academyinfo-flow/references/route-management.md)를 참고하세요.
 
 ## 가장 간단한 설치 요청
 
@@ -49,7 +49,7 @@ python -B -X utf8 scripts/live_json.py --help
 python -B -X utf8 scripts/runtime_preflight.py
 ```
 
-사용자가 실제 조회 확인까지 요청한 경우 연결된 읽기 도구와 입력 schema를 먼저 발견합니다. 지원되는 scope 기능으로 공식 공개 연도 응답을 확인하며, MCP가 없거나 지원하지 않는 기능은 `runtime_preflight.py --check-source` 또는 `live_json.py scope` 등 Python 경로를 사용합니다. 같은 요청에서 scope를 이중 조회하지 않습니다. `runtime_ready_source_unverified`는 오프라인 조건만 확인한 상태이며 `source_verified`도 공개 연도 조회 성공만 뜻합니다. Python PDF 기능이 필요하면 `--require-pdf`를 추가합니다. 실패를 설치·조회 완료라고 말하지 않습니다.
+사용자가 실제 조회 확인까지 요청한 경우 연결된 읽기 도구와 입력 schema를 먼저 발견합니다. 지원되는 scope 기능으로 공식 공개 연도 응답을 확인합니다. Claude 웹에서 도구가 없으면 아래 전용 커넥터 등록·대화 활성화부터 안내합니다. 사용자가 Python 대체 경로를 선택하고 실행 도구·Python·원천 네트워크가 확인된 경우 `runtime_preflight.py --check-source` 또는 `live_json.py scope`를 사용합니다. 같은 요청에서 scope를 이중 조회하지 않습니다. `runtime_ready_source_unverified`는 오프라인 조건만 확인한 상태이며 `source_verified`도 공개 연도 조회 성공만 뜻합니다. Python PDF 기능이 필요하면 `--require-pdf`를 추가합니다. 실패를 설치·조회 완료라고 말하지 않습니다.
 
 ## 다른 경로와 구버전 Codex
 
@@ -106,9 +106,21 @@ python -m pip install "pdfplumber>=0.11,<1"
 
 ## ChatGPT·Claude 웹과 MCP
 
-스킬은 현재 대화에서 읽기 MCP 도구를 먼저 발견하고 입력 schema를 확인합니다. 가용 도구가 있으면 scope·catalog·학교·소속·학과·metric·report 기능의 공식 새 조회를 수행할 수 있습니다. MCP 도구가 없거나 요청 기능을 지원하지 않으면 Python 3.11 이상 실행 도구와 공식 원천 네트워크를 점검합니다. Python이 없는 환경도 실제 연결된 읽기 도구 범위에서 조회할 수 있습니다.
+스킬은 현재 대화에서 읽기 MCP 도구를 먼저 발견하고 입력 schema를 확인합니다. 가용 도구가 있으면 scope·catalog·학교·소속·학과·metric·report 기능의 공식 새 조회를 수행할 수 있습니다. Claude 웹에서 도구가 없으면 먼저 전용 커넥터를 등록·활성화합니다. Python 대체 경로는 사용자가 선택하며 실제 실행 도구·Python 3.11 이상·공식 원천 네트워크를 점검합니다. Python이 없는 환경도 실제 연결된 읽기 도구 범위에서 조회할 수 있습니다.
 
-서버의 endpoint 응답, 7개 읽기 도구 발견, 2026 공개 연도·공시 목록과 한남대학교 캡스톤 장표 9쪽의 조회는 확인했습니다. **일반 ChatGPT 웹 계정에서 플러그인·스킬·MCP를 불러와 조회하는 전체 절차는 미검증입니다.** endpoint 존재, 계정의 실제 연결, 도구 가용성, 웹 전체 실행을 구분합니다. 스킬을 불러오거나 ZIP을 검사한 결과만으로 최신 수치 조회 성공을 주장하지 않습니다.
+서버의 endpoint 응답, 7개 읽기 도구 발견, 2026 공개 연도·공시 목록과 한남대학교 캡스톤 장표 9쪽의 조회는 확인했습니다. **ChatGPT 웹 한 대화의 scope·catalog·report MCP 조회 기록도 확인했습니다.** 이는 모든 계정의 스킬 설치·연결 성공을 보장하지 않으며, 실제 스킬 설치까지 검증한 결과는 아닙니다. **Claude 웹의 등록부터 조회까지 전체 실행은 미검증입니다.** endpoint 존재, 계정의 실제 연결, 도구 가용성, 원천 조회를 구분합니다. 스킬을 불러오거나 ZIP을 검사한 결과만으로 최신 수치 조회 성공을 주장하지 않습니다.
+
+### Claude 웹의 전용 커넥터 등록
+
+**Skills ZIP 업로드는 Connectors 등록을 대신하지 않습니다.** Claude 웹 계정에서 전용 원격 MCP를 따로 등록하고 사용할 대화에서 켭니다. 현재 Free·Pro·Max·Team·Enterprise가 지원하며 Free는 custom connector 1개 제한이 있습니다. Team·Enterprise는 조직 소유자 등 등록 권한자가 먼저 조직에 추가해야 합니다. 계정의 실제 권한·제한을 확인하세요. [Claude 원격 MCP 등록 조건](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp)
+
+1. **Settings 또는 Customize > Connectors**에서 **+ Add > Add custom connector**를 선택합니다. 현재 화면이 **Add > Custom > Web**이면 그 경로를 사용합니다.
+2. 이름은 **대학알리미FLOW**, 원격 MCP URL은 `https://h-rules.stoom.win/api/academyinfo/mcp`를 입력합니다. 한남대 규정의 `https://h-rules.stoom.win/api/mcp`와 구분합니다.
+3. 현재 공개 무인증 읽기 서버이므로 인증은 **No sign in**, 추가 Request headers는 비워 둡니다. 임의 API 키·토큰·OAuth 자격정보를 만들지 않습니다. 화면 절차에 따라 등록을 마칩니다.
+4. 사용할 대화의 **+ > Connectors** 또는 **Search and tools**에서 **대학알리미FLOW**를 활성화합니다. 메뉴 명칭은 현재 클라이언트 표시를 따릅니다. [Claude 커넥터 등록·대화 활성화](https://support.claude.com/en/articles/11176164-use-connectors-to-extend-claude-s-capabilities)
+5. `academyinfo_scope`, `academyinfo_catalog`, `academyinfo_report`가 실제로 제공되는지와 입력 schema를 확인합니다. 호스트가 도구 이름에 접두사를 붙이면 실제 발견된 이름을 사용합니다. 먼저 scope의 실응답으로 공개 연도를 확인한 뒤 그 연도·항목·조회 단위에 맞는 도구를 사용합니다. 등록 화면의 완료 표시만으로 공식 조회 성공을 주장하지 않습니다.
+
+Skills의 Code execution 활성 조건, 원격 MCP 연결, Python 실행 환경의 외부 통신은 서로 다른 조건입니다. 원격 커넥터 호출은 Anthropic 클라우드에서 서버에 도달합니다. 사용자의 Python 실행이나 로컬 네트워크 경로를 사용하는 조회와 구분합니다. [Claude 원격 MCP 네트워크 설명](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp)
 
 ### 연결 설정 파일의 용도
 
@@ -143,21 +155,34 @@ python -m pip install "pdfplumber>=0.11,<1"
 
 | 환경 | 설치 방식 | 검증할 조건 |
 | --- | --- | --- |
-| 일반 ChatGPT Chat | 현재 계정·클라이언트의 Skills/플러그인·MCP 연결 절차 | 스킬 로딩·실제 읽기 도구·schema·원천 응답 확인. 웹 전체 실행은 미검증 |
-| Claude 웹 | `academyinfo-flow-skill-claude-web-0.2.5.zip` 업로드. MCP 연결은 별도 절차 | 공식 안내상 Skills 사용에는 Code execution 활성화 필요. 실제 읽기 도구·원천 응답 확인. MCP 조회에는 사용자 Python 실행 불필요. 웹 전체 실행은 미검증 |
-| Codex | 위 설치기 또는 `academyinfo-flow-skill-codex-0.2.5.zip` 폴더 설치, 또는 플러그인 설치 | 파일 일치·클라이언트 로딩·가용 MCP 도구 확인. 필요하면 Python·원천 네트워크 점검 |
+| 일반 ChatGPT Chat | 현재 계정·클라이언트의 Skills/플러그인·MCP 연결 절차 | 한 대화의 MCP 조회 기록 확인. 계정별 스킬 설치·로딩·연결·실제 도구·원천 응답은 각각 확인 |
+| Claude 웹 | `academyinfo-flow-skill-claude-web-0.2.6.zip` 업로드와 전용 Connectors 등록·대화 활성화 | Skills는 공식 활성 조건을 따름. 실제 읽기 도구·scope 응답 확인. MCP 조회에는 사용자 Python 실행 불필요. 웹 전체 실행은 미검증 |
+| Codex | 위 설치기 또는 `academyinfo-flow-skill-codex-0.2.6.zip` 폴더 설치, 또는 플러그인 설치 | 파일 일치·클라이언트 로딩·가용 MCP 도구 확인. 선택한 Python 경로는 런타임·네트워크 점검 |
 | Claude Code | 위 개인 스킬 또는 네이티브 플러그인 | 파일·목록·클라이언트 로딩·실제 MCP 도구·원천 응답 확인. 필요하면 Python 점검 |
 
 스킬 ZIP의 수동 폴더 설치는 압축 해제된 `academyinfo-flow/`를 스킬 상위 폴더에 두는 방식입니다. 두 단독 스킬 ZIP은 이 단일 폴더 구조를 유지하며 `mcp.json`·`.mcp.json`을 포함하지 않습니다. 스킬 업로드만으로 MCP 연결이 등록되지는 않습니다. `install.py`는 전체 저장소를 대상으로 하므로 스킬 ZIP만 받은 경우에는 그 안에서 설치기를 실행하지 않습니다.
 
-### Claude 웹 업로드
+### Claude 웹 Skills 업로드
 
 1. 계정 또는 조직 설정에서 Skills 업로드 권한과 **Code execution and file creation** 활성화를 확인합니다. 현재 공식 안내상 Skills 기능은 Code execution 활성화를 요구하므로 계정·클라이언트의 조건을 따릅니다. 이는 실제 읽기 MCP 조회에 사용자의 Python 실행이 필요하다는 뜻은 아닙니다. [Claude 공식 Skills 활성 조건](https://support.claude.com/en/articles/12512198-how-to-create-custom-skills)
-2. **Customize > Skills**의 생성·업로드 기능에서 `academyinfo-flow-skill-claude-web-0.2.5.zip`을 그대로 업로드하고 활성화합니다. 세부 메뉴 이름은 현재 클라이언트 표시를 따릅니다.
+2. **Customize > Skills**의 생성·업로드 기능에서 `academyinfo-flow-skill-claude-web-0.2.6.zip`을 그대로 업로드하고 활성화합니다. 세부 메뉴 이름은 현재 클라이언트 표시를 따릅니다.
 3. ZIP 최상위 `academyinfo-flow/` 바로 아래 `SKILL.md`, `scripts/`, `references/`가 있는지 확인합니다. 웹판은 Codex용 `agents/`를 제외하고 같은 조회 코드를 포함합니다. MCP 연결 설정은 포함하지 않습니다. 플러그인 전체 ZIP이나 GitHub 소스 ZIP과 구분합니다. 기존 스킬 ZIP이 이미 이 구조라면 구조 조건은 충족한 것입니다.
-4. “대학알리미FLOW를 불러오고 연결된 읽기 MCP 도구와 schema를 먼저 확인한 뒤 공식 공개 연도를 조회해 줘”라고 요청합니다. MCP가 없으면 스킬 디렉터리에서 `python -B -X utf8 scripts/runtime_preflight.py --check-source` 결과를 확인하도록 합니다. 필요한 도구·허용된 원천 네트워크가 없으면 제한을 설명하도록 합니다.
+4. 위 전용 커넥터를 별도로 등록하고 대화에서 활성화합니다. “대학알리미FLOW를 불러오고 실제 읽기 MCP 도구와 schema를 확인한 뒤 scope로 공식 공개 연도를 조회해 줘”라고 요청합니다. MCP 도구가 없으면 등록·활성화 상태를 먼저 확인하고 자동으로 Python으로 전환하지 않습니다.
 
 공식 안내: [ZIP 구조](https://support.claude.com/en/articles/12512198-how-to-create-custom-skills), [스킬 활성화·실행 조건](https://support.claude.com/en/articles/12512180-use-skills-in-claude). 로컬 ZIP 검증과 서버 호출 검증은 실제 Claude 웹 세션의 전체 조회 검증과 구분합니다.
+
+### 연결 실패 확인과 선택적 Python 대체 경로
+
+실패한 단계를 구분해 확인합니다. 커넥터 등록, 계정·조직 제한, 대화 활성화, 실제 도구 발견, scope 호출, Python 원천 호출 중 어디에서 실패했는지와 실제 오류·응답을 확인합니다. `source_connection_error`만으로 allowlist가 원인이라고 단정하거나 사용자 홈 네트워크의 접근 범위를 확대하라고 요구하지 않습니다.
+
+사용자가 Python 대체 경로를 선택한 경우에만 현재 환경의 실행 도구·Python 3.11 이상·스킬 파일 접근·공식 원천 네트워크를 실제로 점검합니다. 스킬 디렉터리에서 먼저 오프라인 점검을 수행하고, 요청한 새 조회를 위해 허용된 원천 접근을 확인합니다.
+
+```sh
+python -B -X utf8 scripts/runtime_preflight.py
+python -B -X utf8 scripts/runtime_preflight.py --check-source
+```
+
+Python 샌드박스에서 공식 원천을 읽지 못한 결과와 원격 MCP 커넥터 연결 실패를 구분합니다. 확인되지 않은 원인·네트워크 정책은 미검증으로 남기고, 확보한 범위와 선택 가능한 다음 경로를 설명합니다. 이전 아카이브 값으로 새 조회의 실패를 메우지 않습니다.
 
 공식 플러그인 디렉터리 업로드·심사나 계정별 설치 기능은 서비스가 제공하는 절차와 권한을 따라야 합니다. 저장소의 공개·다운로드 가능 상태를 디렉터리 등록이나 실제 웹 조회 성공으로 해석하지 마세요.
 

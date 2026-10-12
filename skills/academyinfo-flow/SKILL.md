@@ -5,7 +5,7 @@ description: 대학알리미FLOW. 대학·학과 공시의 새 수치·현재 �
 
 # 대학알리미FLOW
 
-표시명은 **대학알리미FLOW**, 내부 식별자는 `academyinfo-flow`다. Codex에서는 `@대학알리미FLOW` 또는 `$academyinfo-flow`, Claude Code에서는 `/academyinfo-flow`, 웹에서는 활성화한 스킬에 자연어로 요청한다. 새 수치·현재 비교는 **가용 도구·검증된 경로 확인 → 공식 원천의 새 조회 → 범위·응답 검증 → 경로 기록·규칙 누적 → 연도별 지침 확인·분석**으로 처리한다. 사용자가 지정한 보존본·역사·스냅샷은 자료 시점을 밝혀 그 용도로 분석하며 새 수치를 대신하지 않는다. 패키지는 공개 경로·인자·검증 근거만 포함하며 통계 관측값·수집 DB·인증키를 포함하지 않는다. 먼저 실제 연결된 읽기 MCP 도구를 확인하고, 없거나 요청 기능을 지원하지 않으면 Python 3.11 이상과 공식 원천 네트워크를 사용하는 번들 경로를 점검한다. Python PDF 본문 파싱에만 `pdfplumber>=0.11,<1`이 추가로 필요하다. 실행 가능한 Python 경로는 호스트의 제공 런타임을 사용한다.
+표시명은 **대학알리미FLOW**, 내부 식별자는 `academyinfo-flow`다. Codex에서는 `@대학알리미FLOW` 또는 `$academyinfo-flow`, Claude Code에서는 `/academyinfo-flow`, 웹에서는 활성화한 스킬에 자연어로 요청한다. 새 수치·현재 비교는 **가용 도구·검증된 경로 확인 → 공식 원천의 새 조회 → 범위·응답 검증 → 경로 기록·규칙 누적 → 연도별 지침 확인·분석**으로 처리한다. 사용자가 지정한 보존본·역사·스냅샷은 자료 시점을 밝혀 그 용도로 분석하며 새 수치를 대신하지 않는다. 패키지는 공개 경로·인자·검증 근거만 포함하며 통계 관측값·수집 DB·인증키를 포함하지 않는다. 먼저 실제 연결된 읽기 MCP 도구를 확인한다. Claude 웹에서 전용 도구가 없으면 아래 등록·활성화 절차를 먼저 안내하며, Python 대체 경로는 사용자의 선택과 실제 실행·네트워크 조건에 따라 사용한다. Python PDF 본문 파싱에만 `pdfplumber>=0.11,<1`이 추가로 필요하다. 실행 가능한 Python 경로는 호스트의 제공 런타임을 사용한다.
 
 ## 현재 실행 환경부터 확인한다
 
@@ -13,11 +13,23 @@ description: 대학알리미FLOW. 대학·학과 공시의 새 수치·현재 �
 
 1. 현재 대화에서 연결된 대학알리미FLOW 읽기 MCP 도구를 발견하고 각 입력 schema를 확인한다. 도구 이름·인수·페이지 제한은 실제 발견 결과를 따른다. 현재 endpoint는 `https://h-rules.stoom.win/api/academyinfo/mcp`이며 scope·catalog·schools·affiliations·departments·metric·report의 7개 읽기 기능을 제공한다. endpoint가 존재한다는 사실을 계정 연결이나 도구 가용성으로 대신하지 않는다.
 2. 가용 읽기 도구가 요청 기능을 지원하면 이를 사용해 공식 원천을 새로 조회한다. 이 경로에는 사용자의 Python이 필요하지 않다. 실제 응답의 요청 조건·원천 값·열 정의·출처·경고·완전성을 확인한다. 현재 MCP의 지원 범위에는 첨부 목록·PDF 본문·지침 전체 파싱이 포함되지 않으므로 해당 요청은 아래 Python 경로나 가용 공식 웹/PDF 도구로 처리한다.
-3. MCP 도구가 없거나 요청 기능을 지원하지 않으면 스킬 파일 접근·Python 3.11 이상 실행 도구·공식 원천 네트워크를 확인한다. 실행 도구가 있으면 스킬 디렉터리에서 `python -B -X utf8 scripts/runtime_preflight.py`로 런타임을 점검한다. 기본 점검은 오프라인이며 `runtime_ready_source_unverified`는 원천 접근을 확인한 결과가 아니다. 사용자가 원천 조회를 요청했고 호스트 정책이 허용하면 `--check-source`를 추가하여 실제 공개 연도 응답을 확인한다.
+3. Claude 웹에서 전용 MCP 도구가 없으면 다음 등록·활성화 안내를 먼저 제공한다. 사용자가 Python 대체 경로를 선택했거나 다른 실행 환경에서 그 경로를 사용할 때는 스킬 파일 접근·Python 3.11 이상 실행 도구·공식 원천 네트워크를 확인한다. 실행 도구가 있으면 스킬 디렉터리에서 `python -B -X utf8 scripts/runtime_preflight.py`로 런타임을 점검한다. 기본 점검은 오프라인이며 `runtime_ready_source_unverified`는 원천 접근을 확인한 결과가 아니다. 사용자가 원천 조회를 요청했고 호스트 정책이 허용하면 `--check-source`를 추가하여 실제 공개 연도 응답을 확인한다. MCP가 지원하지 않는 PDF·지침은 가용 공식 웹/PDF 도구 또는 실행 조건이 확인된 Python 경로를 사용한다.
 4. 어느 경로든 같은 요청에서 확보한 scope 응답을 재사용하여 중복 조회하지 않는다. Python preflight의 `source.scope_response`도 첫 scope 결과로 사용할 수 있다. Python PDF 파싱이 필요할 때만 `--require-pdf`로 선택 의존성을 확인한다. 필요한 도구·네트워크가 없거나 점검이 실패하면 확보한 범위와 미검증·제한을 설명하고, 최신 수치를 조회했다고 주장하지 않는다. 스킬을 읽는 것만으로 파일·실행·네트워크 권한이 생기지 않는다.
 5. 사용자가 지정한 보존본·역사·스냅샷만 분석하는 요청은 실제 아카이브 접근과 자료 시점을 확인한다. 그 범위가 충분하면 공식 원천의 Python preflight를 강제하지 않는다. 현재 값도 요청했다면 그 범위는 별도로 새 조회한다. 로컬 PC·웹·클라우드라는 이름만으로 실행 가능 여부를 단정하지 않는다.
 
-플러그인은 공통 `mcp.json`(`streamable-http`)과 Codex·Claude Code 호환 `.mcp.json`(`http`)에 같은 원격 endpoint를 선언한다. 호환 manifest의 `mcpServers: "./.mcp.json"` 포인터는 후자를 가리킨다. 개인 스킬 설치기는 개인 MCP 설정을 수정하지 않으며, 단독 스킬 ZIP은 MCP 설정 없는 단일 `academyinfo-flow/` 폴더다. Claude 웹의 Skills 활성 조건은 공식 클라이언트를 따르며 현재 공식 안내상 Code execution 활성화가 필요하다. 이를 실제 읽기 MCP 조회에 사용자의 Python 실행이 필요하지 않다는 점과 구분한다. 서버 응답·7개 도구 발견·2026 scope/catalog·한남대 캡스톤 장표 9쪽 조회는 확인했지만 일반 ChatGPT 웹의 스킬·MCP 전체 실행은 미검증이다. 계정별 연결·도구 로딩·웹 실행을 각각 확인하며 설치·불러오기만으로 모든 조회가 가능하다고 보장하지 않는다.
+플러그인은 공통 `mcp.json`(`streamable-http`)과 Codex·Claude Code 호환 `.mcp.json`(`http`)에 같은 원격 endpoint를 선언한다. 호환 manifest의 `mcpServers: "./.mcp.json"` 포인터는 후자를 가리킨다. 개인 스킬 설치기는 개인 MCP 설정을 수정하지 않으며, 단독 스킬 ZIP은 MCP 설정 없는 단일 `academyinfo-flow/` 폴더다. Claude 웹의 Skills 활성 조건은 공식 클라이언트를 따르며 현재 공식 안내상 Code execution 활성화가 필요하다. 이를 실제 읽기 MCP 조회에 사용자의 Python 실행이 필요하지 않다는 점과 구분한다. 서버 응답·7개 도구 발견·2026 scope/catalog·한남대 캡스톤 장표 9쪽 조회와 ChatGPT 웹 한 대화의 scope·catalog·report MCP 조회 기록은 확인했다. 이는 모든 계정의 스킬 설치·연결 성공을 보장하지 않으며 실제 스킬 설치까지 검증한 결과는 아니다. Claude 웹의 등록부터 조회까지 전체 실행은 미검증이다. 계정별 연결·도구 로딩·원천 조회를 각각 확인하며 설치·불러오기만으로 모든 조회가 가능하다고 보장하지 않는다.
+
+### Claude 웹에서는 커넥터를 별도로 등록한다
+
+Skills ZIP을 업로드해도 원격 MCP는 자동 등록되지 않는다. 대학알리미 도구가 없으면 Python을 바로 실행하기 전에 다음 절차를 안내한다.
+
+1. **Settings 또는 Customize > Connectors > + Add > Add custom connector**를 연다. 화면에 따라 **Add > Custom > Web**으로 표시된다. 이름은 **대학알리미FLOW**, URL은 `https://h-rules.stoom.win/api/academyinfo/mcp`로 입력한다. 현재 공개 읽기 서버는 별도 로그인·고정 인증 헤더가 필요하지 않으므로 해당 화면에서는 **No sign in**을 사용하고 임의 키를 만들지 않는다.
+2. 추가 후 해당 대화의 **+ > Connectors** 또는 **Search and tools**에서 대학알리미FLOW를 활성화한다. 도구 목록에서 `academyinfo_scope`, `academyinfo_catalog`, `academyinfo_report` 등 실제 이름과 schema를 확인한다. 클라이언트 접두사는 달라질 수 있다. 먼저 scope의 실제 응답으로 공식 공개 연도를 확인한다. 이름·URL 등록만으로 조회 성공을 보고하지 않는다.
+3. 한남대학교 규정용 `https://h-rules.stoom.win/api/mcp`는 별도 서비스다. 규정 커넥터만 보이면 대학알리미 도구가 연결된 것으로 판단하지 않는다. 기존 규정 커넥터를 임의로 삭제하거나 다른 URL로 바꾸지 않는다.
+
+공식 안내상 Free 계정은 custom connector 1개 제한이 있고, Team·Enterprise는 조직 관리자의 등록·허용 및 개인 활성화가 필요할 수 있다. 계정·조직 조건과 실제 메뉴를 확인한다. [Claude 공식 등록·활성화 안내](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp), [현재 커넥터 메뉴](https://support.claude.com/en/articles/11176164-use-connectors-to-extend-claude-s-capabilities).
+
+원격 MCP는 Anthropic 클라우드에서 STOOM 서버에 연결하고, Python 대체 경로는 현재 코드 실행 환경에서 대학알리미 원천에 직접 접속한다. 두 경로의 네트워크 조건은 다르다. `source_connection_error`만으로 도메인 허용목록 누락·요금제·연결 미등록 중 어느 원인인지 단정하지 않는다. 실제 오류·도구 가용성·설정 근거를 확인해 제한을 설명하며 네트워크 확대나 요금제 변경을 먼저 요구하지 않는다. Skills 업로드·커넥터 등록·대화 도구 로딩·원천 응답을 각각 확인하고 미검증 단계를 남긴다.
 
 ## 검증된 경로를 사용하고 실제 조회에서 갱신한다
 
