@@ -73,18 +73,20 @@ class ReportTableTests(unittest.TestCase):
 
     def test_missing_duplicate_and_unexpected_page_detection(self):
         first = parse_report_xml(sample(), metadata=schema())
-        last = parse_report_xml(sample(), metadata=schema(), source_page_index=2)
+        last = parse_report_xml(sample().replace('한남대학교'.encode(), '시험대학 B'.encode()),
+                                metadata=schema(), source_page_index=2)
         incomplete = combine_report_pages([last, first], expected_pages=3)
         self.assertEqual(incomplete["coverage"]["missing_pages"], [1])
-        duplicated = combine_report_pages([first, first], expected_pages=1)
-        self.assertEqual(duplicated["coverage"]["duplicate_pages"], [0])
-        self.assertEqual(duplicated["status"], "partial")
+        with self.assertRaises(ReportParseError):
+            combine_report_pages([first, first], expected_pages=1)
+        self.assertEqual(report_tables._coverage([0, 0], 1)['duplicate_pages'], [0])
         unexpected = combine_report_pages([last], expected_pages=2)
         self.assertEqual(unexpected["coverage"]["unexpected_pages"], [2])
 
     def test_complete_combination_and_stable_original_row_numbers(self):
         first = parse_report_xml(sample(), metadata=schema())
-        second = parse_report_xml(sample(), metadata=schema(), source_page_index=1)
+        second = parse_report_xml(sample().replace('한남대학교'.encode(), '시험대학 B'.encode()),
+                                  metadata=schema(), source_page_index=1)
         original_second_row = copy.deepcopy(second["rows"][0])
         combined = combine_report_pages([second, first], expected_pages=2)
         self.assertEqual(combined["status"], "complete")
@@ -103,6 +105,8 @@ class ReportTableTests(unittest.TestCase):
             {"col_no": "4", "h_col_hdr_krn_nm": "학교명", "h_celmrg_yn": "Y", "h_row_mrg_cnt": "1", "h_col_mrg_cnt": "1"},
             {"col_no": "5", "h_col_hdr_krn_nm": "학과(전공)", "h_celmrg_yn": "Y", "h_row_mrg_cnt": "1", "h_col_mrg_cnt": "1"},
         ]
+        for header in metadata['header']:
+            header['item_mstr_id'] = metadata['master'][0]['item_mstr_id']
         xml = ('<Doc><Page>' + item(0, 0, 10, 22, "기준연도") + item(10, 0, 50, 10, "분류")
                + item(10, 10, 20, 12, "학교명") + item(30, 10, 30, 12, "학과(전공)")
                + item(0, 22, 10, 10, "2025") + item(10, 22, 20, 10, "한남대학교")

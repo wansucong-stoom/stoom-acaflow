@@ -66,7 +66,9 @@ def synthetic_grid(*, support_value='99'):
     for visible_no, value in enumerate(['2025', '대학교', '사립', '검증지역', '기존', '검증대학',
                                       '10', '1', '2', '3', '0', '4', support_value, '1000', '2000']):
         cell(value, visible_no * 60, 60, 60, 20)
-    return cells, {'master': [{'col_num': str(count), 'row_num': '2'}],
+    for row in body + header:
+        row['item_mstr_id'] = 'synthetic'
+    return cells, {'master': [{'item_mstr_id': 'synthetic', 'col_num': str(count), 'row_num': '2'}],
                    'body': body, 'header': header}
 
 

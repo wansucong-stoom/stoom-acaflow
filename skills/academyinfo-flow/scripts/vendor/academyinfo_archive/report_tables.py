@@ -10,6 +10,7 @@ The parser never invents identifiers absent from the report.
 from __future__ import annotations
 
 import hashlib
+import json
 import re
 import xml.etree.ElementTree as ET
 from collections import Counter
@@ -119,7 +120,52 @@ def _is_border(cell: dict) -> bool:
     return (cell.get("text_attributes") or {}).get("border") not in {None, "", "0"}
 
 
-def _metadata_columns(metadata: dict) -> tuple[list[dict], dict[int, dict]]:
+def validate_metadata_identity(metadata: dict, *, selectors: dict | None = None,
+                               expected_identity: dict | None = None) -> dict[str, str]:
+    """Bind all table sections to one template and the explicit form choice.
+
+    Read source values without normalization or mutation. A missing form field
+    is allowed; a present but invalid/conflicting form is not. The bootstrap
+    master identity, when present, must match exactly, including empty values.
+    """
+    if not isinstance(metadata, dict):
+        raise ReportParseError('master/header/body 표 메타데이터가 필요합니다.')
+    masters, bodies, headers = (metadata.get(key) for key in ('master', 'body', 'header'))
+    if not isinstance(masters, list) or len(masters) != 1 or not isinstance(bodies, list) or not isinstance(headers, list):
+        raise ReportParseError('master/header/body 표 메타데이터가 필요합니다.')
+
+    def valid(value):
+        return isinstance(value, str) and bool(value.strip()) and value.strip().lower() not in {'null', 'undefined'}
+
+    if not isinstance(masters[0], dict) or not valid(masters[0].get('item_mstr_id')):
+        raise ReportParseError('표 master 식별자를 확인할 수 없습니다.')
+    master_id = masters[0]['item_mstr_id']
+    forms = set()
+    for record in [*masters, *bodies, *headers]:
+        if not isinstance(record, dict) or record.get('item_mstr_id') != master_id:
+            raise ReportParseError('표 master/header/body 식별자가 서로 일치하지 않습니다.')
+        if 'form_clft_cd' in record:
+            if not valid(record['form_clft_cd']):
+                raise ReportParseError('명시된 표 조회 형식을 확인할 수 없습니다.')
+            forms.add(record['form_clft_cd'])
+    if len(forms) > 1:
+        raise ReportParseError('표 master/header/body 조회 형식이 서로 일치하지 않습니다.')
+    form = next(iter(forms), None)
+    selected_form = {'school': '30', 'department': '36'}.get((selectors or {}).get('level'))
+    if form is not None and selected_form is not None and form != selected_form:
+        raise ReportParseError('표 메타데이터 조회 형식이 요청한 단위와 일치하지 않습니다.')
+    expected = expected_identity or {}
+    if 'item_mstr_id' in expected and (not valid(expected['item_mstr_id']) or expected['item_mstr_id'] != master_id):
+        raise ReportParseError('부트스트랩 master 식별자가 표 메타데이터와 일치하지 않습니다.')
+    if 'form_clft_cd' in expected and (not valid(expected['form_clft_cd'])
+            or form is not None and expected['form_clft_cd'] != form
+            or selected_form is not None and expected['form_clft_cd'] != selected_form):
+        raise ReportParseError('부트스트랩 조회 형식이 표 메타데이터와 일치하지 않습니다.')
+    return {'item_mstr_id': master_id, **({'form_clft_cd': form} if form is not None else {})}
+
+
+def _metadata_columns(metadata: dict, selectors: dict | None = None) -> tuple[list[dict], dict[int, dict]]:
+    validate_metadata_identity(metadata, selectors=selectors)
     masters, bodies, headers = (metadata.get(k) for k in ("master", "body", "header"))
     if not isinstance(masters, list) or len(masters) != 1 or not isinstance(bodies, list) or not isinstance(headers, list):
         raise ReportParseError("master/header/body 표 메타데이터가 필요합니다.")
@@ -262,7 +308,7 @@ def _parse_table(cells: list[dict], metadata: dict, page_index: int,
             rectangles[key] = _rect(cell)
         return rectangles[key]
 
-    columns, header_by_no = _metadata_columns(metadata)
+    columns, header_by_no = _metadata_columns(metadata, selectors)
     # This template prints one attachment display cell for three metadata
     # variables. Preserve it as a rendered composite, without assigning the
     # filename to an unknown underlying name/path/detail field.
@@ -513,12 +559,19 @@ def parse_report_xml(xml_bytes: bytes, *, source_page_index: int = 0,
     pages = root.findall("Page")
     if len(pages) != 1:
         raise ReportParseError("페이지 단위 XML은 Page 하나여야 합니다.")
+    source_page_number = pages[0].get('pagenum')
+    if metadata is not None and source_page_number not in {None, '', str(source_page_index + 1)}:
+        raise ReportParseError('응답 페이지 번호가 요청과 일치하지 않습니다.')
     cells = [_cell(element, i, include_raw_tree=include_raw_tree)
              for i, element in enumerate(pages[0]) if element.tag == "Item"]
     page = {"source_page_index": source_page_index,
             "source_sha256": hashlib.sha256(xml_bytes).hexdigest(),
             "source_byte_length": len(xml_bytes), "doc_attributes": dict(root.attrib),
-            "page_attributes": dict(pages[0].attrib)}
+            "page_attributes": dict(pages[0].attrib),
+            "page_number_verified": bool(source_page_number),
+            "page_number_basis": ('source_attribute_and_request_selector' if source_page_number and metadata is not None
+                                  else 'source_attribute_only' if source_page_number
+                                  else 'request_selector_with_source_attribute_blank_or_absent')}
     if include_raw_tree:
         page["xml_tree"] = _tree(root)
     page["cells"] = cells
@@ -549,9 +602,26 @@ def combine_report_pages(reports: list[dict], *, expected_pages: int | None = No
     first = reports[0]
     pages, rows, warnings = [], [], []
     baseline = signature(first)
+    source_hashes, body_hashes = set(), set()
     for report in reports:
         if report.get("format") != "academyinfo-ubireport-json-v1":
             raise ReportParseError("알 수 없는 페이지 JSON 형식입니다.")
+        for page in report['pages']:
+            original_hash = page.get('source_sha256')
+            if original_hash in source_hashes:
+                raise ReportParseError('report_page_payload_repeated: 서로 다른 페이지로 동일 XML을 결합할 수 없습니다.')
+            source_hashes.add(original_hash)
+        # Request numbers, comments, Doc service IDs and runtime wrappers cannot
+        # establish distinct statistical pages. Raw-only attachment/PDF listings
+        # have no parsed numeric body; an empty projection is not duplicate data.
+        if report['rows']:
+            body = {'columns': signature(report), 'rows': [
+                {'values': row['values'], 'dimensions': row.get('dimensions', {})} for row in report['rows']]}
+            body_hash = hashlib.sha256(json.dumps(body, ensure_ascii=False, sort_keys=True,
+                                                  separators=(',', ':'), allow_nan=False).encode('utf-8')).hexdigest()
+            if body_hash in body_hashes:
+                raise ReportParseError('report_page_body_repeated: 동일한 표 본문을 다른 페이지로 결합할 수 없습니다.')
+            body_hashes.add(body_hash)
         pages.extend(report["pages"])
         warnings.extend(report["warnings"])
         if signature(report) != baseline:

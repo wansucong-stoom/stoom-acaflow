@@ -82,6 +82,7 @@ class ReportSession:
     _runtime: dict[str, str] = field(repr=False)
     _server_url: str = field(repr=False)
     _service_id: str = field(repr=False)
+    schema_identity: dict[str, str] = field(default_factory=dict)
 
     def __repr__(self):
         return f"ReportSession(selectors={self.selectors!r}, title={self.title!r})"
@@ -273,7 +274,11 @@ class ViewerDataClient(DirectClient):
         # Public UbiDoc.getData() permits a missing serviceid (empty string).
         if not sequence:
             raise SourceError("공시 페이지 세션을 검증할 수 없습니다.")
-        return ReportSession(initial, selectors, schema, extra.get("strPgmNm", ""), runtime, server, service)
+        identity = {'form_clft_cd': form}
+        if 'strMasterId' in extra:
+            identity['item_mstr_id'] = extra['strMasterId']
+        return ReportSession(initial, selectors, schema, extra.get("strPgmNm", ""), runtime, server, service,
+                             schema_identity=identity)
 
     def report_status(self, session: ReportSession) -> ReportStatus:
         if not session._runtime:

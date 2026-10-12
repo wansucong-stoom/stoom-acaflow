@@ -34,15 +34,22 @@ def sample(*, missing=False, overlap=False, label="학과(전공)"):
     return document(elements)
 
 
+def identified(metadata):
+    for section in ('master', 'header', 'body'):
+        for row in metadata[section]:
+            row.setdefault('item_mstr_id', 'synthetic')
+    return metadata
+
+
 def schema():
     names = ["기준연도", "학교명", "학과(전공)"]
     ids = ["COL_8_VAL", "SCHL_NM", "MJR_KRN_NM"]
     codes = ["APY_YR", "SCHL_NM", "MJR_KRN_NM"]
-    return {"master": [{"col_num": "3", "row_num": "0"}],
+    return identified({"master": [{"col_num": "3", "row_num": "0"}],
             "header": [{"col_no": str(i), "h_col_hdr_krn_nm": n, "h_celmrg_yn": "Y",
                         "h_row_mrg_cnt": "1", "h_col_mrg_cnt": "1"} for i, n in enumerate(names)],
             "body": [{"col_no": str(i), "b_col_hid_yn": "N", "b_col_id": ids[i],
-                      "b_col_cd": codes[i]} for i in range(3)]}
+                      "b_col_cd": codes[i]} for i in range(3)]})
 
 
 def rectangular_report(*, rows=40, columns=24, rowspans=False, seed=None, decimal=False):
@@ -73,7 +80,7 @@ def rectangular_report(*, rows=40, columns=24, rowspans=False, seed=None, decima
         x += width
     if seed is not None:
         random.Random(seed).shuffle(body)
-    return document(headers + body), metadata
+    return document(headers + body), identified(metadata)
 
 
 def strip_raw_trees(result):

@@ -10,7 +10,7 @@
       "displayName": "대학알리미FLOW",
       "source": "./",
       "description": "대학알리미FLOW. 공식 대학·학과 공시 조회와 지침 확인.",
-      "version": "0.2.3"
+      "version": "0.2.5"
     }
   ]
 }

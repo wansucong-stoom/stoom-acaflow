@@ -6,6 +6,7 @@ import json
 import os
 from pathlib import Path
 import stat
+from urllib.parse import urlsplit
 import zipfile
 
 
@@ -33,6 +34,22 @@ def _manifests() -> dict:
         raise ValueError('Plugin identity/version differs in Claude manifests.')
     if overlay.get('requires_local_executor') != manifest['extensions']['com.openai'].get('requires_local_executor'):
         raise ValueError('Plugin execution declarations differ between manifests.')
+    portable = json.loads((ROOT / 'mcp.json').read_text(encoding='utf-8'))
+    legacy = json.loads((ROOT / '.mcp.json').read_text(encoding='utf-8'))
+    portable_servers, legacy_servers = portable.get('mcpServers'), legacy.get('mcpServers')
+    if (not isinstance(portable_servers, dict) or not portable_servers
+            or not isinstance(legacy_servers, dict) or set(portable_servers) != set(legacy_servers)):
+        raise ValueError('Portable and compatibility MCP server names must match.')
+    for name, config in portable_servers.items():
+        compatible = legacy_servers[name]
+        if (config.get('type') != 'streamable-http' or compatible.get('type') != 'http'
+                or config.get('url') != compatible.get('url')):
+            raise ValueError('Portable and compatibility MCP endpoints/transports must agree.')
+        url = urlsplit(config.get('url', ''))
+        if url.scheme != 'https' or not url.hostname or url.username or url.password or url.fragment:
+            raise ValueError('Packaged remote MCP servers need an ordinary HTTPS endpoint.')
+    if overlay.get('mcpServers') != './.mcp.json' or claude.get('mcpServers') != './.mcp.json':
+        raise ValueError('Compatibility manifests must reference the bundled MCP file.')
     return manifest
 
 
@@ -81,8 +98,8 @@ def _write(output: Path, entries: list[tuple[str, Path]]) -> Path:
 def build(output: Path | None = None) -> Path:
     manifest = _manifests()
     output = output or ROOT / 'dist' / f"academyinfo-flow-plugin-{manifest['version']}.zip"
-    files = [ROOT / relative for relative in ('plugin.json', '.codex-plugin/plugin.json',
-                                             '.claude-plugin/plugin.json', 'LICENSE')]
+    files = [ROOT / relative for relative in ('plugin.json', 'mcp.json', '.mcp.json',
+                                             '.codex-plugin/plugin.json', '.claude-plugin/plugin.json', 'LICENSE')]
     files.extend(_skill_files())
     return _write(output, [(path.relative_to(ROOT).as_posix(), path) for path in files])
 

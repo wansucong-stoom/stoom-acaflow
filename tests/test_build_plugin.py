@@ -24,7 +24,7 @@ class PackagingTests(unittest.TestCase):
         self.repo = Path(self.temporary.name) / 'source'
         self.repo.mkdir()
         for relative in ('plugin.json', '.codex-plugin/plugin.json', '.claude-plugin/plugin.json',
-                         '.claude-plugin/marketplace.json', 'LICENSE'):
+                         '.claude-plugin/marketplace.json', 'mcp.json', '.mcp.json', 'LICENSE'):
             self.write(relative, (ROOT / relative).read_text(encoding='utf-8'))
         for relative in installer.REQUIRED_FILES:
             content = '---\nname: academyinfo-flow\ndescription: synthetic package fixture\n---\n' if relative == 'SKILL.md' else '# synthetic package fixture\n'
@@ -48,6 +48,8 @@ class PackagingTests(unittest.TestCase):
         self.assertEqual(len(set(paths.values())), 3)
         with zipfile.ZipFile(paths['plugin']) as plugin, zipfile.ZipFile(paths['codex_skill']) as codex, zipfile.ZipFile(paths['claude_web_skill']) as claude:
             self.assertIn('plugin.json', plugin.namelist())
+            self.assertIn('mcp.json', plugin.namelist())
+            self.assertIn('.mcp.json', plugin.namelist())
             self.assertIn('skills/academyinfo-flow/SKILL.md', plugin.namelist())
             self.assertIn('academyinfo-flow/agents/openai.yaml', codex.namelist())
             self.assertNotIn('academyinfo-flow/agents/openai.yaml', claude.namelist())
@@ -55,6 +57,8 @@ class PackagingTests(unittest.TestCase):
                 self.assertEqual({name.split('/')[0] for name in archive.namelist()}, {'academyinfo-flow'})
                 self.assertIn('academyinfo-flow/SKILL.md', archive.namelist())
                 self.assertNotIn('plugin.json', archive.namelist())
+                self.assertNotIn('mcp.json', archive.namelist())
+                self.assertNotIn('.mcp.json', archive.namelist())
             for relative in installer.REQUIRED_FILES:
                 expected = (self.repo / 'skills/academyinfo-flow' / relative).read_bytes()
                 self.assertEqual(codex.read('academyinfo-flow/' + relative), expected)
@@ -84,3 +88,28 @@ class PackagingTests(unittest.TestCase):
         path.write_text((ROOT / '.claude-plugin/plugin.json').read_text(encoding='utf-8'), encoding='utf-8')
         with patch.object(builder, 'ROOT', self.repo), self.assertRaises(ValueError):
             builder.build_skill('claude-web', self.repo / 'skills/academyinfo-flow/accidental.zip')
+
+    def test_mcp_transports_share_one_verified_endpoint_and_manifest_paths_exist(self):
+        paths = self.build()
+        with zipfile.ZipFile(paths['plugin']) as package:
+            portable = json.loads(package.read('mcp.json'))['mcpServers']
+            legacy = json.loads(package.read('.mcp.json'))['mcpServers']
+            self.assertEqual(set(portable), {'academyinfo-flow'})
+            self.assertEqual(set(portable), set(legacy))
+            for name, server in portable.items():
+                self.assertEqual(server['type'], 'streamable-http')
+                self.assertEqual(legacy[name]['type'], 'http')
+                self.assertEqual(server['url'], legacy[name]['url'])
+                self.assertEqual(server['url'], 'https://h-rules.stoom.win/api/academyinfo/mcp')
+            for manifest in ('.codex-plugin/plugin.json', '.claude-plugin/plugin.json'):
+                pointer = json.loads(package.read(manifest))['mcpServers']
+                self.assertEqual(pointer, './.mcp.json')
+                self.assertIn(pointer.removeprefix('./'), package.namelist())
+
+    def test_mcp_endpoint_drift_is_rejected_before_archiving(self):
+        path = self.repo / '.mcp.json'
+        data = json.loads(path.read_text(encoding='utf-8'))
+        data['mcpServers']['academyinfo-flow']['url'] = 'https://example.invalid/different'
+        path.write_text(json.dumps(data), encoding='utf-8')
+        with patch.object(builder, 'ROOT', self.repo), self.assertRaises(ValueError):
+            builder.build_all()

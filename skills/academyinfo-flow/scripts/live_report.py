@@ -30,7 +30,7 @@ try:
     from academyinfo_archive.direct import DirectClient, SourceError, rows_at, validate_public_url
     from academyinfo_archive.pdf_json import PDF_DOWNLOAD_URL, attachment_links, parse_pdf
     from academyinfo_archive.report_tables import (
-        ReportParseError, combine_report_pages, parse_java_map_list, parse_report_xml,
+        ReportParseError, combine_report_pages, parse_java_map_list, parse_report_xml, validate_metadata_identity,
     )
     from academyinfo_archive.viewer_data import ViewerDataClient
     _DEPENDENCIES_AVAILABLE = True
@@ -374,11 +374,21 @@ def _collect(args: argparse.Namespace, client: Any, result: dict[str, Any], *,
     result["selectors"] = selectors
     try:
         result["title"] = _public(session.title)
+        # Retain the freshly received XML hash even if its metadata binding fails.
+        result['sources'].append(_source(session.initial, page=1, selectors=selectors))
         metadata = None
         if args.command == "report":
             with _stage(performance, "table_parse"):
                 metadata = {key.removeprefix("result").lower(): parse_java_map_list(value)
                             for key, value in session.schema_text.items()}
+                result['metadata_validation'] = {'status': 'unverified'}
+                try:
+                    identity = validate_metadata_identity(metadata, selectors=selectors,
+                        expected_identity=getattr(session, 'schema_identity', None))
+                except ReportParseError:
+                    result['metadata_validation'] = {'status': 'failed'}
+                    raise
+                result['metadata_validation'] = {'status': 'verified', 'identity': identity}
         with _stage(performance, "generation_wait"):
             first_status = _wait_for_generation(client, session)
         for page in range(1, min(first_status.expected_pages, args.max_pages) + 1):
@@ -390,7 +400,8 @@ def _collect(args: argparse.Namespace, client: Any, result: dict[str, Any], *,
                 with _stage(performance, "page_fetch"):
                     exchange = client.fetch_page(
                         session, page, document_local_page_numbers=args.command == "attachments")
-            result["sources"].append(_source(exchange, page=page, selectors=selectors))
+            if page > 1:
+                result["sources"].append(_source(exchange, page=page, selectors=selectors))
             with _stage(performance, "table_parse"):
                 parsed = parse_report_xml(exchange.body, source_page_index=page - 1,
                                           metadata=metadata, selectors=selectors,
@@ -404,6 +415,8 @@ def _collect(args: argparse.Namespace, client: Any, result: dict[str, Any], *,
             parsed["pages"] = [dict(_slim_page(p), **{
                 "source_page_index": p["source_page_index"],
                 "source_sha256": p["source_sha256"],
+                "page_number_verified": p['page_number_verified'],
+                "page_number_basis": p['page_number_basis'],
                 "display_cells": _display_cells(p) if args.command == "attachments" else [],
             }) for p in parsed["pages"]]
             parsed.pop("source_table_metadata", None)

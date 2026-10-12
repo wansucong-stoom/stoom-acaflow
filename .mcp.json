@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "academyinfo-flow": {
+      "type": "http",
+      "url": "https://h-rules.stoom.win/api/academyinfo/mcp"
+    }
+  }
+}
