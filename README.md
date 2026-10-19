@@ -1,53 +1,38 @@
 # 대학알리미FLOW
 
-[GitHub 소스 · 설치 주소](https://github.com/wansucong-stoom/stoom-acaflow)
+[![소스와 배포 파일 검증](https://github.com/wansucong-stoom/stoom-acaflow/actions/workflows/verify.yml/badge.svg)](https://github.com/wansucong-stoom/stoom-acaflow/actions/workflows/verify.yml)
 
-**대학알리미FLOW는 대학·학과 공시의 새 수치와 현재 비교를 공식 원천에서 새로 조회하고, 해당 연도 지침의 기준·단위·산식을 확인하는 스킬 플러그인입니다.** 실제 조회에서 검증한 장표별 경로와 공통 호출 규칙을 누적하며, 사용자가 지정한 보존본·역사·스냅샷 분석에는 자료 시점을 표시합니다. STOOM이 개발합니다.
+대학·학과 공시를 공식 원천에서 새로 조회하고, 기준기간·단위·산식과 표의 완전성을 확인하는 스킬·플러그인·Python CLI입니다. STOOM이 개발하며 내부 식별자는 `academyinfo-flow`입니다.
 
-실제 작업 규칙은 `skills/academyinfo-flow/SKILL.md`에 있는 **스킬**, 이를 설치·공유하는 묶음은 **플러그인**입니다. 플러그인은 대학알리미 공식 원천을 새로 조회하는 STOOM 호스팅 읽기 MCP의 연결 설정을 포함합니다. endpoint는 `https://h-rules.stoom.win/api/academyinfo/mcp`입니다. 표시명은 모든 지원 화면에서 **대학알리미FLOW**로 통일하며, 설치 명령에 쓰는 내부 식별자는 `academyinfo-flow`입니다.
+현재 소스 버전은 **0.3.1**입니다. 설치된 0.3.0 CLI·학교 상세 조회와 0.2.8의 복구·지역 집계 지침을 공식 GitHub 소스에 통합했습니다. [변경 이력](CHANGELOG.md) · [검증 기록](docs/VERIFICATION.md) · [배포 파일](downloads/README.md)
 
-## 웹에서 먼저 연결하기
+## 환경에 맞게 시작하기
 
-**웹의 원격 MCP 연결과 선택적인 스킬 추가는 별도입니다.** 공식 수치 조회부터 시작하려면 전용 연결을 등록하고 대화에서 켜세요. 원격 MCP 조회에는 사용자의 Python 설치가 필요하지 않습니다.
-
-**[웹 MCP 연결 안내 바로 보기](docs/WEB-MCP.md)** — [Claude](docs/WEB-MCP.md#claude-웹) · [ChatGPT](docs/WEB-MCP.md#chatgpt-웹) · [실제 조회 확인](docs/WEB-MCP.md#연결과-실제-조회를-확인하기) · [문제 해결](docs/WEB-MCP.md#잘-안될-때)
-
-| 설정 | Claude 웹 | ChatGPT 웹 |
+| 사용 환경 | 시작 경로 | 필요한 조건 |
 | --- | --- | --- |
-| 이름 | 대학알리미FLOW | 대학알리미FLOW |
-| 서버 URL | `https://h-rules.stoom.win/api/academyinfo/mcp` | 같은 주소 |
-| 인증 | No sign in | No authentication |
-| 사용 준비 | 커넥터 등록 → 대화에서 켜기 | MCP 플러그인 생성 → 설치 → 대화에서 선택 |
-| 분석 지침 추가 | [웹용 스킬 ZIP](https://github.com/wansucong-stoom/stoom-acaflow/raw/refs/heads/main/downloads/academyinfo-flow-skill-claude-web-0.2.7.zip)을 Skills에 업로드하고 토글 켜기 | 스킬과 MCP를 포함한 플러그인의 실제 로딩 확인 |
+| Claude·ChatGPT 웹 | [원격 MCP 연결](docs/WEB-MCP.md) | 계정의 연결 권한과 대화에서 사용할 수 있는 도구. 사용자 Python 설치 불필요 |
+| Codex·Claude Code | [개인 스킬 설치](docs/INSTALL.md#개인-스킬-설치) 또는 플러그인 | 파일·실행 권한. 실제 조회는 가용 MCP 또는 정상 연결된 Python 사용 |
+| 터미널·Python 자동화 | [CLI 설치](docs/INSTALL.md#python-cli-설치) | Python 3.11 이상, 공식 원천에 접근 가능한 네트워크 |
 
-[한남대 규정용 연결과의 구분, 계정 조건, 업로드 파일 형식](docs/WEB-MCP.md)을 먼저 확인하세요. 로컬 Codex·Claude Code 설치는 아래 절차입니다.
+스킬은 조회·분석 지침이고 MCP는 원격 실행 도구입니다. 단독 스킬 ZIP을 추가하는 것만으로 MCP가 등록되지는 않습니다.
 
-Claude 웹의 계정 설정 도구가 없는 일반 대화에서는 사용자가 **Settings → Capabilities** 활성 조건을 확인하고 **Customize → Skills**에서 ZIP을 등록·활성화합니다. 대화에 ZIP을 첨부하거나 AI가 구조를 검사한 것만으로 계정에 설치되지는 않습니다. 조직 계정의 정책 조건과 정확한 업로드 단계는 [스킬 추가 안내](docs/WEB-MCP.md#claude-웹에-스킬을-추가하기)를 따르세요. [Claude 공식 Skills 사용 절차](https://support.claude.com/en/articles/12512180-use-skills-in-claude)
+## 웹에서 조회하기
 
-## 로컬 AI에게 주소를 주고 설치하기
+전용 원격 주소는 다음과 같습니다. 현재 공개 읽기 서버는 별도 로그인·API 키·고정 인증 헤더가 필요하지 않습니다.
 
-파일을 읽고 명령을 실행할 수 있는 Codex 또는 Claude Code에 아래 요청을 전달하세요.
+```text
+https://h-rules.stoom.win/api/academyinfo/mcp
+```
 
-> https://github.com/wansucong-stoom/stoom-acaflow 의 대학알리미FLOW를 지금 사용하는 AI 환경에 설치해 줘. README와 AGENTS.md를 먼저 읽고, 환경에 맞는 설치기를 실행한 뒤 설치 결과를 확인해 줘.
+[Claude·ChatGPT 등록 절차](docs/WEB-MCP.md)에 따라 연결을 추가하고 사용할 대화에서 활성화합니다. 연결 후 다음처럼 요청합니다.
 
-AI는 저장소를 읽어 현재 클라이언트를 확인하고 설치·검증까지 진행할 수 있습니다. Python 3.11 이상, Git 또는 다운로드 도구, 설치 경로에 대한 쓰기 권한이 필요합니다. 클라이언트가 둘 이상이거나 식별되지 않으면 설치 대상을 선택해야 합니다. 실행 환경에서 요구하는 권한 승인은 그대로 따릅니다.
+> 대학알리미FLOW의 실제 조회 도구를 확인하고 현재 공개 연도를 조회해 줘. 조회 시각과 원천 응답을 기준으로 확인한 범위를 알려 줘.
 
-**먼저 현재 대화에서 사용할 수 있는 읽기 MCP 도구를 발견하고 입력 schema를 확인합니다.** 연결된 도구가 있으면 공개 연도·공시 목록·학교·소속·학과·학과 주요지표·일반 장표를 새로 조회할 수 있으며, 이 경로에는 사용자의 Python이 필요하지 않습니다. 도구가 없으면 먼저 현재 클라이언트의 MCP 등록·대화 활성화 절차를 확인합니다. 사용자가 Python 대체 경로를 선택한 경우 실행 도구·Python 3.11 이상·공식 원천 네트워크를 실제로 점검해 번들 스크립트를 사용합니다. endpoint의 존재, 계정의 실제 연결, 도구 가용성, 웹에서의 전체 실행은 각각 확인해야 합니다.
+Claude에 분석 지침도 추가하려면 [웹용 스킬 ZIP 0.3.1](downloads/academyinfo-flow-skill-claude-web-0.3.1.zip)을 사용합니다. 코드 실행 활성 조건·스킬 업로드·커넥터 등록은 [웹 안내](docs/WEB-MCP.md#claude-웹에-스킬을-추가하기)에서 구분합니다. 파일의 공개·검증 상태는 [배포 파일 설명](downloads/README.md)을 확인하세요.
 
-| 환경 | 설치·불러오기 | 실제 조회 조건과 확인 범위 |
-| --- | --- | --- |
-| ChatGPT 웹 | [MCP 플러그인 등록·설치·호출](docs/WEB-MCP.md#chatgpt-웹), Work부터 확인 | 한 대화의 MCP 조회 기록 확인. 계정별 스킬 설치·연결·실제 도구·원천 응답은 각각 확인. 선택한 Python 경로는 런타임·네트워크 점검 |
-| Claude 웹 | 전용 Connectors 등록·대화 활성화, 선택적인 Skills ZIP 등록·토글 켜기 | 사용자 제공 응답의 원격 장표 조회 성공 확인. 계정 설정·Skills 설치 UI 전체는 별도 미검증. 원격 MCP는 사용자 Python 없이 실행 |
-| Codex | 개인 스킬 폴더 또는 스킬 플러그인 설치 | 읽기 도구를 먼저 확인하고, 없으면 제공 Python·원천 네트워크 점검. 파일·로딩·조회 각각 확인 |
-| Claude Code | 개인 스킬 또는 네이티브 플러그인 설치 | 플러그인의 MCP 설정과 실제 도구 로딩 확인. 개인 스킬 설치만으로 MCP가 등록되지는 않음 |
+## Codex·Claude Code 개인 스킬 설치
 
-현재 읽기 MCP는 ChatGPT 웹 한 대화의 scope·catalog·report MCP 조회 기록과 사용자 제공 Claude 웹 응답의 실제 원격 장표 조회 성공도 확인했습니다. 이는 모든 계정의 스킬 설치·연결 성공이나 지침 정의 검증 완료를 보장하지 않습니다. 계정 설정·Skills 설치 UI 전체는 별도 미검증입니다. 패키지 형식은 [OpenAI 플러그인 구성](https://developers.openai.com/plugins/concepts/plugins)을 참고하세요.
-
-웹의 계정별 등록·활성화·도구 응답은 [웹 전용 안내](docs/WEB-MCP.md)에 따라 확인합니다.
-
-## 직접 설치하기
-
-저장소를 내려받고 사용할 클라이언트 하나를 선택합니다.
+저장소를 받은 뒤 사용할 클라이언트 하나를 선택합니다.
 
 ```sh
 git clone https://github.com/wansucong-stoom/stoom-acaflow.git
@@ -56,145 +41,88 @@ python -B -X utf8 install.py --client codex
 python -B -X utf8 install.py --client codex --check
 ```
 
-Claude Code는 두 명령의 `--client codex`를 `--client claude-code`로 바꾸세요. 두 환경 모두 설치하려면 `--client both`를 명시하세요. Windows에서 `python` 대신 `py -3.11` 또는 호스트가 제공한 Python 3.11 이상 경로를 사용할 수 있습니다.
+Claude Code는 `--client claude-code`를 사용합니다. Codex 기본 경로는 `~/.agents/skills/academyinfo-flow`, Claude Code는 `~/.claude/skills/academyinfo-flow`입니다. 기존 내용이 다르면 검토 후 `--update`로 백업하고 갱신합니다. [다른 경로·업데이트·플러그인 설치](docs/INSTALL.md)
 
-| 환경 | 기본 개인 스킬 설치 경로 | 호출 |
+Codex에서는 `@대학알리미FLOW` 또는 `$academyinfo-flow`, Claude Code 개인 스킬은 `/academyinfo-flow`로 요청할 수 있습니다.
+
+> 한남대학교의 최신 공개 취업률을 조회하고 공시연도·기준기간·단위·공식 근거를 설명해 줘.
+
+파일 설치 확인, 클라이언트에서 스킬 로딩, MCP 연결, 공식 원천 조회 성공은 각각 확인합니다. 개인 스킬 설치기는 MCP 설정을 변경하지 않습니다.
+
+## Python CLI 사용
+
+내려받은 저장소 루트에서 설치합니다. 아래 명령은 로컬 소스를 사용하며 PyPI 배포를 전제로 하지 않습니다.
+
+```sh
+python -m pip install .
+academyinfo-live --version
+academyinfo-live doctor
+academyinfo-live scope
+```
+
+`doctor`는 기본 오프라인 점검입니다. 실제 원천 연결도 확인하려면 `academyinfo-live doctor --check-source`를 사용합니다. 설치 후에는 `python -m academyinfo_live`로도 같은 명령을 실행할 수 있습니다.
+
+다음은 전국 장표에서 이름에 수학·수리가 포함된 학과를 찾고 JSON을 저장하는 예입니다. 실제 공개 연도·장표와 학과명 후보를 확인해 사용하세요.
+
+```sh
+academyinfo-live report --year 2026 --division 02 --item 7-가 --level department --dept-keyword 수학 --dept-keyword 수리 --max-pages 1000 --limit 10000 --progress --output math.json
+```
+
+`7-가` 같은 공시코드는 이번 공식 목록에서 유일한 항목 ID로 연결합니다. `--dept-keyword`는 학과명 문자열의 OR 검색이며 통계 계열이나 의미상 모든 관련 학과를 뜻하지 않습니다. 학교 한 곳의 학과 장표는 명부의 정확한 이름·코드를 확인한 뒤 `--school-code`와 `--school-name`을 함께 사용하면 학교 상세 경로를 선택할 수 있습니다. [CLI·학교 상세 예시](docs/INSTALL.md#학교-한-곳의-학과-장표)
+
+`--output`은 전체 JSON을 저장하고 stdout에는 저장 요약을 출력합니다. 기존 파일은 `--force` 없이 덮어쓰지 않습니다. `--progress`의 진행 이벤트는 stderr로 나갑니다. Excel 직접 출력·중단된 세션 재개는 제공하지 않습니다.
+
+| CLI 종료 코드 | 의미 |
+| --- | --- |
+| `0` | 완료 |
+| `2` | 입력·조회 오류 |
+| `3` | 부분 결과 |
+| `130` | 사용자 중단 |
+
+## 조회 경로와 범위
+
+| 경로 | 지원 범위 | 확인할 제한 |
 | --- | --- | --- |
-| Codex | `~/.agents/skills/academyinfo-flow` | `@대학알리미FLOW` 또는 `$academyinfo-flow` |
-| Claude Code 스킬 | `~/.claude/skills/academyinfo-flow` | `/academyinfo-flow` 또는 자연어 요청 |
-| Claude Code 플러그인 | Claude Code가 관리하는 플러그인 캐시 | `/academyinfo-flow:academyinfo-flow` |
+| 원격 MCP | scope·catalog·schools·affiliations·departments·metric·report | generic report의 학교·학과 필터는 수신 후 적용. 학교 상세 코드 인수·PDF·지침 파싱 미지원 |
+| Python 전국 장표 | 학교별·학과별 전체 보고서와 이름 필터 | 생성 완료·최종 페이지 수·전체 수신·표 검증을 확인. 호스트 네트워크·실행 시간과 `max_pages` 적용 |
+| Python 학교 상세 | 정확한 학교 한 곳의 학과 장표, 공식 양식 60 | `--school-code`와 정확한 `--school-name` 하나, 현재 명부의 기관구분 일치 필요. 합계·대학원·이전 소속 행은 다시 필터 |
+| Python 첨부·PDF·지침 | 첨부 목록과 확인한 PDF의 지정 범위 | PDF 파싱에만 선택 의존성 `pdfplumber>=0.11,<1` 필요 |
 
-Claude Code에서 플러그인으로 설치하려면 위 개인 스킬 설치 대신 다음 명령을 사용합니다.
+현재 원격 도구는 기본 **16페이지·최대 32페이지**, 초기화 **25초**, 다른 원천 요청 **12초**, 전체 **45초**와 원천 요청 수 예산을 적용합니다. **실제 도구 schema와 응답 `resource_bounds`가 우선**입니다. `limit`는 반환 행 범위이며 초기화 작업을 줄이지 않습니다. [제한·실패 대응](skills/academyinfo-flow/references/report-recovery.md)
 
-```sh
-claude plugin marketplace add wansucong-stoom/stoom-acaflow
-claude plugin install academyinfo-flow@stoom-acaflow
-claude plugin list
-```
+소스·플러그인·CLI wheel의 0.3.1과 원격 서버의 표시 버전은 별도로 관리합니다. 원격 서버가 `0.2.4`를 표시하더라도 이 소스 설치만으로 서버 버전·인수·실행 한도가 바뀌지는 않습니다.
 
-같은 환경에 개인 스킬과 플러그인을 모두 설치하면 두 항목이 보일 수 있으므로 한 방식을 선택하세요. 자세한 대상 선택·업데이트·검증 방법은 [설치 안내](docs/INSTALL.md)를 읽으세요.
+## 결과를 해석할 때
 
-## 사용 예시
+원천의 실제 전체 머리글, 기준기간·단위·기관·캠퍼스를 확인합니다. 공시연도와 행의 실적연도는 다를 수 있습니다. 빈칸·미공개·오류를 0으로 바꾸지 않으며, `complete=false`나 반환 누락이 있는 자료로 전국 합계·누락 없는 순위를 계산하지 않습니다.
 
-- `@대학알리미FLOW 한남대학교의 최신 공개 취업률을 조회하고 기준기간과 단위를 설명해 줘.`
+- [연도별 지침 확인](skills/academyinfo-flow/references/guidelines.md): 포함·제외대상, 기준일·단위·산식.
+- [평균과 비율](skills/academyinfo-flow/references/analysis-averages.md): 학교별 단순평균·중앙값과 분자·분모 합산 비율 구분.
+- [시도별 재학생 수](skills/academyinfo-flow/references/regional-enrollment.md): 재학·재적, 복수 기간, 캠퍼스 중복과 결합 지역의 귀속 확인.
+- [경로 관리](skills/academyinfo-flow/references/route-management.md): 검증한 호출 메타데이터 재사용. 이전 통계값으로 새 조회를 대신하지 않음.
+
+패키지는 스크립트·지침·탐색 메타데이터를 포함합니다. 대학별 관측 통계·수집 DB·PDF 전문·인증키는 포함하지 않습니다.
+
+## 자연어 요청 예시
+
 - `@대학알리미FLOW 공개된 전체 공시 항목과 대학·학과별 조회 가능 여부를 보여 줘.`
-- `@대학알리미FLOW 두 대학의 장학금 지표를 같은 기준으로 비교하고 공식 근거를 달아 줘.`
-- `@대학알리미FLOW 특정 학과의 등록금과 경쟁률을 조회해 줘.`
+- `@대학알리미FLOW 두 대학의 장학금을 같은 기간·단위로 비교하고 공식 근거를 달아 줘.`
+- `@대학알리미FLOW 전국 17개 시도별 재학생 수를 집계하고 기관 범위·기준일·미분류를 밝혀 줘.`
 
-새 수치·현재 비교 요청마다 공개 연도와 관련 원천 값을 새로 확인합니다. 대학·학과·계열과 캠퍼스, 공시연도·기준기간, 단위·분모를 구분합니다. 빈 결과·미공개·미지원은 숫자 0으로 바꾸지 않습니다. 수치와 출처, 조회 시각, 확인한 범위 및 제한을 함께 제시합니다.
+지역별 집계는 관측행 수만으로 완전성을 판단하지 않습니다. 결합 지역·캠퍼스·기간과 전체 원천 수신을 확인한 뒤 합산하며, 원천 값과 파생 합계를 구분합니다.
 
-확보한 장표별 경로 목록은 호출 경로·공개 인자·검증 근거를 재사용하는 메타데이터입니다. 이전 통계값을 새 수치 대신 사용하는 기능이 아닙니다. 사용자가 보존본·역사·스냅샷을 지정한 경우에만 연결된 아카이브의 확보 범위와 시점을 확인해 그 용도로 사용하며, 현재 값을 요청한 범위는 공식 원천에서 새로 조회합니다. 같은 내용의 공식 추이 파일이 있으면 실제 목록에서 필요한 파일 한 개를 새로 받아 장기 시계열을 분석할 수 있습니다. 일반 라이브 장표는 전국 표를 받은 뒤 학교·학과로 필터링하므로 응답 시간이 달라질 수 있습니다. 보존본과 새 조회의 시점은 구분해 표시합니다.
-
-## 실행 조건과 포함 범위
-
-연결된 읽기 MCP 도구를 사용할 때는 사용자의 Python이 필요하지 않습니다. Python 대체 경로의 기본 JSON 조회와 개인 폴더 설치기에는 **Python 3.11 이상 표준 라이브러리**만 필요합니다. 현재 MCP의 지원 범위에는 첨부 목록·PDF 본문·지침 전체 파싱이 포함되지 않습니다. 이 기능은 번들 Python 경로나 가용 공식 웹/PDF 도구를 사용하며, Python PDF 파싱에는 `pdfplumber>=0.11,<1`이 선택적으로 필요합니다. 설치기는 패키지나 개인 MCP 설정을 자동으로 변경하지 않습니다. 연결 예시와 선택 의존성은 [설치 안내](docs/INSTALL.md)를 읽으세요.
-
-패키지에는 실행 스크립트, 지침, 탐색용 공시·지침 메타데이터가 포함됩니다. 대학별 통계 관측값, 수집 DB, PDF·지침 전문, 인증키는 포함하지 않습니다. 공식 사이트의 접근 제한과 실행 환경의 네트워크 정책을 따릅니다.
-
-```text
-plugin.json                    공통 플러그인 선언
-mcp.json                       공통 원격 MCP 연결 설정(streamable-http)
-.mcp.json                      Codex·Claude Code 호환 MCP 연결 설정(http)
-.codex-plugin/plugin.json      Codex 호환 선언
-.claude-plugin/plugin.json     Claude Code 플러그인 선언
-.claude-plugin/marketplace.json Claude Code 설치 목록
-install.py                     개인 로컬 스킬 설치·검증
-skills/academyinfo-flow/        스킬·Python 스크립트·참고 자료
-docs/INSTALL.md                 상세 설치 안내
-```
-
-로컬 설치기는 같은 내용이면 그대로 두며, 다른 내용이 이미 있으면 `--update` 없이 덮어쓰지 않습니다. 업데이트는 이전 디렉터리를 스킬 탐색 경로 밖에 백업한 후 교체합니다. `--check`는 모든 포함 파일의 해시를 비교하고 파일을 변경하지 않습니다. 이것은 파일 설치 확인이며, 실제 서비스의 네트워크 조회나 화면에서의 스킬 로딩까지 증명하지는 않습니다.
-
-## 0.2.7에서 개선한 것
-
-- **Claude 웹 스킬 수동 등록 안내:** 계정 활성 조건·정확한 ZIP 등록·토글 켜기를 안내하고, 일반 첨부·구조 검수·Skills 등록·활성화·MCP 연결을 구분합니다.
-
-## 0.2.6에서 개선한 것
-
-- **Claude 웹 전용 커넥터 안내:** Skills ZIP 업로드와 MCP 등록·대화 활성화를 구분하고 전용 URL·무인증 설정·실제 읽기 도구 확인을 안내합니다. 연결 도구가 없으면 등록부터 확인하며 Python 대체 경로는 사용자가 선택하고 실행 조건을 점검합니다.
-
-## 0.2.5에서 통합한 것
-
-- **읽기 MCP 우선 조회:** 검증한 원격 endpoint 연결 설정을 플러그인에 포함하고, 스킬은 실제 도구·schema를 먼저 확인합니다. Python 없는 환경도 가용 읽기 도구 범위에서 조회하며, 지원 밖의 PDF·지침은 기존 경로를 사용합니다.
-- **조회 용도 구분:** 새 수치·현재 비교는 공식 새 조회를 기본으로 하고, 지정한 보존본·역사·스냅샷은 자료 시점을 밝혀 분석합니다. 0.2.4의 조회 경로 관리·공식 파일 조회 기능을 유지합니다.
-- **평균·비율 분석 기준:** 학교별 단순평균·중앙값과 분모 가중평균·합산 비율을 구분하며 표본·분모·결측·실제 0·반올림 기준을 확인합니다. [평균 분석 지침](skills/academyinfo-flow/references/analysis-averages.md)을 참고하세요.
-
-## 0.2.4에서 개선한 것
-
-- **장표별 경로 목록:** 기존 아카이브 다운로드 명세와 기관별 공식 공시목록을 `references/query-routes.json`으로 보관합니다. 필요한 장표만 조회하고 설치된 캐시 밖의 작업 폴더에 검증 이력을 누적합니다.
-- **공통 호출 규칙 학습:** 같은 방식·호스트·경로·공개 인자 키를 묶고, 공식 목록에 있는 선택자만 새 후보로 만듭니다. 후보와 본문 검증 성공을 구분하며 실패가 마지막 성공 기록을 덮어쓰지 않습니다.
-- **공식 시계열 파일 직접 조회:** `live_files.py`가 실제 파일 목록·목적 등록·첨부파일 검증을 수행합니다. 웹의 HTTP 도구도 같은 공개 경로와 명세를 사용할 수 있습니다.
-- **조회 때 자동 기록:** JSON·장표·일괄·파일 CLI가 공개 경로 메타데이터를 기록합니다. 숫자·쿠키·SQL·세션 URL은 경로 저장소에 넣지 않습니다. 저장 실패는 통계 조회 결과를 바꾸지 않습니다.
-
-경로 정책과 사용법은 [경로 관리](skills/academyinfo-flow/references/route-management.md)를 참고하세요. 같은 기록을 여러 웹 세션에서 누적하려면 상태 파일을 영속 저장소에 보관하고 다음 실행에 제공해야 합니다.
-
-## 0.2.3에서 개선한 것
-
-- **표 정체성 검증:** master·header·body 메타데이터의 항목 식별자나 표 구분이 상충하거나, 요청한 학교·학과 단위와 표 구분이 다르면 검증 완료로 처리하지 않습니다.
-- **반복 페이지 검증:** 다른 요청 페이지 번호에서 같은 XML이나 같은 파싱 본문이 반복되면 전체 보고서가 완료되었다고 표시하지 않습니다.
-
-## 0.2.2에서 개선한 것
-
-- **환경별 실행 전 점검:** Python과 선택 PDF 패키지를 확인하고, `--check-source`를 요청한 경우에만 공식 공개 연도를 새로 조회합니다.
-- **용도별 세 ZIP:** 플러그인, Codex 폴더 설치용 스킬, Claude 웹 업로드용 스킬을 별도 파일로 만듭니다. Claude 웹판은 Codex용 `agents/`만 제외하며 같은 핵심 코드를 담습니다.
-- **열 선택과 독자용 표기:** 전체 상위 헤더와 하위 열을 확인하고 원천 값과 파생 합계를 구분합니다. 본문은 학교·항목명·기간·단위·링크·조회일로 표기하며 원천 JSON의 식별자·좌표·해시는 유지합니다.
-
-0.2.0의 기존 조회·최적화 기능도 유지합니다.
-
-- **한 질문 안의 중복 조회 감소:** 같은 장표를 여러 대학·학과·반환 범위에 재사용하는 `live_batch.py`를 추가했습니다. 실행이 끝나면 재사용 자료를 폐기하고 다음 실행은 새로 조회합니다.
-- **다중 학교 필터:** `--school-name`, `--dept-name`을 반복 지정할 수 있습니다. 학교와 학과의 특정 쌍을 비교할 때는 일괄 조회의 개별 질문으로 나눕니다.
-- **표 복원 최적화:** 같은 셀의 정확한 Decimal 좌표를 반복 계산하지 않고, 행 경계를 따라 필요한 셀을 찾아갑니다. 이후 버리던 XML 트리는 라이브 조회에서 만들지 않습니다. 모든 페이지의 표 구조와 누락·모호성 검증은 유지합니다.
-- **간결한 결과:** 일괄 조회는 기본으로 중복 셀 상세를 생략합니다. 숫자·문자열·단위 해석용 열 정의·원천 페이지·출처·해시·완전성·경고는 유지합니다. 전체 출력도 선택할 수 있습니다.
-- **지침 여러 항목을 한 번에:** `live_guide.py --codes`가 새 PDF 한 번의 수신으로 필요한 페이지 합집합을 읽습니다.
-- **처리 시간 진단:** 원천 초기화·생성 대기·페이지 수신·표 복원·검증·출력 준비 시간을 구분합니다.
-
-일반 장표는 여전히 공식 보고서 전체를 읽은 뒤 학교를 필터링하는 경로입니다. 공식 서버에 없는 학교 필터를 임의로 만들거나, 페이지를 생략하고 전체 결과라고 표시하지 않습니다. 요청 간격도 유지합니다. 최적화된 파서의 속도를 실제 네트워크·LLM을 포함한 응답속도로 해석하면 안 됩니다.
-
-## 실행
-
-연결된 MCP의 실제 도구와 schema를 확인한 뒤 요청에 맞는 읽기 도구를 사용합니다. Claude 웹에서 도구가 없으면 전용 커넥터 등록·대화 활성화를 먼저 확인합니다. 다음은 사용자가 선택한 Python 대체 경로입니다. 실제 실행 도구·Python·원천 네트워크가 확인된 환경에서 저장소를 받은 위치를 기준으로 실행하며, 기본 통계 조회·표 복원은 Python 표준 라이브러리를 사용합니다. 지침/PDF 추출에만 추가로 `pdfplumber>=0.11,<1`이 필요합니다.
-
-```sh
-python -B -X utf8 skills/academyinfo-flow/scripts/runtime_preflight.py
-python -B -X utf8 skills/academyinfo-flow/scripts/live_json.py scope
-python -B -X utf8 skills/academyinfo-flow/scripts/live_batch.py --input queries.json
-python -B -X utf8 skills/academyinfo-flow/scripts/live_batch.py --input queries.json --full-output
-python -B -X utf8 skills/academyinfo-flow/scripts/route_registry.py lookup --keyword "신입생 충원" --division 02 --level department
-python -B -X utf8 skills/academyinfo-flow/scripts/live_files.py catalog --division 02
-```
-
-조회조건 JSON에는 먼저 공식 목록으로 확인한 연도·항목 ID·학교/학과 식별자를 넣습니다. 지원 명령·입력 예시·반환 상태·측정 구간은 [실행 지침](skills/academyinfo-flow/SKILL.md)과 [일괄 조회 명세](skills/academyinfo-flow/references/performance.md)를 참조하세요.
-
-## 검증과 패키지 만들기
+## 개발과 패키지 검증
 
 ```sh
 python -B -X utf8 -m unittest discover -s tests -v
 python -B -X utf8 scripts/build_plugin.py
-claude plugin validate .
+python -m pip wheel . --no-deps --wheel-dir dist
+python -B -X utf8 scripts/verify_release.py --artifacts dist
+python -B -X utf8 scripts/verify_wheel.py --artifacts dist
 ```
 
-빌더는 다음 세 파일을 만듭니다. 기존 식별자와 기본 프롬프트를 유지하며 테스트·실행 캐시는 제외합니다.
+플러그인·Codex 스킬·Claude 웹 스킬 ZIP과 CLI wheel은 용도가 다릅니다. [설치·패키지 형식](docs/INSTALL.md#패키지-형식), [현재 파일과 해시](downloads/README.md), [실제로 수행한 검증과 한계](docs/VERIFICATION.md)를 확인하세요. 소스 공개·계정 설치·원격 배포·공식 디렉터리 게시를 구분합니다.
 
-| 파일 | 용도 |
-| --- | --- |
-| `dist/academyinfo-flow-plugin-0.2.7.zip` | 플러그인 설치·배포용 |
-| `dist/academyinfo-flow-skill-codex-0.2.7.zip` | 압축을 풀어 개인 스킬 상위 폴더에 설치 |
-| `dist/academyinfo-flow-skill-claude-web-0.2.7.zip` | Claude 웹 Skills에 그대로 업로드 |
+릴리스 검증기는 버전·로컬 문서 링크·ZIP의 파일 목록과 소스 바이트를 대조합니다. wheel 검증기는 별도 임시 위치에 설치해 오프라인 진입점과 참조 파일을 확인합니다. [GitHub Actions 설정](.github/workflows/verify.yml)은 Windows·Ubuntu와 Python 3.11·3.12에서 합성 테스트와 패키지 검증을 수행하도록 구성하며, 공식 통계를 수집하거나 예약 실행하지 않습니다. 설정 추가와 원격 CI 성공은 별도입니다.
 
-두 스킬 ZIP의 최상위 폴더는 `academyinfo-flow/`이며 MCP 설정 파일은 포함하지 않습니다. Codex판에는 `agents/openai.yaml`이 포함되며 Claude 웹판에서는 `agents/`를 제외합니다. 플러그인 ZIP에는 공통 `mcp.json`과 Codex·Claude Code 호환 `.mcp.json`이 포함됩니다. 업로드·클라이언트 로딩·MCP 연결·도구 가용성·원천 조회를 각각 검증합니다.
-
-이전 설치본은 Git 이력의 `Import installed academyinfo-flow 0.1.0 source` 커밋에 보존했습니다. 해당 버전을 다른 경로에 체크아웃한 다음 다음 명령으로 표 복원 출력과 시간을 비교할 수 있습니다.
-
-```sh
-python -B -X utf8 tests/parser_benchmark.py --baseline /path/to/previous-release
-```
-
-조회 테스트는 모의 HTTP/PDF 응답과 합성 표를 사용하며, 공공 서버의 전수 조회를 실행하지 않습니다. 설치 테스트는 실제 개인 설정을 바꾸지 않는 임시 사용자 폴더를 사용합니다. 측정 결과와 한계는 [성능 검증 기록](docs/performance.md)에 정리했습니다.
-
-## 원천과 라이선스
-
-공식 데이터 원천은 [대학알리미](https://www.academyinfo.go.kr/)입니다. 번들 공개 프로토콜 어댑터는 [stoom-openacainfo](https://github.com/wansucong-stoom/stoom-openacainfo)에서 가져왔으며 MIT 저작권 고지를 유지합니다. 최적화 내역은 이 저장소에서 관리합니다. 통계의 기준기간·단위·산식은 해당 공시연도 지침과 원천 열을 확인해야 합니다.
-
-문의·개선 제안은 [GitHub Issues](https://github.com/wansucong-stoom/stoom-acaflow/issues)에 남길 수 있습니다. 코드는 [MIT 라이선스](LICENSE)로 배포합니다. 원천 데이터는 해당 제공기관의 이용 조건을 따릅니다.
-
-설치 경로와 패키지 형식은 [OpenAI 공식 스킬 문서](https://learn.chatgpt.com/docs/build-skills), [Claude Code 스킬 문서](https://code.claude.com/docs/en/skills), [Claude Code 플러그인 명세](https://code.claude.com/docs/en/plugins-reference)를 기준으로 작성했습니다.
+공식 통계 원천은 [대학알리미](https://www.academyinfo.go.kr/)이며, 번들 어댑터의 [stoom-openacainfo](https://github.com/wansucong-stoom/stoom-openacainfo) MIT 고지를 유지합니다. 이 저장소의 코드는 [MIT](LICENSE)로 배포하며 원천 자료에는 제공기관의 이용 조건이 적용됩니다. [문의·개선 제안](https://github.com/wansucong-stoom/stoom-acaflow/issues)

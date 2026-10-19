@@ -1,0 +1,49 @@
+name: Verify source and release packages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: ${{ matrix.os }} / Python ${{ matrix.python }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ['3.11', '3.12']
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install build tools
+        run: python -m pip install "setuptools>=77" wheel
+      - name: Run synthetic and installation tests
+        run: python -B -X utf8 -m unittest discover -s tests -v
+      - name: Build plugin and both skill ZIPs
+        run: python -B -X utf8 scripts/build_plugin.py
+      - name: Build standalone CLI wheel
+        run: python -m pip wheel . --no-deps --no-build-isolation --wheel-dir dist
+      - name: Verify source links, identities and ZIP contents
+        run: python -B -X utf8 scripts/verify_release.py --artifacts dist
+      - name: Verify installed wheel outside the source tree
+        run: python -B -X utf8 scripts/verify_wheel.py --artifacts dist
+      - name: Retain verified build artifacts
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: academyinfo-flow-${{ matrix.os }}-python-${{ matrix.python }}
+          path: |
+            dist/*.zip
+            dist/*.whl
+          if-no-files-found: error
+          retention-days: 7

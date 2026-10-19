@@ -14,7 +14,7 @@
   },
   "requires_local_executor": false,
   "name": "academyinfo-flow",
-  "version": "0.2.7",
+  "version": "0.3.1",
   "description": "대학알리미의 검증된 장표별 경로를 재사용하고 공식 공시·추이 파일·연결된 아카이브를 조회해 연도별 지침으로 분석하는 스킬.",
   "author": {
     "name": "STOOM"

@@ -24,7 +24,7 @@ class PackagingTests(unittest.TestCase):
         self.repo = Path(self.temporary.name) / 'source'
         self.repo.mkdir()
         for relative in ('plugin.json', '.codex-plugin/plugin.json', '.claude-plugin/plugin.json',
-                         '.claude-plugin/marketplace.json', 'mcp.json', '.mcp.json', 'LICENSE'):
+                         '.claude-plugin/marketplace.json', 'mcp.json', '.mcp.json', 'LICENSE', 'pyproject.toml'):
             self.write(relative, (ROOT / relative).read_text(encoding='utf-8'))
         for relative in installer.REQUIRED_FILES:
             content = '---\nname: academyinfo-flow\ndescription: synthetic package fixture\n---\n' if relative == 'SKILL.md' else '# synthetic package fixture\n'
@@ -50,6 +50,7 @@ class PackagingTests(unittest.TestCase):
             self.assertIn('plugin.json', plugin.namelist())
             self.assertIn('mcp.json', plugin.namelist())
             self.assertIn('.mcp.json', plugin.namelist())
+            self.assertIn('pyproject.toml', plugin.namelist())
             self.assertIn('skills/academyinfo-flow/SKILL.md', plugin.namelist())
             self.assertIn('academyinfo-flow/agents/openai.yaml', codex.namelist())
             self.assertNotIn('academyinfo-flow/agents/openai.yaml', claude.namelist())

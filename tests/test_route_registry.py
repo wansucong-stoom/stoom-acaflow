@@ -50,6 +50,33 @@ class RouteRegistryTests(unittest.TestCase):
     def setUp(self):
         self.state = registry.empty_registry()
 
+    def test_school_detail_bootstrap_routes_keep_distinct_school_identity(self):
+        bootstrap = 'https://academyinfo.go.kr/uipnh/unt/unmcom/RdViewer.do'
+        for school in ('0000001', '0000002'):
+            registry.record_result(self.state, result(sources=[source(bootstrap, public_parameters={
+                'paramSvyYr': '2026', 'paramSchlDivCd': '02', 'paramItemId': '27',
+                'paramFormClftCd': '60', 'paramSchlCd': school, 'paramZoneCd': '99'})]))
+        self.assertEqual(len(self.state['routes']), 2)
+        self.assertEqual({r['scope']['school_code'] for r in self.state['routes']}, {'0000001', '0000002'})
+        for route in self.state['routes']:
+            self.assertEqual(route['scope']['form'], '60')
+            self.assertEqual(route['scope']['level'], 'department')
+            self.assertEqual(route['public_parameters']['paramZoneCd'], '99')
+        # Generalization may not transfer school-specific parameters to a
+        # different catalog item merely because the path and keys match.
+        registry.record_result(self.state, catalog(item='99'))
+        registry.learn_families(self.state)
+        candidates = registry.lookup(self.state, item='99', year='2026', division='02', level='department')
+        self.assertTrue(all('paramSchlCd' not in row['public_parameters'] for row in candidates['routes']))
+
+    def test_school_detail_without_a_valid_code_is_not_remembered_as_a_global_route(self):
+        bootstrap = 'https://academyinfo.go.kr/uipnh/unt/unmcom/RdViewer.do'
+        for invalid in ('', 'wrong', '123', '00000001'):
+            registry.record_result(self.state, result(sources=[source(bootstrap, public_parameters={
+                'paramSvyYr': '2026', 'paramSchlDivCd': '02', 'paramItemId': '27',
+                'paramFormClftCd': '60', 'paramSchlCd': invalid, 'paramZoneCd': '99'})]))
+        self.assertEqual(self.state['routes'], [])
+
     def test_failure_keeps_last_success_and_duplicate_is_idempotent(self):
         self.assertEqual(registry.record_result(self.state, result()), 1)
         route = self.state["routes"][0]

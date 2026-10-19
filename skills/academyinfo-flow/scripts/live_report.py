@@ -26,13 +26,24 @@ sys.path.insert(0, str(_VENDOR))
 try:
     if not (_VENDOR / "academyinfo_archive" / "viewer_data.py").is_file():
         raise ImportError("bundled adapter unavailable")
-    from academyinfo_archive.catalog import collection_plan
-    from academyinfo_archive.direct import DirectClient, SourceError, rows_at, validate_public_url
-    from academyinfo_archive.pdf_json import PDF_DOWNLOAD_URL, attachment_links, parse_pdf
-    from academyinfo_archive.report_tables import (
-        ReportParseError, combine_report_pages, parse_java_map_list, parse_report_xml, validate_metadata_identity,
-    )
-    from academyinfo_archive.viewer_data import ViewerDataClient
+    if __package__:
+        from .vendor.academyinfo_archive.catalog import collection_plan
+        from .vendor.academyinfo_archive.department import iter_schools, school_rows
+        from .vendor.academyinfo_archive.direct import DirectClient, SourceError, rows_at, validate_public_url
+        from .vendor.academyinfo_archive.pdf_json import PDF_DOWNLOAD_URL, attachment_links, parse_pdf
+        from .vendor.academyinfo_archive.report_tables import (
+            ReportParseError, combine_report_pages, parse_java_map_list, parse_report_xml, validate_metadata_identity,
+        )
+        from .vendor.academyinfo_archive.viewer_data import ViewerDataClient
+    else:
+        from academyinfo_archive.catalog import collection_plan
+        from academyinfo_archive.department import iter_schools, school_rows
+        from academyinfo_archive.direct import DirectClient, SourceError, rows_at, validate_public_url
+        from academyinfo_archive.pdf_json import PDF_DOWNLOAD_URL, attachment_links, parse_pdf
+        from academyinfo_archive.report_tables import (
+            ReportParseError, combine_report_pages, parse_java_map_list, parse_report_xml, validate_metadata_identity,
+        )
+        from academyinfo_archive.viewer_data import ViewerDataClient
     _DEPENDENCIES_AVAILABLE = True
 except ImportError:
     _DEPENDENCIES_AVAILABLE = False
@@ -106,9 +117,11 @@ class ReportBatch:
     @staticmethod
     def key(args: argparse.Namespace) -> tuple:
         # Output ranges and school/department filters do not affect the source
-        # report. A different source page cap does, and must remain separate.
+        # report. A different page cap or school-detail identity does. Keep the
+        # exact detail-school name so a cache hit cannot skip its registry check.
         return (args.command, args.year, args.division, args.item,
-                args.level, args.max_pages)
+                args.level, args.max_pages, getattr(args, 'school_code', None),
+                tuple(args.school_names) if getattr(args, 'school_code', None) else None)
 
 
 def compact_result(result: dict[str, Any]) -> dict[str, Any]:
@@ -240,6 +253,11 @@ def _validate(args: argparse.Namespace) -> None:
         args.max_pages = _integer(getattr(args, "max_pages", 100), minimum=1, maximum=MAX_PAGES)
         args.limit = _integer(getattr(args, "limit", 50), minimum=1, maximum=100000)
         args.offset = _integer(getattr(args, "offset", 0), minimum=0)
+        args.school_code = getattr(args, 'school_code', None)
+        if args.school_code is not None and (not isinstance(args.school_code, str)
+                or not re.fullmatch(r'[0-9]{7}', args.school_code)
+                or args.command != 'report' or args.level != 'department'):
+            raise InputError("학교 범위 조회는 학과 장표와 실제 7자리 학교코드가 필요합니다.")
         if args.command == "report":
             for field in ("school_name", "dept_name"):
                 singular = getattr(args, field, None)
@@ -257,6 +275,12 @@ def _validate(args: argparse.Namespace) -> None:
                     raise InputError("학교·학과 이름 목록은 100개 이하여야 합니다.")
                 setattr(args, field + "s", names)
                 setattr(args, field, names[0] if len(names) == 1 else None)
+            args.dept_keywords = getattr(args, 'dept_keywords', None) or []
+            if (not isinstance(args.dept_keywords, list) or len(args.dept_keywords) > 100
+                    or any(not isinstance(k, str) or not k.strip() or len(k) > 200 for k in args.dept_keywords)):
+                raise InputError('학과명 포함어는 비어 있지 않은 문자열 목록이어야 합니다.')
+            if args.school_code and len(args.school_names) != 1:
+                raise InputError("학교 범위 조회에는 정확한 학교명 하나를 지정하세요.")
     else:
         if (not isinstance(args.file_path, str) or not re.fullmatch(
                 r"/infofile/PDF_UPLOAD/PBNF_ITEM_UPLOAD/[0-9]{4}/[0-9]{2}/[0-9]+/", args.file_path)):
@@ -313,10 +337,13 @@ def _catalog(args: argparse.Namespace, client: Any, result: dict[str, Any],
     return row
 
 
-def _wait_for_generation(client: Any, session: Any) -> Any:
+def _wait_for_generation(client: Any, session: Any, progress=None) -> Any:
     deadline = time.monotonic() + GENERATION_WAIT_SECONDS
     for attempt in range(GENERATION_MAX_POLLS):
         status = client.report_status(session)
+        if progress is not None:
+            progress({'stage': 'generation', 'generated_pages': status.expected_pages,
+                      'generation_complete': status.complete})
         if status.complete:
             if (isinstance(status.expected_pages, bool) or not isinstance(status.expected_pages, int)
                     or not 1 <= status.expected_pages <= 100000):
@@ -360,17 +387,32 @@ def _row_context(cells: list[dict[str, Any]], geometry: dict[str, Any]) -> list[
 
 def _collect(args: argparse.Namespace, client: Any, result: dict[str, Any], *,
              capture: dict[str, Any] | None = None,
-             performance: dict[str, Any] | None = None) -> tuple[list[dict], bool]:
+             performance: dict[str, Any] | None = None, progress=None) -> tuple[list[dict], bool]:
     """Use one report job, completed before retrieval and checked afterwards."""
     performance = performance if performance is not None else {}
+    school_code = getattr(args, 'school_code', None)
+    if school_code:
+        candidates = []
+        with _stage(performance, 'school_identity'):
+            for exchange in iter_schools(client, args.year, school_name=args.school_names[0], max_pages=10):
+                result['sources'].append(_source(exchange))
+                candidates.extend(school_rows(exchange))
+        if not any(r['schl_id'] == school_code and r['schl_nm'] == args.school_names[0]
+                   and r.get('schl_div_cd') == args.division for r in candidates):
+            raise InputError('학교코드·정확한 학교명·기관구분이 현재 공식 명부와 일치하지 않습니다.')
     with _stage(performance, "report_initialization"):
-        session = client.start_report(args.year, args.division, args.item, level=args.level)
+        if progress is not None:
+            progress({'stage': 'report_initialization'})
+        session = client.start_report(args.year, args.division, args.item, level=args.level,
+                                      **({'school_code': school_code} if school_code else {}))
     reports: list[dict] = []
     first_status = None
     final_status = None
     failure = None
     selectors = {"pubYear": args.year, "schoolDivision": args.division,
                  "itemId": args.item, "level": args.level, "language": "ko"}
+    if school_code:
+        selectors.update(schoolCode=school_code, formClassification='60')
     result["selectors"] = selectors
     try:
         result["title"] = _public(session.title)
@@ -390,7 +432,7 @@ def _collect(args: argparse.Namespace, client: Any, result: dict[str, Any], *,
                     raise
                 result['metadata_validation'] = {'status': 'verified', 'identity': identity}
         with _stage(performance, "generation_wait"):
-            first_status = _wait_for_generation(client, session)
+            first_status = _wait_for_generation(client, session, progress=progress)
         for page in range(1, min(first_status.expected_pages, args.max_pages) + 1):
             # Initialization already returned page 1 of this freshly created
             # report job. Preserve its source hash, then request pages 2..N.
@@ -421,6 +463,9 @@ def _collect(args: argparse.Namespace, client: Any, result: dict[str, Any], *,
             }) for p in parsed["pages"]]
             parsed.pop("source_table_metadata", None)
             reports.append(parsed)
+            if progress is not None and (page == 1 or page % 25 == 0 or page == first_status.expected_pages):
+                progress({'stage': 'page_received', 'received_pages': len(reports),
+                          'source_total_pages': first_status.expected_pages})
         with _stage(performance, "final_status"):
             final_status = client.report_status(session)
         if not final_status.complete or final_status.expected_pages != first_status.expected_pages:
@@ -437,6 +482,7 @@ def _collect(args: argparse.Namespace, client: Any, result: dict[str, Any], *,
                             "page_count_stable": stable, "source_total_pages": expected,
                             "fetched_pages": len(reports), "max_pages": args.max_pages,
                             "max_pages_allowed": MAX_PAGES}
+    result['page_recovery_events'] = getattr(client, 'page_recovery_events', [])
     if reports:
         with _stage(performance, "combine_validation"):
             combined = combine_report_pages(reports, expected_pages=expected)
@@ -461,19 +507,32 @@ def _collect(args: argparse.Namespace, client: Any, result: dict[str, Any], *,
 def _numeric_result(args: argparse.Namespace, result: dict[str, Any], combined: dict,
                     source_complete: bool) -> None:
     rows = combined["rows"]
+    if getattr(args, 'school_code', None):
+        if not any(r.get('dimensions', {}).get('schoolName') == args.school_names[0] for r in rows):
+            raise SourceError('학교 범위 장표에서 요청한 학교 식별 열을 확인하지 못했습니다.')
+        result['source_scope'] = {'kind': 'school_detail', 'form': '60',
+                                  'school_code': args.school_code, 'school_name': args.school_names[0],
+                                  'requested_school_present': True,
+                                  'note': '소속 대학원과 합계 행을 포함할 수 있어 실제 학교·학과 열로 다시 필터합니다.'}
     alternatives = {key: names for key, names in (("schoolName", args.school_names),
                                                  ("deptName", args.dept_names)) if names}
     filters = {key: names[0] if len(names) == 1 else names
                for key, names in alternatives.items()}
     filter_verified = all(isinstance(row.get("dimensions", {}).get(key), str)
-                          for row in rows for key in filters)
+                          for row in rows if row.get('row_kind') != 'aggregate' for key in filters)
     # Empty or unparsed responses cannot prove that a dimension filter exists.
     available_dimensions = {key for row in rows for key in row.get("dimensions", {})}
     filter_verified = filter_verified and set(filters).issubset(available_dimensions)
     choices = {key: frozenset(name.strip() for name in names) for key, names in alternatives.items()}
+    keywords = getattr(args, 'dept_keywords', [])
+    if keywords:
+        filter_verified = filter_verified and 'deptName' in available_dimensions and all(
+            isinstance(r.get('dimensions', {}).get('deptName'), str)
+            for r in rows if r.get('row_kind') != 'aggregate')
     matched = [row for row in rows if all(isinstance(row.get("dimensions", {}).get(key), str)
                                        and row["dimensions"][key].strip() in names
-                                       for key, names in choices.items())]
+                                       for key, names in choices.items())
+               and (not keywords or any(k in (row.get('dimensions', {}).get('deptName') or '') for k in keywords))]
     selected = matched[args.offset:args.offset + args.limit]
     result["rows"] = [_public(row | {"source_request_page": row["source_page_index"] + 1})
                       for row in selected]
@@ -486,6 +545,9 @@ def _numeric_result(args: argparse.Namespace, result: dict[str, Any], combined: 
                          "normalization": "outer_whitespace_trim",
                          "dimensions": filters,
                          "verified_on_all_source_rows": filter_verified}
+    if keywords:
+        result['filters']['department_name_contains_any'] = keywords
+        result['filters']['keyword_match'] = 'literal_substring_any'
     result["granularity"] = {"requested_level": args.level,
         "catalog_mjr_use_step_cd": result["catalog_item"]["mjr_use_step_cd"],
         "school_name_dimension_present": "schoolName" in available_dimensions,
@@ -569,7 +631,7 @@ def _pdf(args: argparse.Namespace, result: dict[str, Any]) -> None:
 
 
 def run_command(args: argparse.Namespace | dict[str, Any], *,
-                batch: ReportBatch | None = None) -> dict[str, Any]:
+                batch: ReportBatch | None = None, progress=None) -> dict[str, Any]:
     """Fetch afresh, or project a source fetched earlier in this explicit batch.
 
     A normal invocation always creates a fresh client. The batch caller owns
@@ -593,6 +655,8 @@ def run_command(args: argparse.Namespace | dict[str, Any], *,
             query = {"year": args.year, "division": args.division, "item": args.item,
                      "level": args.level, "max_pages": args.max_pages,
                      "limit": args.limit, "offset": args.offset}
+            if args.school_code:
+                query['school_code'] = args.school_code
             if batch is not None:
                 if batch.closed:
                     raise InputError("종료한 일괄 조회는 재사용할 수 없습니다. 새 조회를 시작하세요.")
@@ -623,18 +687,27 @@ def run_command(args: argparse.Namespace | dict[str, Any], *,
                     batch.stats["misses"] += 1
                 with _stage(performance, "catalog"):
                     _catalog(args, client, result, batch)
-                _collect(args, client, result, capture=capture, performance=performance)
+                _collect(args, client, result, capture=capture, performance=performance, progress=progress)
     except (InputError, AttributeError) as error:
         result["status"] = "partial" if result["rows"] else "error"
         result["complete"] = False
         result["error"] = {"code": "invalid_input", "message": str(error) if isinstance(error, InputError)
                            else "명령과 필수 공개 선택조건을 확인하세요."}
-    except (SourceError, ReportParseError):
+    except (SourceError, ReportParseError) as error:
         result["status"] = "partial" if result["rows"] else "error"
         result["complete"] = False
         result["completeness"]["source_complete"] = False
         result["error"] = {"code": "source_validation_error",
             "message": "대학알리미 원천 응답·페이지 생성·표 구조를 검증하지 못했습니다. 확인된 부분만 반환합니다."}
+        stage = getattr(error, 'source_stage', None)
+        if stage in {'report_page_transport', 'report_page', 'generation_status', 'generation_recheck'}:
+            result['error']['stage'] = stage
+        page = getattr(error, 'requested_page', None)
+        if isinstance(page, int) and not isinstance(page, bool) and page > 0:
+            result['error']['requested_page'] = page
+        http_status = getattr(error, 'transport_diagnostic', {}).get('http_status')
+        if isinstance(http_status, int):
+            result['error']['http_status'] = http_status
     except (urllib.error.URLError, TimeoutError, OSError):
         result["status"] = "partial" if result["rows"] else "error"
         result["complete"] = False
@@ -690,10 +763,13 @@ def build_parser() -> argparse.ArgumentParser:
         sub.add_argument("--limit", default=50, type=_positive)
         sub.add_argument("--offset", default=0, type=_offset)
         if command == "report":
+            sub.add_argument('--school-code', help='공식 명부의 7자리 학교코드. 학과 조회에서 학교 상세 양식 60을 사용합니다.')
             sub.add_argument("--school-name", action="append", dest="school_names",
                              help="정확한 학교명. 여러 번 지정하면 한 번 받은 장표에서 함께 조회합니다.")
             sub.add_argument("--dept-name", action="append", dest="dept_names",
                              help="정확한 학과명. 여러 번 지정 가능; 같은 차원 안에서는 OR 조건입니다.")
+            sub.add_argument('--dept-keyword', action='append', dest='dept_keywords',
+                             help='학과명에 포함된 문자열. 반복하면 OR이며 정확한 이름 조건과는 AND입니다. 분류를 제한하지 않습니다.')
             sub.add_argument("--compact", action="store_true",
                              help="값·출처·검증 상태를 유지하고 반복되는 셀 상세만 생략합니다.")
     sub = commands.add_parser("pdf")

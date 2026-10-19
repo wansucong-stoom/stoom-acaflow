@@ -195,6 +195,8 @@ class ViewerDataClient(DirectClient):
         if not 200 <= exchange.status < 300:
             error = SourceError(f"공시 원천 서버 HTTP {exchange.status} 오류입니다.")
             error.transport_diagnostic = dict(self._last_response_diagnostic)
+            error.policy_refusal = exchange.status in {401, 403} or bool(
+                re.search(rb'blocked by policy|access denied|permission denied|forbidden', body, re.I))
             raise error
         if body.startswith(b"ER0"):
             error = SourceError("공시 원천 서버가 조회 오류를 반환했습니다.")
@@ -222,18 +224,24 @@ class ViewerDataClient(DirectClient):
         return root
 
     def start_report(self, year: str, school_division: str, item_id: str,
-                     *, level: str = "department") -> ReportSession:
+                     *, level: str = "department", school_code: str | None = None) -> ReportSession:
         if (not re.fullmatch(r"\d{4}", year) or school_division not in {"01", "02", "03", "04"}
                 or not re.fullmatch(r"\d{1,6}", item_id) or level not in {"department", "school"}):
             raise ValueError("공시연도·학교구분·항목 ID·조회단위를 확인해주세요.")
-        form = "36" if level == "department" else "30"
+        if school_code is not None and (not re.fullmatch(r"[0-9]{7}", school_code) or level != "department"):
+            raise ValueError("학교 범위 기본양식은 실제 7자리 학교코드와 학과 조회가 필요합니다.")
+        self.page_recovery_events = []
+        form = "60" if school_code else "36" if level == "department" else "30"
         selectors = {"pubYear": year, "schoolDivision": school_division,
                      "itemId": str(int(item_id)), "level": level, "language": "ko"}
+        if school_code:
+            selectors.update(schoolCode=school_code, formClassification="60")
         bootstrap = self.request(BOOTSTRAP_URL, {
             "paramSvyYr": year, "paramSchlDivCd": school_division,
             "paramItemId": str(int(item_id)), "paramFormClftCd": form,
             "paramMjrItem1": "00", "paramMjrItem2": "00", "paramMjrItem3": "00",
             "paramSchlKindCd": "99", "paramSchlEstabCd": "99", "paramDomainDiv": "MOB",
+            **({"paramSchlCd": school_code, "paramZoneCd": "99"} if school_code else {}),
         })
         if bootstrap.status != 200:
             raise SourceError(f"공시 초기화 HTTP {bootstrap.status} 오류입니다.")
@@ -319,8 +327,25 @@ class ViewerDataClient(DirectClient):
                         "userHeader": "", "serviceid": session._service_id})
         malformed_doc_retries = 0
         for attempt in range(5):
-            exchange, _ = self._runtime_post(session._server_url, runtime,
-                                            {**session.selectors, "reqtype": f"91#{page}"})
+            try:
+                exchange, _ = self._runtime_post(session._server_url, runtime,
+                                                {**session.selectors, "reqtype": f"91#{page}"})
+            except SourceError as error:
+                diagnostic = getattr(error, 'transport_diagnostic', {})
+                error.requested_page = page
+                error.source_stage = 'report_page_transport'
+                # Retry only transient server failures, on the identical page
+                # and report job. Never retry access refusals or change routes.
+                if (diagnostic.get('http_status') in {500, 502, 503, 504}
+                        and not getattr(error, 'policy_refusal', False) and attempt < 2):
+                    events = getattr(self, 'page_recovery_events', None)
+                    if events is None:
+                        self.page_recovery_events = events = []
+                    events.append({'source_request_page': page, 'http_status': diagnostic['http_status'],
+                                   'retry_attempt': attempt + 1, 'reason': 'transient_server_error'})
+                    time.sleep(max(self.interval, 2 ** attempt))
+                    continue
+                raise
             try:
                 root = self._xml(exchange.body)
             except SourceError as error:

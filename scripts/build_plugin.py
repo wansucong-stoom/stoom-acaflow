@@ -6,6 +6,7 @@ import json
 import os
 from pathlib import Path
 import stat
+import tomllib
 from urllib.parse import urlsplit
 import zipfile
 
@@ -50,6 +51,9 @@ def _manifests() -> dict:
             raise ValueError('Packaged remote MCP servers need an ordinary HTTPS endpoint.')
     if overlay.get('mcpServers') != './.mcp.json' or claude.get('mcpServers') != './.mcp.json':
         raise ValueError('Compatibility manifests must reference the bundled MCP file.')
+    project = tomllib.loads((ROOT / 'pyproject.toml').read_text(encoding='utf-8'))
+    if project.get('project', {}).get('version') != manifest['version']:
+        raise ValueError('CLI project and plugin manifest versions must agree.')
     return manifest
 
 
@@ -99,7 +103,7 @@ def build(output: Path | None = None) -> Path:
     manifest = _manifests()
     output = output or ROOT / 'dist' / f"academyinfo-flow-plugin-{manifest['version']}.zip"
     files = [ROOT / relative for relative in ('plugin.json', 'mcp.json', '.mcp.json',
-                                             '.codex-plugin/plugin.json', '.claude-plugin/plugin.json', 'LICENSE')]
+                                             '.codex-plugin/plugin.json', '.claude-plugin/plugin.json', 'LICENSE', 'pyproject.toml')]
     files.extend(_skill_files())
     return _write(output, [(path.relative_to(ROOT).as_posix(), path) for path in files])
 

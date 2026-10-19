@@ -1,0 +1,62 @@
+# 검증 기록
+
+검증 기준일: **2026-10-20, Asia/Seoul**. 소스·배포 파일·현재 원격 서비스와 사용자 계정의 설치 상태를 구분합니다.
+
+## GitHub와 소스 정합성
+
+검증 시작 시 GitHub main은 `520e2e2cba6fc8be18a81da9841863cd5869c857`, 플러그인 버전은 0.2.7이었습니다. 공개 Releases와 Actions 실행 이력은 없었습니다. 로컬 설치 패키지 0.3.0의 CLI·학교 상세 장표 기능, 0.2.8 작업물의 초기화 복구·지역 집계 지침을 대조해 0.3.1 소스로 통합합니다.
+
+0.3.0의 별도 원본 소스 저장소·테스트 이력은 발견하지 못했습니다. 해당 설치 패키지에서 코드를 복구하고 공개 저장소의 기존 테스트와 새 회귀 테스트로 검증하며, 원래 개발 이력이나 원본 테스트까지 복원했다고 주장하지 않습니다. 기존 작업 폴더와 관리형 설치 캐시는 변경하지 않습니다.
+
+## 현재 운영 MCP
+
+다음은 2026-10-20 실제 응답에서 확인했습니다.
+
+| 항목 | 확인 결과 |
+| --- | --- |
+| 공개 endpoint | `https://h-rules.stoom.win/api/academyinfo/mcp` |
+| 서버 버전 | 0.2.4 — 스킬·CLI 버전과 별도 |
+| 읽기 도구 | 7개, `scope/catalog/schools/affiliations/departments/metric/report` |
+| 일반 장표 페이지 | 기본 16, 최대 32 |
+| 초기화 / 일반 원천 요청 / 전체 조회 | 25초 / 12초 / 45초 |
+| 원천 요청 수 | 최대 40회 |
+| 개별 응답 / 전체 원천 바이트 | 2 MiB / 16 MiB |
+| 공개 timeout 변경 인수 | 없음 |
+| PDF·지침 파싱 / 관측값 저장 | 제공하지 않음 / 저장하지 않음 |
+| 공식 원천 연결 | scope 1회 성공, `status=ok`, `complete=true` |
+
+학교·학과 명부의 페이지 상한은 16입니다. 일반 장표의 32쪽 상한을 모든 도구에 적용하지 않습니다. 실제 schema와 응답 `resource_bounds`가 문서의 수치보다 우선합니다. 이번 GitHub 정리에서는 운영 서버를 다시 배포하지 않았습니다.
+
+## 패키지·회귀 검증
+
+Windows / Python 3.12에서 다음 검증을 완료했습니다. 테스트는 모의 HTTP와 합성 표를 사용하며 전국 통계를 자동 수집하지 않습니다.
+
+| 검증 | 실제 결과 |
+| --- | --- |
+| 전체 테스트 | 192개 실행, 191개 통과·1개 건너뜀. 건너뛴 항목은 Windows의 심볼릭 링크 생성 권한 검사 |
+| 플러그인·Codex·Claude ZIP | 40·33·32개 파일의 목록과 원본 바이트 일치 |
+| 버전 정합성 | manifest 4종·pyproject·CLI 모두 0.3.1 |
+| 배포 체크섬 | 현재 4개·이전 3개 파일, 총 7개 SHA-256 일치 |
+| 문서 연결 | 상대 파일 링크 80개 확인 |
+| CLI wheel | Python·참조 파일 원본 일치, 격리된 대상에 설치 후 버전·doctor·report 도움말 실행 성공 |
+| 원천 네트워크 사용 | 위 패키지·회귀 검증은 사용하지 않음 |
+
+```sh
+python -B -X utf8 -m unittest discover -s tests -v
+python -B -X utf8 scripts/build_plugin.py
+python -m pip wheel . --no-deps --no-build-isolation --wheel-dir dist
+python -B -X utf8 scripts/verify_release.py --artifacts dist
+python -B -X utf8 scripts/verify_wheel.py --artifacts dist
+```
+
+GitHub 검증 설정은 Windows·Ubuntu와 Python 3.11·3.12 조합에서 위 절차를 수행합니다. 원천 통계 조회·예약 수집·자동 운영 배포는 포함하지 않습니다. [GitHub Actions 실행 결과](https://github.com/wansucong-stoom/stoom-acaflow/actions/workflows/verify.yml)에서 해당 커밋의 결과를 확인합니다. 워크플로 파일의 존재와 실제 실행 성공은 구분합니다.
+
+## 이전 운영 검증
+
+2026-10-12 배포 후 재적 학생 현황 13쪽·250행, 재학생 충원율 24쪽·503행을 모두 수신해 `complete=true`를 확인한 기록이 있습니다. 이 수신량은 당시 검증 결과이며 현재 통계의 행 수나 지표 값으로 재사용하지 않습니다.
+
+현재 다운로드되는 이전 Claude 웹 0.2.8 ZIP은 180,862바이트이고 SHA-256은 `e724911290009c91e418b6b70de2e6e69368b203fbd4a35a20a75d646a822658`입니다. 0.3.1 배포 파일의 해시는 [배포 파일과 체크섬](../downloads/README.md)에서 별도로 관리합니다.
+
+## 확인 범위
+
+CLI·ZIP 설치 확인은 개인 계정의 플러그인 설치·스킬 활성화나 모든 장표의 성공을 보장하지 않습니다. Claude·ChatGPT 계정 설정 UI 전체, 모든 연도·기관별 공시지침 정의와 PDF 양식은 이번 소스 검증 범위에 포함하지 않습니다. 새 수치 답변은 매번 요청 범위의 공식 원천 응답과 해당 연도 정의를 확인해야 합니다.

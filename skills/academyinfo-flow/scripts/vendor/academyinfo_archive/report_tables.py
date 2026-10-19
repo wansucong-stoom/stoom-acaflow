@@ -105,8 +105,12 @@ def _cell(element: ET.Element, item_index: int, *, include_raw_tree: bool = True
                 and [child.tag for child in element] == ['Shape'])
         valid_line = (line and numbers['width'] >= 0 and numbers['height'] >= 0
                       and (numbers['width'] > 0 or numbers['height'] > 0))
-        if (numbers["width"] <= 0 or numbers["height"] <= 0) and not valid_line:
+        hidden_empty = (text is not None and result['text'] == ''
+                        and numbers['width'] == 0 and numbers['height'] > 0)
+        if (numbers["width"] <= 0 or numbers["height"] <= 0) and not valid_line and not hidden_empty:
             raise ReportParseError("텍스트 셀의 폭과 높이는 양수여야 합니다.")
+        if hidden_empty:
+            result['non_rendering_empty'] = True
         result["geometry"] = geometry
     return result
 
@@ -151,7 +155,12 @@ def validate_metadata_identity(metadata: dict, *, selectors: dict | None = None,
     if len(forms) > 1:
         raise ReportParseError('표 master/header/body 조회 형식이 서로 일치하지 않습니다.')
     form = next(iter(forms), None)
-    selected_form = {'school': '30', 'department': '36'}.get((selectors or {}).get('level'))
+    scope = selectors or {}
+    selected_form = {'school': '30', 'department': '36'}.get(scope.get('level'))
+    if scope.get('formClassification') == '60':
+        if scope.get('level') != 'department' or not re.fullmatch(r'[0-9]{7}', scope.get('schoolCode', '')):
+            raise ReportParseError('학교 범위 기본양식의 선택조건을 확인할 수 없습니다.')
+        selected_form = '60'
     if form is not None and selected_form is not None and form != selected_form:
         raise ReportParseError('표 메타데이터 조회 형식이 요청한 단위와 일치하지 않습니다.')
     expected = expected_identity or {}
@@ -334,7 +343,7 @@ def _parse_table(cells: list[dict], metadata: dict, page_index: int,
         columns = [composite if c['source_col_no'] == 37 else c for c in columns if c['source_col_no'] not in {38, 39}]
     # A visible, unmerged first metadata column anchors the repeated table header.
     first_label = _header_label(header_by_no[columns[0]["source_col_no"]].get("h_col_hdr_krn_nm", ""))
-    bordered = [c for c in cells if "geometry" in c and _is_border(c)]
+    bordered = [c for c in cells if "geometry" in c and not c.get('non_rendering_empty') and _is_border(c)]
     anchors = [c for c in bordered if (c["text"] or '').strip() == first_label]
     if len(anchors) != 1:
         raise ReportParseError("첫 공개 컬럼 헤더를 유일하게 대응할 수 없습니다.")
@@ -471,6 +480,7 @@ def _parse_table(cells: list[dict], metadata: dict, page_index: int,
     active_by_bound = {bound: {} for bound in bounds}
     active_count = 0
     rows, warnings = [], []
+    aggregate_items = set()
     for y0, y1 in zip(boundaries, boundaries[1:]):
         for position, bound, _ in ends.get(y0, ()):
             del active_by_bound[bound][position]
@@ -492,6 +502,20 @@ def _parse_table(cells: list[dict], metadata: dict, page_index: int,
                 sources[col["key"]] = {"item_index": cell["item_index"],
                                        "geometry": cell["geometry"],
                                        "expanded_rowspan": rect(cell)[1] != y0 or rect(cell)[3] != y1 - y0}
+        aggregate_label = None
+        # School-detail form 60 prints a total label across the first four
+        # identity columns. Keep those values null; never invent a school,
+        # department or reference year from the selected scope.
+        if ((selectors or {}).get('formClassification') == '60' and len(columns) > 4
+                and missing == [c['key'] for c in columns[:4]] and not ambiguous):
+            left = Decimal(columns[0]['x'])
+            right = Decimal(columns[4]['x'])
+            labels = [c for c in bordered if rect(c) == (left, y0, right-left, y1-y0)
+                      and re.sub(r'\s+', '', c.get('text') or '') == '합계']
+            if len(labels) == 1:
+                aggregate_label = labels[0]
+                aggregate_items.add(aggregate_label['item_index'])
+                missing = []
         dimensions = dict(selectors or {})
         for col in columns:
             canonical = {"APY_YR": "refYear", "SCHL_NM": "schoolName", "MJR_KRN_NM": "deptName"}.get(col["source_semantic_code"]) or {"APY_YR": "refYear", "SCHL_NM": "schoolName", "MJR_KRN_NM": "deptName"}.get(col["source_field_id"])
@@ -502,13 +526,19 @@ def _parse_table(cells: list[dict], metadata: dict, page_index: int,
                "cells": [values[c["key"]] for c in columns], "values": values,
                "dimensions": dimensions, "cell_sources": sources,
                "status": "complete" if not missing and not ambiguous else "ambiguous"}
+        if aggregate_label is not None:
+            row['row_kind'] = 'aggregate'
+            row['merged_identity_label'] = {'text': aggregate_label['text'],
+                'geometry': aggregate_label['geometry'], 'item_index': aggregate_label['item_index'],
+                'covered_columns': [c['key'] for c in columns[:4]]}
         if missing or ambiguous:
             row["missing_columns"], row["ambiguous_columns"] = missing, ambiguous
             warnings.append(f"page {page_index} row {row['row_number']}: missing={missing}, ambiguous={ambiguous}")
         rows.append(row)
     # Unclassified bordered items within the body may indicate schema drift.
     end = boundaries[-1]
-    ignored = [c for c in bordered if header_end <= rect(c)[1] < end and (rect(c)[0], rect(c)[2]) not in bounds]
+    ignored = [c for c in bordered if header_end <= rect(c)[1] < end and (rect(c)[0], rect(c)[2]) not in bounds
+               and c['item_index'] not in aggregate_items]
     if ignored:
         warnings.append(f"page {page_index}: {len(ignored)}개 본문 셀의 컬럼 경계를 대응하지 못했습니다.")
     return columns, rows, warnings

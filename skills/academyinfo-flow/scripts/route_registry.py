@@ -20,6 +20,8 @@ import uuid
 
 FORMAT = "academyinfo-flow-route-registry-v1"
 SEED = Path(__file__).resolve().parents[1] / "references" / "query-routes.json"
+if not SEED.is_file():
+    SEED = Path(__file__).resolve().parent / 'references' / 'query-routes.json'
 OFFICIAL_HOSTS = {"academyinfo.go.kr", "www.academyinfo.go.kr", "m.academyinfo.go.kr"}
 ARCHIVE_HOST = "hannam-regulations-wiki.esceeee.chatgpt.site"
 ARCHIVE_HOSTS = {ARCHIVE_HOST, "h-rules.stoom.win"}
@@ -46,6 +48,7 @@ PUBLIC_PARAMETERS = {
     "schoolType", "term", "detailGroup", "school", "includeFilters",
     "paramSvyYr", "paramSchlDivCd", "paramItemId", "paramFormClftCd", "paramMjrItem1",
     "paramMjrItem2", "paramMjrItem3", "paramSchlKindCd", "paramSchlEstabCd", "paramDomainDiv",
+    "paramSchlCd", "paramZoneCd", "formClassification",
 }
 YEAR_KEYS = {"svyYr", "svy_yr", "pubYear", "paramSvyYr", "publicationYear"}
 DIVISION_KEYS = {"schlDivCd", "schl_div_cd", "schoolDivision", "paramSchlDivCd"}
@@ -134,6 +137,8 @@ def public_parameters(value: Any) -> dict[str, str]:
             continue
         if key == "level" and item not in {"school", "department"}:
             continue
+        if key in {'paramSchlCd', 'schoolCode'} and not re.fullmatch(r'[0-9]{7}', item):
+            continue
         safe[key] = item
     return safe
 
@@ -155,8 +160,13 @@ def _scope(parameters: dict[str, str]) -> dict[str, str]:
             scope[target] = next(iter(values))
     if "level" in parameters:
         scope["level"] = parameters["level"]
-    elif parameters.get("paramFormClftCd") in {"30", "36"}:
-        scope["level"] = "department" if parameters["paramFormClftCd"] == "36" else "school"
+    elif parameters.get("paramFormClftCd") in {"30", "36", "60"}:
+        scope["level"] = "department" if parameters["paramFormClftCd"] in {"36", "60"} else "school"
+    school = parameters.get('paramSchlCd') or parameters.get('schoolCode')
+    if school:
+        scope['school_code'] = school
+    if parameters.get('paramFormClftCd') == '60' or parameters.get('formClassification') == '60':
+        scope['form'] = '60'
     return scope
 
 
@@ -411,6 +421,9 @@ def record_result(registry: dict, payload: dict, *, route_id: str | None = None,
         is_report = urlsplit(url).path in REPORT_PATHS
         is_download = urlsplit(url).path == FILE_DOWNLOAD_PATH
         is_init = urlsplit(url).path == BOOTSTRAP_PATH
+        if ((is_init and params.get('paramFormClftCd') == '60' and not params.get('paramSchlCd'))
+                or (is_report and params.get('formClassification') == '60' and not params.get('schoolCode'))):
+            continue  # Never remember a school-specific recipe without its school identity.
         if is_init and (method != "POST" or not (set(params) & YEAR_KEYS and set(params) & ITEM_KEYS)):
             continue
         is_archive = urlsplit(url).hostname in ARCHIVE_HOSTS

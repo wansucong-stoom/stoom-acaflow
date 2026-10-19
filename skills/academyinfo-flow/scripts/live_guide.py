@@ -28,6 +28,10 @@ ALLOWED_HOSTS = frozenset({
 MAX_BYTES = 20 * 1024 * 1024
 TIMEOUT_SECONDS = 30
 NAVIGATION_PATH = Path(__file__).resolve().parent.parent / "references" / "guide-navigation-2026.json"
+if not NAVIGATION_PATH.is_file():
+    # Installed CLI wheel keeps references inside the same package. Source and
+    # plugin execution retain their existing parent references directory.
+    NAVIGATION_PATH = Path(__file__).resolve().parent / 'references' / 'guide-navigation-2026.json'
 _PRIVATE_QUERY = re.compile(
     r"token|password|passwd|auth|cookie|session|secret|credential|"
     r"pkey|parg|ubikey|ubiargs|signature|access.?key|ticket|"

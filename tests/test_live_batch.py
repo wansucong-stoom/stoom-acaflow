@@ -199,7 +199,7 @@ class BatchExecutionTests(unittest.TestCase):
         def catalog(args, client, result, batch):
             result["catalog_item"] = {"mjr_use_step_cd": "1"}
 
-        def collect(args, client, result, *, capture, performance):
+        def collect(args, client, result, *, capture, performance, progress=None):
             result["sources"] = deepcopy(public_result()["sources"])
             result["generation"] = {"fetched_pages": 2, "source_total_pages": 2}
             capture.update(combined=deepcopy(combined), source_complete=True)

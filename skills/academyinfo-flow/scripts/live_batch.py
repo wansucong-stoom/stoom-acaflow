@@ -17,8 +17,11 @@ import sys
 import time
 from typing import Any, Callable
 
-import live_json
-import live_report
+if __package__:
+    from . import live_json, live_report
+else:
+    import live_json
+    import live_report
 
 
 MAX_INPUT_BYTES = 1024 * 1024
@@ -33,7 +36,7 @@ _SPECS: dict[str, dict[str, Any]] = {
         "required": {"year", "division", "item", "level"},
         "defaults": {"max_pages": 100, "limit": 50, "offset": 0,
                      "school_name": None, "dept_name": None},
-        "optional": {"school_names", "dept_names"},
+        "optional": {"school_names", "dept_names", "school_code", "dept_keywords"},
     },
     "scope": {"required": set(), "defaults": {"year": None, "division": "02"}},
     "schools": {"required": {"year"}, "defaults": {"name": "", "max_pages": 1000}},
@@ -46,7 +49,7 @@ _SPECS: dict[str, dict[str, Any]] = {
     "catalog": {"required": {"year", "division"}, "defaults": {"keyword": "", "limit": 30}},
 }
 _INTEGER_FIELDS = {"max_pages", "limit", "offset"}
-_NAME_LIST_FIELDS = {"school_names", "dept_names"}
+_NAME_LIST_FIELDS = {"school_names", "dept_names", "dept_keywords"}
 _INPUT_MESSAGE = "조회 목록과 각 명령의 필수 공개 선택조건을 확인하세요."
 
 

@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "academyinfo-flow-cli"
+version = "0.3.1"
+description = "Fresh official AcademyInfo lookups with validated streaming reports"
+requires-python = ">=3.11"
+license = "MIT"
+dependencies = []
+
+[project.optional-dependencies]
+pdf = ["pdfplumber>=0.11,<1"]
+
+[project.scripts]
+academyinfo-live = "academyinfo_live.academyinfo_live:main"
+
+[tool.setuptools]
+packages = ["academyinfo_live", "academyinfo_live.vendor", "academyinfo_live.vendor.academyinfo_archive", "academyinfo_live.references"]
+include-package-data = false
+
+[tool.setuptools.package-dir]
+academyinfo_live = "skills/academyinfo-flow/scripts"
+"academyinfo_live.references" = "skills/academyinfo-flow/references"
+
+[tool.setuptools.package-data]
+"academyinfo_live.references" = ["*.json", "*.md"]
+"academyinfo_live.vendor.academyinfo_archive" = ["LICENSE"]

@@ -22,13 +22,22 @@ sys.path.insert(0, str(_VENDOR))
 try:
     if not (_VENDOR / "academyinfo_archive" / "direct.py").is_file():
         raise ImportError("bundled adapter unavailable")
-    from academyinfo_archive.catalog import CATALOG_PAGE_URL, collection_plan, published_scope
-    from academyinfo_archive.department import (
-        INDICATORS, DepartmentSelection, affiliated_schools, department_info,
-        department_metric, department_rows, iter_departments, iter_schools,
-        metric_metadata, metric_records, school_page, school_rows,
-    )
-    from academyinfo_archive.direct import DirectClient, SECRET_NAME, SourceError, rows_at
+    if __package__:
+        from .vendor.academyinfo_archive.catalog import CATALOG_PAGE_URL, collection_plan, published_scope
+        from .vendor.academyinfo_archive.department import (
+            INDICATORS, DepartmentSelection, affiliated_schools, department_info,
+            department_metric, department_rows, iter_departments, iter_schools,
+            metric_metadata, metric_records, school_page, school_rows,
+        )
+        from .vendor.academyinfo_archive.direct import DirectClient, SECRET_NAME, SourceError, rows_at
+    else:
+        from academyinfo_archive.catalog import CATALOG_PAGE_URL, collection_plan, published_scope
+        from academyinfo_archive.department import (
+            INDICATORS, DepartmentSelection, affiliated_schools, department_info,
+            department_metric, department_rows, iter_departments, iter_schools,
+            metric_metadata, metric_records, school_page, school_rows,
+        )
+        from academyinfo_archive.direct import DirectClient, SECRET_NAME, SourceError, rows_at
     _DEPENDENCIES_AVAILABLE = True
 except ImportError:
     _DEPENDENCIES_AVAILABLE = False

@@ -2,6 +2,7 @@ __pycache__/
 *.py[cod]
 .venv/
 .pytest_cache/
+.test-tmp/
 node_modules/
 outputs/
 *.xlsx
@@ -11,5 +12,7 @@ outputs/
 .env
 *.log
 dist/
+build/
+*.egg-info/
 .coverage
 .academyinfo-flow-state/
