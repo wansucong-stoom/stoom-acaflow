@@ -21,7 +21,8 @@ class PackagingTests(unittest.TestCase):
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory()
         self.addCleanup(self.temporary.cleanup)
-        self.repo = Path(self.temporary.name) / 'source'
+        # Match the builder's resolved ROOT, including Windows short TEMP aliases.
+        self.repo = (Path(self.temporary.name) / 'source').resolve()
         self.repo.mkdir()
         for relative in ('plugin.json', '.codex-plugin/plugin.json', '.claude-plugin/plugin.json',
                          '.claude-plugin/marketplace.json', 'mcp.json', '.mcp.json', 'LICENSE', 'pyproject.toml'):
