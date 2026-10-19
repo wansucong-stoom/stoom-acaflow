@@ -1,7 +1,5 @@
 # 대학알리미FLOW
 
-[![소스와 배포 파일 검증](https://github.com/wansucong-stoom/stoom-acaflow/actions/workflows/verify.yml/badge.svg)](https://github.com/wansucong-stoom/stoom-acaflow/actions/workflows/verify.yml)
-
 대학·학과 공시를 공식 원천에서 새로 조회하고, 기준기간·단위·산식과 표의 완전성을 확인하는 스킬·플러그인·Python CLI입니다. STOOM이 개발하며 내부 식별자는 `academyinfo-flow`입니다.
 
 현재 소스 버전은 **0.3.1**입니다. 설치된 0.3.0 CLI·학교 상세 조회와 0.2.8의 복구·지역 집계 지침을 공식 GitHub 소스에 통합했습니다. [변경 이력](CHANGELOG.md) · [검증 기록](docs/VERIFICATION.md) · [배포 파일](downloads/README.md)
