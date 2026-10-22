@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "academyinfo-flow-cli"
-version = "0.3.1"
+version = "0.3.2"
 description = "Fresh official AcademyInfo lookups with validated streaming reports"
 requires-python = ">=3.11"
 license = "MIT"

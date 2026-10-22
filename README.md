@@ -2,7 +2,7 @@
 
 대학·학과 공시를 공식 원천에서 새로 조회하고, 기준기간·단위·산식과 표의 완전성을 확인하는 스킬·플러그인·Python CLI입니다. STOOM이 개발하며 내부 식별자는 `academyinfo-flow`입니다.
 
-현재 소스 버전은 **0.3.1**입니다. 설치된 0.3.0 CLI·학교 상세 조회와 0.2.8의 복구·지역 집계 지침을 공식 GitHub 소스에 통합했습니다. [변경 이력](CHANGELOG.md) · [검증 기록](docs/VERIFICATION.md) · [배포 파일](downloads/README.md)
+현재 소스 버전은 **0.3.2**입니다. 전국 대용량 장표를 한 세션에서 분할 수신하는 MCP 0.2.5의 서버 소스와 스킬 지침을 포함합니다. [변경 이력](CHANGELOG.md) · [검증 기록](docs/VERIFICATION.md) · [배포 파일](downloads/README.md)
 
 ## 환경에 맞게 시작하기
 
@@ -26,7 +26,7 @@ https://h-rules.stoom.win/api/academyinfo/mcp
 
 > 대학알리미FLOW의 실제 조회 도구를 확인하고 현재 공개 연도를 조회해 줘. 조회 시각과 원천 응답을 기준으로 확인한 범위를 알려 줘.
 
-Claude에 분석 지침도 추가하려면 [웹용 스킬 ZIP 0.3.1](downloads/academyinfo-flow-skill-claude-web-0.3.1.zip)을 사용합니다. 코드 실행 활성 조건·스킬 업로드·커넥터 등록은 [웹 안내](docs/WEB-MCP.md#claude-웹에-스킬을-추가하기)에서 구분합니다. 파일의 공개·검증 상태는 [배포 파일 설명](downloads/README.md)을 확인하세요.
+Claude에 분석 지침도 추가하려면 [웹용 스킬 ZIP 0.3.2](downloads/academyinfo-flow-skill-claude-web-0.3.2.zip)을 사용합니다. 코드 실행 활성 조건·스킬 업로드·커넥터 등록은 [웹 안내](docs/WEB-MCP.md#claude-웹에-스킬을-추가하기)에서 구분합니다. 파일의 공개·검증 상태는 [배포 파일 설명](downloads/README.md)을 확인하세요.
 
 ## Codex·Claude Code 개인 스킬 설치
 
@@ -81,14 +81,14 @@ academyinfo-live report --year 2026 --division 02 --item 7-가 --level departmen
 
 | 경로 | 지원 범위 | 확인할 제한 |
 | --- | --- | --- |
-| 원격 MCP | scope·catalog·schools·affiliations·departments·metric·report | generic report의 학교·학과 필터는 수신 후 적용. 학교 상세 코드 인수·PDF·지침 파싱 미지원 |
+| 원격 MCP | scope·catalog·schools·affiliations·departments·metric·report | 학교 한 곳의 학과 report는 명부 검증 후 상세 경로. 전국 장표는 start·continue·read·cancel 지원. PDF·지침 파싱은 별도 |
 | Python 전국 장표 | 학교별·학과별 전체 보고서와 이름 필터 | 생성 완료·최종 페이지 수·전체 수신·표 검증을 확인. 호스트 네트워크·실행 시간과 `max_pages` 적용 |
 | Python 학교 상세 | 정확한 학교 한 곳의 학과 장표, 공식 양식 60 | `--school-code`와 정확한 `--school-name` 하나, 현재 명부의 기관구분 일치 필요. 합계·대학원·이전 소속 행은 다시 필터 |
 | Python 첨부·PDF·지침 | 첨부 목록과 확인한 PDF의 지정 범위 | PDF 파싱에만 선택 의존성 `pdfplumber>=0.11,<1` 필요 |
 
-현재 원격 도구는 기본 **16페이지·최대 32페이지**, 초기화 **25초**, 다른 원천 요청 **12초**, 전체 **45초**와 원천 요청 수 예산을 적용합니다. **실제 도구 schema와 응답 `resource_bounds`가 우선**입니다. `limit`는 반환 행 범위이며 초기화 작업을 줄이지 않습니다. [제한·실패 대응](skills/academyinfo-flow/references/report-recovery.md)
+일반 `academyinfo_report` 한 번의 호출은 기본 **16페이지·최대 32페이지**, 초기화 **25초**, 다른 원천 요청 **12초**, 전체 **45초**와 원천 요청 수 예산을 적용합니다. **실제 도구 schema와 응답 `resource_bounds`가 우선**입니다. `limit`는 반환 행 범위이며 초기화 작업을 줄이지 않습니다. [제한·실패 대응](skills/academyinfo-flow/references/report-recovery.md)
 
-소스·플러그인·CLI wheel의 0.3.1과 원격 서버의 표시 버전은 별도로 관리합니다. 원격 서버가 `0.2.4`를 표시하더라도 이 소스 설치만으로 서버 버전·인수·실행 한도가 바뀌지는 않습니다.
+소스·플러그인·CLI wheel의 0.3.2과 원격 서버의 표시 버전은 별도로 관리합니다. 이번 원격 서버 버전은 `0.2.5`이며, 소스·스킬 설치만으로 운영 서버나 사용자의 연결에 새 도구가 자동 갱신되지는 않습니다.
 
 ## 결과를 해석할 때
 
@@ -124,3 +124,7 @@ python -B -X utf8 scripts/verify_wheel.py --artifacts dist
 릴리스 검증기는 버전·로컬 문서 링크·ZIP의 파일 목록과 소스 바이트를 대조합니다. wheel 검증기는 별도 임시 위치에 설치해 오프라인 진입점과 참조 파일을 확인합니다. [GitHub Actions 설정](.github/workflows/verify.yml)은 Windows·Ubuntu와 Python 3.11·3.12에서 합성 테스트와 패키지 검증을 수행하도록 구성하며, 공식 통계를 수집하거나 예약 실행하지 않습니다. 설정 추가와 원격 CI 성공은 별도입니다.
 
 공식 통계 원천은 [대학알리미](https://www.academyinfo.go.kr/)이며, 번들 어댑터의 [stoom-openacainfo](https://github.com/wansucong-stoom/stoom-openacainfo) MIT 고지를 유지합니다. 이 저장소의 코드는 [MIT](LICENSE)로 배포하며 원천 자료에는 제공기관의 이용 조건이 적용됩니다. [문의·개선 제안](https://github.com/wansucong-stoom/stoom-acaflow/issues)
+
+## 전국 학과 장표와 서버 소스
+
+전국 모든 학과의 장표는 `academyinfo_report_start` → 동일 작업의 `academyinfo_report_continue` → 완료 JSON 다운로드/`academyinfo_report_read`로 처리합니다. 호출당 최대 32쪽이며 전체 최대 5,000쪽까지 같은 원천 세션을 이어받습니다. [이어받기·임시 보관·실패 기준](skills/academyinfo-flow/references/large-reports.md) · [원격 서버 소스와 검증](server/README.md)

@@ -14,7 +14,7 @@ import re
 import sys
 from uuid import uuid4
 
-VERSION = '0.3.1'
+VERSION = '0.3.2'
 _HERE = Path(__file__).resolve().parent
 _JSON_COMMANDS = {'scope', 'catalog', 'schools', 'affiliations', 'departments', 'metric', 'info'}
 _REPORT_COMMANDS = {'report', 'attachments', 'pdf'}

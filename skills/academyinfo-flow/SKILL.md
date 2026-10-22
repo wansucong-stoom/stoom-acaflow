@@ -11,7 +11,7 @@ description: 대학알리미FLOW. 대학·학과 공시의 새 수치·현재 �
 
 새 수치·현재 비교 또는 요청한 공식 원천 보완에는 1~4를 적용한다. 사용자가 지정한 보존본·역사·스냅샷만 분석하는 요청은 5에 따라 실제 자료 접근과 시점을 확인한다.
 
-1. 현재 대화에서 연결된 대학알리미FLOW 읽기 MCP 도구를 발견하고 각 입력 schema를 확인한다. 도구 이름·인수·페이지 제한은 실제 발견 결과를 따른다. 현재 endpoint는 `https://h-rules.stoom.win/api/academyinfo/mcp`이며 scope·catalog·schools·affiliations·departments·metric·report의 7개 읽기 기능을 제공한다. endpoint가 존재한다는 사실을 계정 연결이나 도구 가용성으로 대신하지 않는다.
+1. 현재 대화에서 연결된 대학알리미FLOW 읽기 MCP 도구를 발견하고 각 입력 schema를 확인한다. 도구 이름·인수·페이지 제한은 실제 발견 결과를 따른다. 현재 endpoint는 `https://h-rules.stoom.win/api/academyinfo/mcp`이며 기존 7개 조회 기능과 대용량 장표용 report_start·report_continue·report_read·report_cancel을 제공한다. 실제 도구에 이어받기가 없으면 연결의 도구 목록을 새로 확인한다. endpoint가 존재한다는 사실을 계정 연결이나 도구 가용성으로 대신하지 않는다.
 2. 가용 읽기 도구가 요청 기능을 지원하면 이를 사용해 공식 원천을 새로 조회한다. 이 경로에는 사용자의 Python이 필요하지 않다. 실제 응답의 요청 조건·원천 값·열 정의·출처·경고·완전성을 확인한다. 현재 MCP의 지원 범위에는 첨부 목록·PDF 본문·지침 전체 파싱이 포함되지 않으므로 해당 요청은 아래 Python 경로나 가용 공식 웹/PDF 도구로 처리한다.
 3. Claude 웹에서 전용 MCP 도구가 없으면 다음 등록·활성화 안내를 먼저 제공한다. 사용자가 Python 대체 경로를 선택했거나 다른 실행 환경에서 그 경로를 사용할 때는 스킬 파일 접근·Python 3.11 이상 실행 도구·공식 원천 네트워크를 확인한다. 실행 도구가 있으면 스킬 디렉터리에서 `python -B -X utf8 scripts/runtime_preflight.py`로 런타임을 점검한다. 기본 점검은 오프라인이며 `runtime_ready_source_unverified`는 원천 접근을 확인한 결과가 아니다. 사용자가 원천 조회를 요청했고 호스트 정책이 허용하면 `--check-source`를 추가하여 실제 공개 연도 응답을 확인한다. MCP가 지원하지 않는 PDF·지침은 가용 공식 웹/PDF 도구 또는 실행 조건이 확인된 Python 경로를 사용한다.
 4. 어느 경로든 같은 요청에서 확보한 scope 응답을 재사용하여 중복 조회하지 않는다. Python preflight의 `source.scope_response`도 첫 scope 결과로 사용할 수 있다. Python PDF 파싱이 필요할 때만 `--require-pdf`로 선택 의존성을 확인한다. 필요한 도구·네트워크가 없거나 점검이 실패하면 확보한 범위와 미검증·제한을 설명하고, 최신 수치를 조회했다고 주장하지 않는다. 스킬을 읽는 것만으로 파일·실행·네트워크 권한이 생기지 않는다.
@@ -101,7 +101,9 @@ academyinfo-live report --year 2026 --division 02 --item 7-가 --level departmen
 
 학교 한 곳의 학과 수치를 요청하면 현재 공식 명부의 정확한 학교명·7자리 학교코드를 확인하고, 실행 가능한 Python과 공식 서버 연결이 있는 환경에서는 `live_report.py report --level department --school-code <코드> --school-name <정확한학교명> --dept-name <정확한학과명> ...`을 사용한다. `--school-code`는 공식 학교 상세 화면의 `paramFormClftCd=60`과 `paramSchlCd`를 함께 전달한다. 양식 36에 학교코드만 더하는 것과 다르다. 현재 명부의 코드·이름·기관구분 일치, 응답의 양식·연도·항목, 모든 페이지·병합 헤더·표 구조와 최종 생성 수를 검증한다. 양식 60은 소속 대학원·합계·이전 소속 학과 행도 포함할 수 있으므로 실제 학교·학과 열로 다시 정확히 필터하며 단과대학과 기준연도를 보존한다. 학교코드를 모든 행의 학교 식별자로 덮어쓰지 않는다.
 
-원격 `academyinfo_report`의 `request_budget_exhausted` 또는 페이지 제한은 자료 부재가 아니다. 같은 조건의 원격 호출·offset 변경을 반복하지 않는다. Python 실행과 정상 공식 연결이 확인되면 위 학교 상세 경로로 전환하고, 현재 원격 MCP에는 이 인수가 없다는 점을 구분한다. Python을 사용할 수 없는 호스트에서는 성공했다고 주장하지 말고 실행 가능한 환경이 필요함을 밝힌다. 별도의 원격 서버 업데이트 없이는 이 스킬 업데이트만으로 원격 도구의 인수·40회 한도가 바뀌지 않는다.
+원격 MCP 0.2.5의 `academyinfo_report`는 학과 단위에서 정확한 학교명 하나가 있으면 현재 명부로 학교·기관구분을 검증하고 학교 상세 양식 60을 자동 선택한다. 선택적 `school_code`도 명부와 일치해야 한다. 여러 학교·전국 조회는 전국 양식을 유지한다. 본교·분교 표기는 명부의 실제 캠퍼스와 대조하며 원문 학교·학과명·기준연도를 보존한다.
+
+전국 모든 학과 등 대용량 장표는 처음부터 `academyinfo_report_start` → 동일 `job_id`의 `academyinfo_report_continue`를 사용한다. 일반 report의 32쪽 제한·원천 요청 예산 오류가 나도 자료 부재로 해석하거나 offset만 바꿔 앞쪽 장표를 반복하지 않는다. continue는 반환 `next_page`를 `expected_next_page`로 보내며 `job_status=complete`까지 진행한다. **continue의 `max_pages`는 호출당 분량이며 전체 페이지 상한이 아니다.** 진행 요약만으로 전국 통계를 계산하지 않는다. 완료 뒤 전체 JSON의 `download_url`을 읽거나 `report_read`로 저장된 모든 페이지를 받는다. 부분 read는 `complete=false`다. [대용량 장표 이어받기](references/large-reports.md)를 따른다.
 
 ```text
 python -B -X utf8 scripts/live_report.py report --year <공개연도> --division 02 --item <현재목록ID> --level department --school-code <현재명부학교코드> --school-name <정확한학교명> --dept-name <정확한학과명> --max-pages 32 --compact

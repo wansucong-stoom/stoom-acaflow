@@ -276,7 +276,7 @@ raise SystemExit(cli.main(['doctor']))
                 'import runpy,sys;sys.path.insert(0,sys.argv[1]);sys.argv=["academyinfo_live","--version"];runpy.run_module("academyinfo_live",run_name="__main__")',
                 str(installed)], cwd=folder, capture_output=True, text=True, encoding='utf-8', timeout=30)
             self.assertEqual(module.returncode, 0, module.stderr)
-            self.assertEqual(module.stdout.strip(), '0.3.1')
+            self.assertEqual(module.stdout.strip(), '0.3.2')
 
 
 if __name__ == '__main__':

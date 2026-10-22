@@ -50,11 +50,11 @@ scope 성공 후 필요한 수치 질문을 보냅니다.
 
 > 한남대학교의 최신 공개 취업률을 조회하고 공시연도·실적 기준기간·단위·공식 출처·조회 시각과 전체 조회 여부를 함께 알려 줘.
 
-학교명 필터만 지정한 원격 report는 전국 표를 먼저 받으므로 시간이 걸릴 수 있습니다. Python의 학교 상세 경로와 인수·실행 조건이 다릅니다.
+서버 0.2.5의 학과 report는 정확한 학교명 하나가 있으면 공식 명부 검증 후 학교 상세 양식 60을 자동 선택합니다. 전국 장표는 아래 이어받기 도구를 사용합니다.
 
 ## Claude 웹에 스킬을 추가하기
 
-[Claude 웹용 스킬 ZIP 0.3.1](../downloads/academyinfo-flow-skill-claude-web-0.3.1.zip)을 사용합니다. 파일·해시·공개 상태는 [배포 파일 설명](../downloads/README.md)에서 확인합니다.
+[Claude 웹용 스킬 ZIP 0.3.2](../downloads/academyinfo-flow-skill-claude-web-0.3.2.zip)을 사용합니다. 파일·해시·공개 상태는 [배포 파일 설명](../downloads/README.md)에서 확인합니다.
 
 1. 현재 계정에서 코드 실행과 Skills가 허용되는지 확인합니다. 개인 계정은 **Settings → Capabilities**, 조직 계정은 해당 관리 정책을 따릅니다.
 2. **Customize → Skills → + → + Create skill → Upload a skill**에서 단독 스킬 ZIP을 올립니다.
@@ -73,9 +73,9 @@ ZIP은 단일 `academyinfo-flow/` 아래 `SKILL.md`, `scripts/`, `references/`�
 | `academyinfo_metric` | 지원되는 6종 학과 주요지표 |
 | `academyinfo_report` | 일반 학교별·학과별 수치 장표 |
 
-현재 원격 도구의 기본 report 범위는 16페이지, 최대는 32페이지입니다. 초기화 요청 25초·다른 원천 요청 12초·전체 45초·최대 원천 요청 40회와 바이트 제한을 적용합니다. **실제 schema와 응답의 `resource_bounds`가 우선**이며 예산이 부족하면 부분·오류 상태를 반환합니다. `limit`와 이름 필터는 원천 수신 뒤 적용됩니다.
+일반 report 한 번의 호출 범위는 기본 16페이지, 최대 32페이지입니다. 전국 이어받기는 이 호출당 분량을 여러 번 이어가며 전체 5,000쪽까지 처리합니다. 초기화 요청 25초·다른 원천 요청 12초·전체 45초·최대 원천 요청 40회와 바이트 제한을 적용합니다. **실제 schema와 응답의 `resource_bounds`가 우선**이며 예산이 부족하면 부분·오류 상태를 반환합니다. `limit`와 이름 필터는 원천 수신 뒤 적용됩니다.
 
-원격 MCP에는 학교 상세 `school_code`, 첨부·PDF 본문·지침 전체 파싱 인수가 없습니다. 필요한 경우 실행 가능한 Python과 공식 연결이 확인된 환경에서 [로컬 CLI·학교 상세 경로](INSTALL.md)를 사용합니다. 소스·CLI 0.3.1과 원격 MCP의 표시 버전(예: 0.2.4)은 독립적입니다.
+원격 MCP 0.2.5에는 학교 상세 `school_code`와 전국 장표 이어받기 도구 4개가 추가됩니다. 첨부·PDF 본문·지침 전체 파싱은 지원하지 않습니다. 필요한 경우 실행 가능한 Python과 공식 연결이 확인된 환경에서 [로컬 CLI·학교 상세 경로](INSTALL.md)를 사용합니다. 소스·CLI 0.3.2와 원격 MCP 0.2.5는 별도로 배포됩니다.
 
 ## 잘 안될 때
 
@@ -89,6 +89,10 @@ ZIP은 단일 `academyinfo-flow/` 아래 `SKILL.md`, `scripts/`, `references/`�
 | 부분·반복 페이지·표 불일치·미지원 | 확보 범위만 사용하며 전국 합계·누락 없는 순위를 완료로 보고하지 않음 |
 | `source_connection_error` | 원격 MCP와 Python 직접 접속을 구분. 도메인 허용목록·요금제·계정 등록 문제 중 하나로 단정하지 않음 |
 
-[장표 복구 지침](../skills/academyinfo-flow/references/report-recovery.md)과 [지역별 재학생 집계](../skills/academyinfo-flow/references/regional-enrollment.md)를 0.3.1 스킬 ZIP에도 포함합니다. 이미 요청한 읽기·검증·집계와 제한된 재시도에는 다시 허락을 요구하지 않습니다.
+[장표 복구 지침](../skills/academyinfo-flow/references/report-recovery.md)과 [지역별 재학생 집계](../skills/academyinfo-flow/references/regional-enrollment.md)를 0.3.2 스킬 ZIP에도 포함합니다. 이미 요청한 읽기·검증·집계와 제한된 재시도에는 다시 허락을 요구하지 않습니다.
 
 한 요청의 성공은 다른 계정·연도·항목의 실행과 지침 정의까지 보장하지 않습니다. `guideline_verified=false`는 지침 정의를 검증 완료로 표시하지 않았다는 뜻입니다. 확인한 실행과 미검증 범위는 [검증 기록](VERIFICATION.md)에서 구분합니다.
+
+## 전국 모든 학과의 큰 장표
+
+`academyinfo_report_start`로 초기화하고 같은 job의 `academyinfo_report_continue`를 `job_status=complete`까지 진행합니다. 한 호출의 32쪽 상한으로 전국 수신이 끝나는 구조가 아닙니다. 완료 뒤 전체 JSON 다운로드 또는 `academyinfo_report_read`로 행을 읽습니다. 원천 세션·공개 행의 2시간 임시 보관과 삭제, 실패 복구·완전성은 [이어받기 지침](../skills/academyinfo-flow/references/large-reports.md)을 따릅니다. 도구가 7개만 보이면 호스트에서 연결의 도구 목록을 갱신하고 새 대화에서 11개 도구와 서버 0.2.5를 확인합니다. Claude 계정 조작은 이번 소스 수정과 별도입니다.
