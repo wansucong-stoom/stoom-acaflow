@@ -2,7 +2,7 @@
 
 대학·학과 공시를 공식 원천에서 새로 조회하고, 기준기간·단위·산식과 표의 완전성을 확인하는 스킬·플러그인·Python CLI입니다. STOOM이 개발하며 내부 식별자는 `academyinfo-flow`입니다.
 
-현재 소스 버전은 **0.3.2**입니다. 전국 대용량 장표를 한 세션에서 분할 수신하는 MCP 0.2.5의 서버 소스와 스킬 지침을 포함합니다. [변경 이력](CHANGELOG.md) · [검증 기록](docs/VERIFICATION.md) · [배포 파일](downloads/README.md)
+현재 소스 버전은 **0.3.3**입니다. 전국 대용량 장표를 한 세션에서 분할 수신하는 MCP 0.2.5의 서버 소스와 스킬 지침을 포함합니다. [변경 이력](CHANGELOG.md) · [검증 기록](docs/VERIFICATION.md) · [배포 파일](downloads/README.md)
 
 ## 환경에 맞게 시작하기
 
@@ -26,7 +26,7 @@ https://h-rules.stoom.win/api/academyinfo/mcp
 
 > 대학알리미FLOW의 실제 조회 도구를 확인하고 현재 공개 연도를 조회해 줘. 조회 시각과 원천 응답을 기준으로 확인한 범위를 알려 줘.
 
-Claude에 분석 지침도 추가하려면 [웹용 스킬 ZIP 0.3.2](downloads/academyinfo-flow-skill-claude-web-0.3.2.zip)을 사용합니다. 코드 실행 활성 조건·스킬 업로드·커넥터 등록은 [웹 안내](docs/WEB-MCP.md#claude-웹에-스킬을-추가하기)에서 구분합니다. 파일의 공개·검증 상태는 [배포 파일 설명](downloads/README.md)을 확인하세요.
+Claude에 분석 지침도 추가하려면 [웹용 스킬 ZIP 0.3.3](downloads/academyinfo-flow-skill-claude-web-0.3.3.zip)을 사용합니다. 코드 실행 활성 조건·스킬 업로드·커넥터 등록은 [웹 안내](docs/WEB-MCP.md#claude-웹에-스킬을-추가하기)에서 구분합니다. 파일의 공개·검증 상태는 [배포 파일 설명](downloads/README.md)을 확인하세요.
 
 ## Codex·Claude Code 개인 스킬 설치
 
@@ -88,7 +88,7 @@ academyinfo-live report --year 2026 --division 02 --item 7-가 --level departmen
 
 일반 `academyinfo_report` 한 번의 호출은 기본 **16페이지·최대 32페이지**, 초기화 **25초**, 다른 원천 요청 **12초**, 전체 **45초**와 원천 요청 수 예산을 적용합니다. **실제 도구 schema와 응답 `resource_bounds`가 우선**입니다. `limit`는 반환 행 범위이며 초기화 작업을 줄이지 않습니다. [제한·실패 대응](skills/academyinfo-flow/references/report-recovery.md)
 
-소스·플러그인·CLI wheel의 0.3.2과 원격 서버의 표시 버전은 별도로 관리합니다. 이번 원격 서버 버전은 `0.2.5`이며, 소스·스킬 설치만으로 운영 서버나 사용자의 연결에 새 도구가 자동 갱신되지는 않습니다.
+소스·플러그인·CLI wheel의 0.3.3과 원격 서버의 표시 버전은 별도로 관리합니다. 이번 원격 서버 버전은 `0.2.5`이며, 소스·스킬 설치만으로 운영 서버나 사용자의 연결에 새 도구가 자동 갱신되지는 않습니다.
 
 ## 결과를 해석할 때
 

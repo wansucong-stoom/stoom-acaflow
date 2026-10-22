@@ -222,7 +222,7 @@ async function report(client,input,result,jobStore=null){
     session=await parseBootstrap(decoder.decode(ex.bytes),selectors);
     const init=await client.request(session.server,session.runtime,{runtime:true,stage:'report_initialize'}),doc=validateDoc(decoder.decode(init.bytes));if(!init.sequence)error('report_session_unverified','report_initialize');session.runtime.exportseq=init.sequence;session.service=doc.root.attrs.serviceid??'';
     if(jobStore){
-      const id=crypto.randomUUID().replace(/-/g,''),now=Date.now(),state={id,created:now,expires:now+2*60*60*1000,status:'generating',next_page:1,expected_pages:null,row_count:0,session,cookies:client.snapshotCookies(),selectors,report_scope:result.report_scope,catalog_item:result.catalog_item,hashes:[],body_hashes:[],columns:null,sources:client.sources};
+      const id=crypto.randomUUID().replace(/-/g,''),now=Date.now(),state={id,created:now,expires:now+2*60*60*1000,status:'generating',next_page:1,expected_pages:null,row_count:0,session,cookies:client.snapshotCookies(),selectors,report_scope:result.report_scope,catalog_item:result.catalog_item,hashes:[],body_hashes:[],chunks:[],columns:null,sources:client.sources};
       await purgeExpiredJobs(jobStore);await jobStore.put(jobStateKey(id),JSON.stringify(state),{customMetadata:{expires:String(state.expires)}});Object.assign(result,jobSummary(state));return;
     }
     const status=async()=>{const control=await client.request(session.server,{...session.runtime,reqtype:'99'},{runtime:true,prefixBytes:4096,stage:'generation_status'});return parseStatus(control.bytes,session.server);};
@@ -268,11 +268,15 @@ function jobSummary(s){
 }
 async function jobStatus(client,session){for(let attempt=0;attempt<3;attempt++){const ex=await client.request(session.server,{...session.runtime,reqtype:'99'},{runtime:true,prefixBytes:4096,stage:'generation_status'});if(decoder.decode(ex.bytes).trim())return parseStatus(ex.bytes,session.server);if(attempt<2)await delay(1000*2**attempt);}error('source_empty_generation_status','generation_status');}
 const columnSignature=columns=>JSON.stringify(columns.map(c=>[c.key,c.source_col_no,c.source_field_id,c.source_semantic_code,c.header_path,c.x,c.width]));
+function savedPageReader(store,state){
+  let current=null,cached=null;
+  return async page=>{const chunk=state.chunks?.find(c=>c.start<=page&&c.end>=page),start=chunk?.start??page;if(current!==start){const obj=await store.get(jobPageKey(state.id,start));if(!obj)error('saved_page_missing','job_read');if(obj.size>4*1024*1024)error('saved_chunk_size_limit','job_read');const value=await obj.json();cached=value.batch??[value];current=start;}const found=cached.find(p=>p.page.source_request_page===page);if(!found)error('saved_page_missing','job_read');return found;};
+}
 async function reportJob(command,input,client,store){
   const id=jobId(input.job_id),loaded=await loadJob(store,id),s=loaded.state;
   if(command==='report_read'){
-    const start=positive(input.start_page,1,10000),count=positive(input.page_count,1,4),pages=[];let bytes=0;
-    for(let page=start;page<Math.min(start+count,s.next_page);page++){const obj=await store.get(jobPageKey(id,page));if(!obj)error('saved_page_missing','job_read');bytes+=obj.size;if(bytes>1536*1024)break;pages.push(await obj.json());}
+    const start=positive(input.start_page,1,10000),count=positive(input.page_count,1,4),pages=[],read=savedPageReader(store,s);let bytes=0;
+    for(let page=start;page<Math.min(start+count,s.next_page);page++){const value=await read(page);bytes+=encoder.encode(JSON.stringify(value)).length;if(bytes>1536*1024)break;pages.push(value);}
     const readComplete=start===1&&start+pages.length===s.next_page&&s.status==='complete';return{...jobSummary(s),complete:readComplete,status:readComplete?'ok':'partial',rows:pages.flatMap(p=>p.rows),columns:s.columns,pages:pages.map(({rows,...p})=>p),read_start_page:start,read_next_page:pages.length?start+pages.length:start,read_complete:readComplete};
   }
   if(s.busy_until>Date.now())return{...jobSummary(s),retry_after_seconds:Math.ceil((s.busy_until-Date.now())/1000)};
@@ -283,16 +287,17 @@ async function reportJob(command,input,client,store){
   let lock=await store.put(jobStateKey(id),JSON.stringify(s),{onlyIf:{etagMatches:loaded.object.etag},customMetadata:{expires:String(s.expires)}});
   if(!lock)return{...jobSummary(s),retry_after_seconds:2};
   const save=async()=>{const saved=await store.put(jobStateKey(id),JSON.stringify(s),{onlyIf:{etagMatches:lock.etag},customMetadata:{expires:String(s.expires)}});if(!saved)error('job_concurrent_update','job');lock=saved;};
-  client.restoreCookies(s.cookies);
+  client.restoreCookies(s.cookies);const pending=[],firstPage=s.next_page;let pendingBytes=0;s.chunks??=Array.from({length:s.next_page-1},(_,i)=>({start:i+1,end:i+1}));
   try{
     const status=await jobStatus(client,s.session);
     if(!status.complete){if(s.expected_pages!==null)error('report_generation_changed','generation_status');s.status='generating';return jobSummary(s);}
     if(status.expected_pages>5000)error('job_page_bound_exceeded','generation_status');
     if(s.expected_pages!==null&&s.expected_pages!==status.expected_pages)error('report_generation_changed','generation_status');
     s.expected_pages=status.expected_pages;s.status='fetching';
+    const orphan=await store.get(jobPageKey(id,s.next_page));if(orphan){const value=await orphan.json();if(!value.batch||!value.checkpoint)error('saved_page_conflict','job');Object.assign(s,value.checkpoint);s.chunks.push({start:firstPage,end:s.next_page-1});await save();return jobSummary(s);}
     for(let n=0;n<count&&s.next_page<=s.expected_pages;n++){
       // Leave time for a final status check and a durable progress checkpoint.
-      if(client.performance.elapsed_ms>22000||client.performance.received_bytes>12*1024*1024)break;
+      if(client.performance.elapsed_ms>22000||client.performance.received_bytes>12*1024*1024||pendingBytes>2*1024*1024)break;
       const page=s.next_page,runtime=Object.fromEntries(['cHJvY2lk','key','ubiserverurl','jrffile','resid','exportseq','issvg'].map(k=>[k,s.session.runtime[k]]));
       Object.assign(runtime,{reqtype:`91#${page}`,timeout:String(client.bounds.timeoutMs),userHeader:'',serviceid:s.session.service});
       const ex=await client.request(s.session.server,runtime,{runtime:true,stage:'report_page'});if(!decoder.decode(ex.bytes).trim())error('source_empty_report_page','report_page');const parsed=await parseReportPage(ex.bytes,{pageIndex:page-1,metadata:s.session.metadata,selectors:s.selectors});
@@ -303,23 +308,25 @@ async function reportJob(command,input,client,store){
       if(!s.signature){s.signature=signature;s.columns=parsed.columns;}
       const rows=parsed.rows.map(({cell_sources,...r},i)=>({...r,row_number:s.row_count+i+1,source_page_row_number:r.row_number}));
       const output=publicProjection({page:parsed.page,rows,sources:client.sources.slice(-1),warnings:parsed.warnings});
-      const stored=await store.put(jobPageKey(id,page),JSON.stringify(output),{onlyIf:{etagDoesNotMatch:'*'}});
-      if(!stored){const previous=await store.get(jobPageKey(id,page));if(!previous||(await previous.json()).page.source_sha256!==parsed.page.source_sha256)error('saved_page_conflict','job');}
-      s.hashes.push(parsed.page.source_sha256);s.body_hashes.push(bodyHash);s.row_count+=rows.length;s.next_page++;s.retries=0;delete s.last_error;s.cookies=client.snapshotCookies();await save();
+      const outputBytes=encoder.encode(JSON.stringify(output)).length;if(pendingBytes+outputBytes>3*1024*1024){if(!pending.length)error('saved_page_size_limit','job');break;}pending.push(output);pendingBytes+=outputBytes;
+      s.hashes.push(parsed.page.source_sha256);s.body_hashes.push(bodyHash);s.row_count+=rows.length;s.next_page++;s.retries=0;delete s.last_error;s.cookies=client.snapshotCookies();
     }
     const last=await jobStatus(client,s.session);if(!last.complete||last.expected_pages!==s.expected_pages)error('report_generation_changed','generation_status');
-    if(s.next_page>s.expected_pages){s.status='complete';delete s.session;delete s.cookies;delete s.signature;delete s.hashes;delete s.body_hashes;}
+    if(s.next_page>s.expected_pages){s.status='complete';delete s.session;delete s.cookies;}
   }catch(e){
     const code=e instanceof PortError?e.code:'job_execution_error';s.last_error={code,stage:e instanceof PortError?e.stage:'job',failed_page:s.next_page,...(Number.isInteger(e.http_status)?{http_status:e.http_status}:{})};
     const retryable=['source_empty_generation_status','source_timeout','source_empty_report_page','query_deadline_exceeded','request_budget_exhausted','source_connection_error'].includes(code)||[500,502,503,504].includes(e.http_status);
     s.retries=(s.retries??0)+1;if(!retryable||s.retries>=3){s.status='failed';delete s.session;delete s.cookies;}else{s.cookies=client.snapshotCookies();}
-  }finally{s.busy_until=0;await save();}
+  }finally{
+    if(pending.length){const checkpoint=Object.fromEntries(['next_page','row_count','hashes','body_hashes','signature','columns'].filter(k=>s[k]!==undefined).map(k=>[k,s[k]]));const stored=await store.put(jobPageKey(id,firstPage),JSON.stringify({batch:pending,checkpoint}),{onlyIf:{etagDoesNotMatch:'*'}});if(!stored)error('saved_page_conflict','job');s.chunks.push({start:firstPage,end:s.next_page-1});}
+    s.busy_until=0;await save();
+  }
   return jobSummary(s);
 }
 export async function downloadJob(request,store){
   const match=/\/api\/academyinfo\/results\/([a-f0-9]{32})\.json$/.exec(new URL(request.url).pathname);if(!match||!['GET','HEAD'].includes(request.method))return new Response('Not found',{status:404});
   let state;try{state=(await loadJob(store,match[1])).state;}catch{return new Response('Expired or unavailable',{status:404});}if(state.status!=='complete')return new Response('Report is not complete',{status:409});
-  let page=0;const stream=new ReadableStream({async pull(controller){try{if(page===0){controller.enqueue(encoder.encode(JSON.stringify({...jobSummary(state),complete:true,completeness:{source_complete:true,table_validation_complete:true,returned_complete:true},columns:state.columns}).slice(0,-1)+',"pages":['));page++;return;}if(page<=state.expected_pages){const object=await store.get(jobPageKey(state.id,page));if(!object)throw new Error('missing');controller.enqueue(encoder.encode((page>1?',':'')+await object.text()));page++;return;}controller.enqueue(encoder.encode(']}'));controller.close();}catch{controller.error(new Error('Report download incomplete'));}}});
+  let page=0;const read=savedPageReader(store,state);const stream=new ReadableStream({async pull(controller){try{if(page===0){controller.enqueue(encoder.encode(JSON.stringify({...jobSummary(state),complete:true,completeness:{source_complete:true,table_validation_complete:true,returned_complete:true},columns:state.columns}).slice(0,-1)+',"pages":['));page++;return;}if(page<=state.expected_pages){const value=await read(page);controller.enqueue(encoder.encode((page>1?',':'')+JSON.stringify(value)));page++;return;}controller.enqueue(encoder.encode(']}'));controller.close();}catch{controller.error(new Error('Report download incomplete'));}}});
   return new Response(request.method==='HEAD'?null:stream,{headers:{'Content-Type':'application/json; charset=utf-8','Content-Disposition':'attachment; filename="academyinfo-report.json"','Cache-Control':'private, no-store','Referrer-Policy':'no-referrer','X-Content-Type-Options':'nosniff'}});
 }
 

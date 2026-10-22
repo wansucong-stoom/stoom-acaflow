@@ -1,6 +1,6 @@
 # 설치와 실행
 
-스킬·플러그인 버전과 CLI 패키지 버전은 **0.3.2**입니다. 원격 MCP는 별도 호스팅 서비스이며 소스 설치가 서버 배포를 바꾸지는 않습니다. [웹 연결](WEB-MCP.md) · [배포 파일](../downloads/README.md) · [검증 기록](VERIFICATION.md)
+스킬·플러그인 버전과 CLI 패키지 버전은 **0.3.3**입니다. 원격 MCP는 별도 호스팅 서비스이며 소스 설치가 서버 배포를 바꾸지는 않습니다. [웹 연결](WEB-MCP.md) · [배포 파일](../downloads/README.md) · [검증 기록](VERIFICATION.md)
 
 ## 설치 방식 선택
 
@@ -133,9 +133,9 @@ academyinfo-live report --year 2026 --division 02 --item 7-가 --level departmen
 
 | 파일 | 용도·구조 |
 | --- | --- |
-| `academyinfo-flow-plugin-0.3.2.zip` | 스킬·호환 manifest·MCP 연결 설정을 포함한 플러그인 |
-| `academyinfo-flow-skill-codex-0.3.2.zip` | 단일 `academyinfo-flow/` 스킬 폴더, Codex UI 메타데이터 포함 |
-| `academyinfo-flow-skill-claude-web-0.3.2.zip` | 단일 `academyinfo-flow/` 스킬 폴더, Codex `agents/` 제외 |
-| `academyinfo_flow_cli-0.3.2-*.whl` | `academyinfo-live`·`python -m academyinfo_live`용 Python 패키지 |
+| `academyinfo-flow-plugin-0.3.3.zip` | 스킬·호환 manifest·MCP 연결 설정을 포함한 플러그인 |
+| `academyinfo-flow-skill-codex-0.3.3.zip` | 단일 `academyinfo-flow/` 스킬 폴더, Codex UI 메타데이터 포함 |
+| `academyinfo-flow-skill-claude-web-0.3.3.zip` | 단일 `academyinfo-flow/` 스킬 폴더, Codex `agents/` 제외 |
+| `academyinfo_flow_cli-0.3.3-*.whl` | `academyinfo-live`·`python -m academyinfo_live`용 Python 패키지 |
 
 단독 스킬 ZIP에는 MCP 등록 설정·루트 설치기가 없습니다. 압축을 푼 `academyinfo-flow/`를 스킬 상위 폴더에 두거나 웹 Skills에 올립니다. GitHub 전체 소스 ZIP·플러그인 ZIP과 구분합니다. 현재 파일·해시는 [downloads](../downloads/README.md), 실제 검증은 [검증 기록](VERIFICATION.md)에서 확인합니다.

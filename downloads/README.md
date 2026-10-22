@@ -1,13 +1,13 @@
 # 배포 파일
 
-현재 배포 버전은 **0.3.2**입니다. 같은 소스에서 만든 다음 네 파일 중 사용하는 환경에 맞는 파일을 선택하세요. 저장소의 소스 ZIP은 Claude Skills 업로드용 파일과 다릅니다.
+현재 배포 버전은 **0.3.3**입니다. 같은 소스에서 만든 다음 네 파일 중 사용하는 환경에 맞는 파일을 선택하세요. 저장소의 소스 ZIP은 Claude Skills 업로드용 파일과 다릅니다.
 
 | 파일 | 용도 |
 | --- | --- |
-| [Claude 웹 스킬 ZIP](academyinfo-flow-skill-claude-web-0.3.2.zip) | Claude의 Skills에 그대로 업로드 |
-| [Codex 개인 스킬 ZIP](academyinfo-flow-skill-codex-0.3.2.zip) | 압축을 풀어 개인 스킬 상위 폴더에 설치 |
-| [플러그인 ZIP](academyinfo-flow-plugin-0.3.2.zip) | 스킬·MCP 연결 설정·CLI 빌드 소스를 함께 제공 |
-| [Python CLI wheel](academyinfo_flow_cli-0.3.2-py3-none-any.whl) | Python 3.11 이상에서 `academyinfo-live` 설치 |
+| [Claude 웹 스킬 ZIP](academyinfo-flow-skill-claude-web-0.3.3.zip) | Claude의 Skills에 그대로 업로드 |
+| [Codex 개인 스킬 ZIP](academyinfo-flow-skill-codex-0.3.3.zip) | 압축을 풀어 개인 스킬 상위 폴더에 설치 |
+| [플러그인 ZIP](academyinfo-flow-plugin-0.3.3.zip) | 스킬·MCP 연결 설정·CLI 빌드 소스를 함께 제공 |
+| [Python CLI wheel](academyinfo_flow_cli-0.3.3-py3-none-any.whl) | Python 3.11 이상에서 `academyinfo-live` 설치 |
 
 단독 스킬 ZIP은 최상위 `academyinfo-flow/` 아래에 `SKILL.md`, `scripts/`, `references/`가 있습니다. Codex판만 `agents/`를 포함합니다. 두 단독 스킬 ZIP에는 MCP 등록 설정이 없으므로 [웹 연결 안내](../docs/WEB-MCP.md)에 따라 전용 연결을 별도로 등록·활성화하세요.
 
@@ -16,7 +16,7 @@
 CLI wheel을 내려받았다면 다음처럼 설치할 수 있습니다. PyPI 게시를 전제로 한 명령이 아닙니다.
 
 ```sh
-python -m pip install ./academyinfo_flow_cli-0.3.2-py3-none-any.whl
+python -m pip install ./academyinfo_flow_cli-0.3.3-py3-none-any.whl
 academyinfo-live --version
 academyinfo-live doctor
 ```
