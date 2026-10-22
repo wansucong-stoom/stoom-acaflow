@@ -78,7 +78,7 @@ export class FreshClient {
   close(){this.#closed=true;this.#jar.clear();}
   get sources(){return this.#sources.map(x=>({...x}));}
   get performance(){return{requests:this.#count,received_bytes:this.#total,elapsed_ms:Date.now()-this.#started,source_reused:false};}
-  get resourceBounds(){return{request_timeout_ms:this.bounds.timeoutMs,report_initialize_timeout_ms:this.bounds.initializationTimeoutMs,total_timeout_ms:this.bounds.totalMs,max_report_pages:MAX_REPORT_PAGES,default_report_pages:DEFAULT_REPORT_PAGES,max_source_requests:this.bounds.maxRequests,max_source_response_bytes:this.bounds.maxResponseBytes,max_total_source_bytes:this.bounds.maxTotalBytes,min_request_interval_ms:this.bounds.intervalMs,max_output_bytes:MAX_OUTPUT_BYTES};}
+  get resourceBounds(){return{request_timeout_ms:this.bounds.timeoutMs,report_initialize_timeout_ms:this.bounds.initializationTimeoutMs,total_timeout_ms:this.bounds.totalMs,max_job_pages_per_call:64,max_report_pages:MAX_REPORT_PAGES,default_report_pages:DEFAULT_REPORT_PAGES,max_source_requests:this.bounds.maxRequests,max_source_response_bytes:this.bounds.maxResponseBytes,max_total_source_bytes:this.bounds.maxTotalBytes,min_request_interval_ms:this.bounds.intervalMs,max_output_bytes:MAX_OUTPUT_BYTES};}
   async request(value,parameters,{runtime=false,prefixBytes=null,stage='transport'}={}){
     if(this.#closed)error('closed_request_context',stage);publicURL(value,{data:runtime});
     if(!this.#fetch)error('runtime_fetch_api_unavailable',stage);
@@ -283,7 +283,7 @@ async function reportJob(command,input,client,store){
   if(command==='report_cancel'){const claimed=await store.put(jobStateKey(id),JSON.stringify({...s,busy_until:Date.now()+60000,status:'deleting'}),{onlyIf:{etagMatches:loaded.object.etag},customMetadata:{expires:String(s.expires)}});if(!claimed)return{...jobSummary(s),retry_after_seconds:2};await deleteJob(store,id);return{status:'ok',complete:true,job_id:id,job_status:'deleted',rows:[]};}
   if(['complete','failed'].includes(s.status))return jobSummary(s);
   if(!Number.isSafeInteger(input.expected_next_page)||input.expected_next_page!==s.next_page)return{...jobSummary(s),cursor_changed:true};
-  const count=positive(input.max_pages,16,32);s.busy_until=Date.now()+60000;
+  const count=positive(input.max_pages,64,64);s.busy_until=Date.now()+60000;
   let lock=await store.put(jobStateKey(id),JSON.stringify(s),{onlyIf:{etagMatches:loaded.object.etag},customMetadata:{expires:String(s.expires)}});
   if(!lock)return{...jobSummary(s),retry_after_seconds:2};
   const save=async()=>{const saved=await store.put(jobStateKey(id),JSON.stringify(s),{onlyIf:{etagMatches:lock.etag},customMetadata:{expires:String(s.expires)}});if(!saved)error('job_concurrent_update','job');lock=saved;};
@@ -331,7 +331,7 @@ export async function downloadJob(request,store){
 }
 
 export async function runFresh(command,input={},options={}){
-  const client=new FreshClient(options),result={schema_version:1,source:'대학알리미',mode:'live',command,status:'error',complete:false,rows:[],sources:[],lookup_started_utc:new Date().toISOString(),runtime_fields_omitted:true,raw_responses_saved:false,value_semantics:'Preserve displayed strings, null, blank and dash; empty or failure is never zero.',resource_bounds:client.resourceBounds,completeness:{source_complete:false,returned_complete:false}};
+  const client=new FreshClient(command==='report_continue'?{...options,maxRequests:Math.min(options.maxRequests??72,72)}:options),result={schema_version:1,source:'대학알리미',mode:'live',command,status:'error',complete:false,rows:[],sources:[],lookup_started_utc:new Date().toISOString(),runtime_fields_omitted:true,raw_responses_saved:false,value_semantics:'Preserve displayed strings, null, blank and dash; empty or failure is never zero.',resource_bounds:client.resourceBounds,completeness:{source_complete:false,returned_complete:false}};
   try{
     if(!input||typeof input!=='object'||Array.isArray(input)||Object.keys(input).some(k=>PRIVATE.test(k)))error('invalid_or_private_input','input');
     if(command==='scope'){const s=await fetchScope(client);Object.assign(result,s,{rows:s.years.map(y=>({year:y})),status:'ok',complete:true,completeness:{source_complete:true,returned_complete:true}});}

@@ -101,7 +101,7 @@ academyinfo-live report --year 2026 --division 02 --item 7-가 --level departmen
 
 학교 한 곳의 학과 수치를 요청하면 현재 공식 명부의 정확한 학교명·7자리 학교코드를 확인하고, 실행 가능한 Python과 공식 서버 연결이 있는 환경에서는 `live_report.py report --level department --school-code <코드> --school-name <정확한학교명> --dept-name <정확한학과명> ...`을 사용한다. `--school-code`는 공식 학교 상세 화면의 `paramFormClftCd=60`과 `paramSchlCd`를 함께 전달한다. 양식 36에 학교코드만 더하는 것과 다르다. 현재 명부의 코드·이름·기관구분 일치, 응답의 양식·연도·항목, 모든 페이지·병합 헤더·표 구조와 최종 생성 수를 검증한다. 양식 60은 소속 대학원·합계·이전 소속 학과 행도 포함할 수 있으므로 실제 학교·학과 열로 다시 정확히 필터하며 단과대학과 기준연도를 보존한다. 학교코드를 모든 행의 학교 식별자로 덮어쓰지 않는다.
 
-원격 MCP 0.2.5의 `academyinfo_report`는 학과 단위에서 정확한 학교명 하나가 있으면 현재 명부로 학교·기관구분을 검증하고 학교 상세 양식 60을 자동 선택한다. 선택적 `school_code`도 명부와 일치해야 한다. 여러 학교·전국 조회는 전국 양식을 유지한다. 본교·분교 표기는 명부의 실제 캠퍼스와 대조하며 원문 학교·학과명·기준연도를 보존한다.
+원격 MCP 0.2.6의 `academyinfo_report`는 학과 단위에서 정확한 학교명 하나가 있으면 현재 명부로 학교·기관구분을 검증하고 학교 상세 양식 60을 자동 선택한다. 선택적 `school_code`도 명부와 일치해야 한다. 여러 학교·전국 조회는 전국 양식을 유지한다. 본교·분교 표기는 명부의 실제 캠퍼스와 대조하며 원문 학교·학과명·기준연도를 보존한다.
 
 전국 모든 학과 등 대용량 장표는 처음부터 `academyinfo_report_start` → 동일 `job_id`의 `academyinfo_report_continue`를 사용한다. 일반 report의 32쪽 제한·원천 요청 예산 오류가 나도 자료 부재로 해석하거나 offset만 바꿔 앞쪽 장표를 반복하지 않는다. continue는 반환 `next_page`를 `expected_next_page`로 보내며 `job_status=complete`까지 진행한다. **continue의 `max_pages`는 호출당 분량이며 전체 페이지 상한이 아니다.** 진행 요약만으로 전국 통계를 계산하지 않는다. 완료 뒤 전체 JSON의 `download_url`을 읽거나 `report_read`로 저장된 모든 페이지를 받는다. 부분 read는 `complete=false`다. [대용량 장표 이어받기](references/large-reports.md)를 따른다.
 
